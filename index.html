@@ -9,31 +9,32 @@
   <link rel="icon" href="icons/icon-192.png" type="image/png">
 </head>
 <body>
-  <!-- Loading Overlay -->
   <div id="loading-overlay">
     <div class="loading-box">
       <p>Loading utility data, please wait...</p>
     </div>
   </div>
 
-  <!-- Navigation Bar -->
   <nav>
     <a href="#" data-sub="utility-add-dish" onclick="showUtilitySubSection('utility-add-dish')">Add Dish</a>
     <a href="#" onclick="promptCalorieLogin()">Daily Calorie</a>
     <a href="#" data-sub="utility-food-facts" onclick="showUtilitySubSection('utility-food-facts');loadFoodFacts();">All Food Facts</a>
   </nav>
 
-  <!-- Install Prompt -->
   <p style="font-weight: bold; font-size: 1.1em; margin-top: 20px; padding-left: 20px;">
     📲 Install this app for a better experience!
   </p>
- 
   <button id="installApp" style="display: none;">📲 Install App</button>
 
+  <!-- Welcome Message -->
+  <div class="welcome-message" id="welcome-message" style="display: none;"></div>
 
-  <!-- Utilities Section -->
+  <!-- Vision Message -->
+  <div class="vision-message">
+    I am building this website with love for my family and friends to become more aware of their eating habits and the calorie values of what they eat — to help them lead a healthier, more informed life.
+  </div>
+
   <section id="utilities" style="padding:20px;">
-    <!-- Add Dish -->
     <div id="utility-add-dish" style="display:none;">
       <h3>Add Dish Nutrition Info</h3>
       <form id="nutrition-form" class="nutrition-form">
@@ -48,55 +49,47 @@
       <p id="nutrition-message" style="margin-top: 20px;"></p>
     </div>
 
-    <!-- Daily Calorie -->
-	<div id="utility-daily-calorie" style="display:none;">
-	  <div style="display: block;">
-		<!-- LEFT Input Section -->
-		<div>
-		  <h3>Daily Calorie Calculator</h3>
-			<details open>
-			  <summary><strong>Breakfast</strong></summary>
-			  <button onclick="addDishRow('breakfast')">+ Add</button>
-			  <div id="breakfast-container"></div>
-			</details>
+    <div id="utility-daily-calorie" style="display:none;">
+      <div>
+        <h3>Daily Calorie Calculator</h3>
 
-			<details>
-			  <summary><strong>Lunch</strong></summary>
-			  <button onclick="addDishRow('lunch')">+ Add</button>
-			  <div id="lunch-container"></div>
-			</details>
+        <details open>
+          <summary><strong>Breakfast</strong></summary>
+          <button onclick="addDishRow('breakfast')">+ Add</button>
+          <div id="breakfast-container"></div>
+        </details>
 
-			<details>
-			  <summary><strong>Dinner</strong></summary>
-			  <button onclick="addDishRow('dinner')">+ Add</button>
-			  <div id="dinner-container"></div>
-			</details>
+        <details>
+          <summary><strong>Lunch</strong></summary>
+          <button onclick="addDishRow('lunch')">+ Add</button>
+          <div id="lunch-container"></div>
+        </details>
 
+        <details>
+          <summary><strong>Dinner</strong></summary>
+          <button onclick="addDishRow('dinner')">+ Add</button>
+          <div id="dinner-container"></div>
+        </details>
 
-		  <button id="calculate-btn" style="margin-top: 20px;">Calculate</button>
-		  <div id="calorie-result" style="margin-top: 20px;"></div>
-		</div>
+        <button id="calculate-btn">Calculate</button>
+        <div id="calorie-result"></div>
 
-		<!-- Summary BELOW -->
-		<div id="summary-container" style="display: none; margin-top: 30px;">
-		  <h3>Saved Dish Summary (From Supabase)</h3>
-		  <table border="1" cellpadding="6" cellspacing="0" style="width: 50%;">
-			<thead>
-			  <tr><th>Dish Name</th><th>Qty (g)</th><th>Calories</th><th>Protein</th><th>Carbs</th><th>Fibre</th><th>Fats</th></tr>
-			</thead>
-			<tbody id="dish-summary-body"></tbody>
-		  </table>
-		</div>
-	  </div>
-	</div>
+        <div id="summary-container" style="display: none;">
+          <h3>Saved Dish Summary (From Supabase)</h3>
+          <table border="1" cellpadding="6" cellspacing="0">
+            <thead>
+              <tr><th>Dish Name</th><th>Qty (g)</th><th>Calories</th><th>Protein</th><th>Carbs</th><th>Fibre</th><th>Fats</th></tr>
+            </thead>
+            <tbody id="dish-summary-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 
-
-
-    <!-- All Food Facts -->
     <div id="utility-food-facts" style="display:none;">
       <h3>All Food Facts</h3>
       <div id="food-facts-table-container">
-		 <table id="food-facts-table" class="sortable" border="1" cellspacing="0" cellpadding="6">
+         <table id="food-facts-table" class="sortable" border="1" cellspacing="0" cellpadding="6">
           <thead><tr><th>Dish Name</th><th>Cal/100g</th><th>Protein</th><th>Carbs</th><th>Fibre</th><th>Fats</th></tr></thead>
           <tbody></tbody>
         </table>
@@ -104,27 +97,4 @@
     </div>
   </section>
 
-  <!-- Login Modal -->
-  <div id="loginModal" style="display:none; position:fixed; top:30%; left:50%; transform:translate(-50%, -50%); background:#fff; padding:20px; border:1px solid #ccc; box-shadow:0 2px 10px rgba(0,0,0,0.2); z-index:9999;">
-    <h3>Login to access Calorie Tracker</h3>
-    <input type="text" id="usernameInput" placeholder="Username"><br><br>
-    <input type="password" id="passwordInput" placeholder="Password"><br><br>
-    <button onclick="handleCalorieLogin()">Login</button>
-  </div>
-
-  <!-- Scripts -->
-  <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-  <script type="module" src="script.js"></script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(reg => console.log('Service Worker registered'))
-        .catch(err => console.error('Service Worker error:', err));
-    }
-  </script>
-  
-
-</body>
-</html>
-
+  <div id="loginModal" style="display:none; position:fixed; top:30%; left:50%; transform:translate(-50%, -50%); background:#fff; padding:20px; border:1px solid #ccc; box-shadow:0 2px 10px rg
