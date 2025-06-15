@@ -196,13 +196,14 @@ window.calculateCalories = async function () {
   }
 
   // Show calculated totals
-  document.getElementById("calorie-result").innerHTML = `
-    <strong>Total:</strong><br>
-    Calories: ${totals.calories.toFixed(2)} kcal<br>
-    Protein: ${totals.protein.toFixed(2)} g<br>
-    Carbs: ${totals.carbs.toFixed(2)} g<br>
-    Fibre: ${totals.fibre.toFixed(2)} g<br>
-    Fats: ${totals.fats.toFixed(2)} g`;
+document.getElementById("calorie-result").innerHTML = `
+  <div class="macro-box">
+    <div><span class="macro-label">Calories:</span> ${totals.calories.toFixed(2)} kcal</div>
+    <div><span class="macro-label">Protein:</span> ${totals.protein.toFixed(2)} g</div>
+    <div><span class="macro-label">Carbs:</span> ${totals.carbs.toFixed(2)} g</div>
+    <div><span class="macro-label">Fibre:</span> ${totals.fibre.toFixed(2)} g</div>
+    <div><span class="macro-label">Fats:</span> ${totals.fats.toFixed(2)} g</div>
+  </div>`;
 
   // Save to DB and show summary
   await window.saveDishRowsToDB(dishEntries);
