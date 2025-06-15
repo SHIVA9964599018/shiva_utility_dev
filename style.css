@@ -12,12 +12,13 @@ body {
 }
 
 .vision-message {
-  background-color: #fff3e0;
+  background-color: #e3f2fd;
   padding: 15px;
-  border-left: 5px solid #ff9800;
-  margin: 10px 20px;
-  font-size: 1em;
-  display: block; /* <-- Add this explicitly just in case */
+  border-left: 6px solid #2196f3;
+  font-size: 1.05em;
+  color: #0d47a1;
+  margin: 20px;
+  border-radius: 6px;
 }
 
 
@@ -30,9 +31,48 @@ details {
 }
 
 summary {
-  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.add-btn-inline {
+  margin-left: auto;
+  font-size: 0.9em;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
   cursor: pointer;
 }
+
+
+details summary {
+  position: relative;
+  list-style: none;
+}
+details > summary {
+  list-style: none;
+}
+
+
+details[open] summary::before {
+  content: "-";
+  position: absolute;
+  left: -20px;
+  font-size: 1.2em;
+  color: #4CAF50;
+}
+
+details summary::before {
+  content: "+";
+  position: absolute;
+  left: -20px;
+  font-size: 1.2em;
+  color: #4CAF50;
+}
+
 
 nav {
   display: flex;
@@ -635,6 +675,7 @@ blockquote {
     padding: 2px 6px;
   }
 }
+
 
 
 
