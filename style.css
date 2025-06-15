@@ -157,6 +157,22 @@ details > summary::-webkit-details-marker {
 #summary-container table, th, td {
   border: 1px solid #ddd;
 }
+.meal-grid-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: #fafafa;
+  border-radius: 8px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.meal-grid-container details {
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fdfdfd;
+  padding: 8px 12px;
+}
 
 
 
