@@ -102,6 +102,26 @@ details > summary::-webkit-details-marker {
   display: none;
 }
 
+#summary-container table thead {
+  background-color: #e3f2fd;
+}
+
+#summary-container table th {
+  font-weight: bold;
+  padding: 8px;
+  text-align: center;
+}
+
+#summary-container table td {
+  padding: 8px;
+  text-align: center;
+}
+
+#summary-container table tr:last-child {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
 
 nav {
   display: flex;
