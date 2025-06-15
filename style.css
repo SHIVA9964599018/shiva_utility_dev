@@ -118,9 +118,11 @@ details > summary::-webkit-details-marker {
   padding: 12px;
   font-size: 1em;
   font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  text-align: left;      /* ✅ Align left */
+  background-color: #ffe082; /* Keep the yellow highlight */
+  color: #4e342e;         /* Dark brown for contrast */
 }
+
 
 #summary-container td {
   padding: 10px;
@@ -143,7 +145,18 @@ details > summary::-webkit-details-marker {
   font-weight: bold;
   color: #4e342e;
 }
+#summary-container table tr:last-child {
+  background-color: #fff8e1;  /* Soft yellow */
+  font-weight: bold;
+  color: #3e2723;
+}
+#summary-container table tr:nth-child(even):not(:last-child) {
+  background-color: #f9f9f9;
+}
 
+#summary-container table, th, td {
+  border: 1px solid #ddd;
+}
 
 
 
