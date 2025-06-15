@@ -105,43 +105,45 @@ details > summary::-webkit-details-marker {
 #summary-container table {
   border-collapse: collapse;
   width: 100%;
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', sans-serif;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 }
 
 #summary-container thead {
-  background-color: #1976d2; /* Bold blue */
+  background-color: #4CAF50; /* Green header */
   color: white;
 }
 
-#summary-container th,
+#summary-container thead th {
+  padding: 12px;
+  font-size: 1em;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
 #summary-container td {
-  border: 1px solid #ccc;
   padding: 10px;
   text-align: center;
+  font-weight: 500;
 }
 
 #summary-container tr:nth-child(even):not(:last-child) {
-  background-color: #f9f9f9;
-}
-
-#summary-container tr:last-child {
-  background-color: #e3f2fd;  /* Light blue for total row */
-  font-weight: bold;
-  color: #0d47a1;
+  background-color: #f5f5f5;
 }
 
 #summary-container td:first-child {
   text-align: left;
-  font-weight: 500;
+  font-weight: bold;
+  color: #2c3e50;
 }
 
-#summary-container caption {
-  caption-side: top;
-  text-align: left;
-  font-size: 1.2em;
-  margin-bottom: 10px;
+#summary-container tr:last-child {
+  background-color: #ffe082;  /* Amber highlight for total */
   font-weight: bold;
+  color: #4e342e;
 }
+
 
 
 
