@@ -54,14 +54,24 @@
 		<!-- LEFT Input Section -->
 		<div>
 		  <h3>Daily Calorie Calculator</h3>
-		  <div><h4>Breakfast</h4><button onclick="addDishRow('breakfast')">+ Add</button></div>
-		  <div id="breakfast-container"></div>
+			<details open>
+			  <summary><strong>Breakfast</strong></summary>
+			  <button onclick="addDishRow('breakfast')">+ Add</button>
+			  <div id="breakfast-container"></div>
+			</details>
 
-		  <div><h4>Lunch</h4><button onclick="addDishRow('lunch')">+ Add</button></div>
-		  <div id="lunch-container"></div>
+			<details>
+			  <summary><strong>Lunch</strong></summary>
+			  <button onclick="addDishRow('lunch')">+ Add</button>
+			  <div id="lunch-container"></div>
+			</details>
 
-		  <div><h4>Dinner</h4><button onclick="addDishRow('dinner')">+ Add</button></div>
-		  <div id="dinner-container"></div>
+			<details>
+			  <summary><strong>Dinner</strong></summary>
+			  <button onclick="addDishRow('dinner')">+ Add</button>
+			  <div id="dinner-container"></div>
+			</details>
+
 
 		  <button id="calculate-btn" style="margin-top: 20px;">Calculate</button>
 		  <div id="calorie-result" style="margin-top: 20px;"></div>
