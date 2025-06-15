@@ -1,26 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shiva Utility Hub</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="style.css">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#4CAF50">
   <link rel="icon" href="icons/icon-192.png" type="image/png">
 </head>
 <body>
-  <div id="loading-overlay">
-    <div class="loading-box">
-      <p>Loading utility data, please wait...</p>
-    </div>
-  </div>
-
-  <nav>
-    <a href="#" data-sub="utility-add-dish" onclick="showUtilitySubSection('utility-add-dish')">Add Dish</a>
-    <a href="#" onclick="promptCalorieLogin()">Daily Calorie</a>
-    <a href="#" data-sub="utility-food-facts" onclick="showUtilitySubSection('utility-food-facts');loadFoodFacts();">All Food Facts</a>
-  </nav>
-
+  <!-- Install Prompt -->
   <p style="font-weight: bold; font-size: 1.1em; margin-top: 20px; padding-left: 20px;">
     📲 Install this app for a better experience!
   </p>
@@ -34,7 +24,16 @@
     I am building this website with love for my family and friends to become more aware of their eating habits and the calorie values of what they eat — to help them lead a healthier, more informed life.
   </div>
 
+  <!-- Navigation Bar -->
+  <nav>
+    <a href="#" onclick="showUtilitySubSection('utility-add-dish')">Add Dish</a>
+    <a href="#" onclick="promptCalorieLogin()">Daily Calorie</a>
+    <a href="#" onclick="showUtilitySubSection('utility-food-facts'); loadFoodFacts();">All Food Facts</a>
+  </nav>
+
+  <!-- Utilities Section -->
   <section id="utilities" style="padding:20px;">
+    <!-- Add Dish Section -->
     <div id="utility-add-dish" style="display:none;">
       <h3>Add Dish Nutrition Info</h3>
       <form id="nutrition-form" class="nutrition-form">
@@ -49,48 +48,52 @@
       <p id="nutrition-message" style="margin-top: 20px;"></p>
     </div>
 
+    <!-- Daily Calorie Section -->
     <div id="utility-daily-calorie" style="display:none;">
-      <div>
-        <h3>Daily Calorie Calculator</h3>
+      <h3>Daily Calorie Calculator</h3>
 
-        <details open>
-          <summary><strong>Breakfast</strong></summary>
-          <button onclick="addDishRow('breakfast')">+ Add</button>
-          <div id="breakfast-container"></div>
-        </details>
+      <details open>
+        <summary><strong>Breakfast</strong></summary>
+        <button onclick="addDishRow('breakfast')">+ Add</button>
+        <div id="breakfast-container"></div>
+      </details>
 
-        <details>
-          <summary><strong>Lunch</strong></summary>
-          <button onclick="addDishRow('lunch')">+ Add</button>
-          <div id="lunch-container"></div>
-        </details>
+      <details>
+        <summary><strong>Lunch</strong></summary>
+        <button onclick="addDishRow('lunch')">+ Add</button>
+        <div id="lunch-container"></div>
+      </details>
 
-        <details>
-          <summary><strong>Dinner</strong></summary>
-          <button onclick="addDishRow('dinner')">+ Add</button>
-          <div id="dinner-container"></div>
-        </details>
+      <details>
+        <summary><strong>Dinner</strong></summary>
+        <button onclick="addDishRow('dinner')">+ Add</button>
+        <div id="dinner-container"></div>
+      </details>
 
-        <button id="calculate-btn">Calculate</button>
-        <div id="calorie-result"></div>
+      <button id="calculate-btn" style="margin-top: 20px;">Calculate</button>
+      <div id="calorie-result" style="margin-top: 20px;"></div>
 
-        <div id="summary-container" style="display: none;">
-          <h3>Saved Dish Summary (From Supabase)</h3>
-          <table border="1" cellpadding="6" cellspacing="0">
-            <thead>
-              <tr><th>Dish Name</th><th>Qty (g)</th><th>Calories</th><th>Protein</th><th>Carbs</th><th>Fibre</th><th>Fats</th></tr>
-            </thead>
-            <tbody id="dish-summary-body"></tbody>
-          </table>
-        </div>
+      <div id="summary-container" style="display: none; margin-top: 30px;">
+        <h3>Saved Dish Summary (From Supabase)</h3>
+        <table border="1" cellpadding="6" cellspacing="0" style="width: 50%;">
+          <thead>
+            <tr>
+              <th>Dish Name</th><th>Qty (g)</th><th>Calories</th><th>Protein</th><th>Carbs</th><th>Fibre</th><th>Fats</th>
+            </tr>
+          </thead>
+          <tbody id="dish-summary-body"></tbody>
+        </table>
       </div>
     </div>
 
+    <!-- All Food Facts Section -->
     <div id="utility-food-facts" style="display:none;">
       <h3>All Food Facts</h3>
       <div id="food-facts-table-container">
-         <table id="food-facts-table" class="sortable" border="1" cellspacing="0" cellpadding="6">
-          <thead><tr><th>Dish Name</th><th>Cal/100g</th><th>Protein</th><th>Carbs</th><th>Fibre</th><th>Fats</th></tr></thead>
+        <table id="food-facts-table" class="sortable" border="1" cellspacing="0" cellpadding="6">
+          <thead>
+            <tr><th>Dish Name</th><th>Cal/100g</th><th>Protein</th><th>Carbs</th><th>Fibre</th><th>Fats</th></tr>
+          </thead>
           <tbody></tbody>
         </table>
       </div>
@@ -105,17 +108,19 @@
     <button onclick="handleCalorieLogin()">Login</button>
   </div>
 
-  <!-- Scripts -->
-  <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+  <!-- Script Dependencies -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-  <script type="module" src="script.js"></script>
+  <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+  <script src="script.js"></script>
+
+  <!-- Inline to show welcome message -->
   <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(reg => console.log('Service Worker registered'))
-        .catch(err => console.error('Service Worker error:', err));
+    const userId = localStorage.getItem("user_id");
+    if (userId) {
+      const welcomeDiv = document.getElementById("welcome-message");
+      welcomeDiv.textContent = `Welcome, ${userId}!`;
+      welcomeDiv.style.display = "block";
     }
   </script>
-  
 </body>
 </html>
