@@ -36,16 +36,6 @@ summary {
   justify-content: space-between;
 }
 
-.add-btn-inline {
-  margin-left: auto;
-  font-size: 0.9em;
-  padding: 4px 10px;
-  border-radius: 4px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
 
 
 details summary {
@@ -71,6 +61,35 @@ details summary::before {
   left: -20px;
   font-size: 1.2em;
   color: #4CAF50;
+}
+
+
+summary.meal-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 10px;
+  list-style: none;
+}
+
+.add-btn-inline {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.9em;
+  transition: background-color 0.3s ease;
+}
+
+.add-btn-inline:hover {
+  background-color: #388e3c;
+}
+
+details > summary::-webkit-details-marker {
+  display: none;
 }
 
 

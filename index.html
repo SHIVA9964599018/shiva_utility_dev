@@ -50,30 +50,38 @@
       <p id="nutrition-message" style="margin-top: 20px;"></p>
     </div>
 
-    <!-- Daily Calorie Section -->
-    <div id="utility-daily-calorie" style="display:none;">
-      <h3>Daily Calorie Calculator</h3>
+	<!-- Daily Calorie Calculator -->
+	<h3>Daily Calorie Calculator</h3>
 
-      <details open>
-        <summary><strong>Breakfast</strong></summary>
-		<button onclick="addDishRow('breakfast')" class="add-btn-inline">+ Add</button>
-        <div id="breakfast-container"></div>
-      </details>
+	<details open>
+	  <summary class="meal-summary">
+		<strong>Breakfast</strong>
+		<button type="button" onclick="addDishRow('breakfast')" class="add-btn-inline">+ Add</button>
+	  </summary>
+	  <div id="breakfast-container"></div>
+	</details>
 
-      <details>
-        <summary><strong>Lunch</strong></summary>
-		<button onclick="addDishRow('lunch')" class="add-btn-inline">+ Add</button>
-        <div id="lunch-container"></div>
-      </details>
+	<details>
+	  <summary class="meal-summary">
+		<strong>Lunch</strong>
+		<button type="button" onclick="addDishRow('lunch')" class="add-btn-inline">+ Add</button>
+	  </summary>
+	  <div id="lunch-container"></div>
+	</details>
 
-      <details>
-        <summary><strong>Dinner</strong></summary>
-		<button onclick="addDishRow('dinner')" class="add-btn-inline">+ Add</button>
-        <div id="dinner-container"></div>
-      </details>
+	<details>
+	  <summary class="meal-summary">
+		<strong>Dinner</strong>
+		<button type="button" onclick="addDishRow('dinner')" class="add-btn-inline">+ Add</button>
+	  </summary>
+	  <div id="dinner-container"></div>
+	</details>
 
-      <button id="calculate-btn" style="margin-top: 20px;">Calculate</button>
-      <div id="calorie-result" style="margin-top: 20px;"></div>
+	<!-- Calculate Button -->
+	<button id="calculate-btn">Calculate</button>
+
+	<!-- Results will appear here -->
+	<div id="calorie-result" style="margin-top: 20px;"></div>
 
       <div id="summary-container" style="display: none; margin-top: 30px;">
         <h3>Saved Dish Summary (From Supabase)</h3>
