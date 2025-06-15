@@ -68,18 +68,18 @@ summary.meal-summary {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: nowrap;         /* ✅ Prevents line wrap */
-  gap: 10px;                 /* optional spacing */
+  flex-wrap: nowrap;
   padding-right: 10px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 summary.meal-summary strong {
-  white-space: nowrap;       /* ✅ Prevents title text from wrapping too */
-  font-size: 1.1em;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-size: 1.1em;
 }
-
 
 .add-btn-inline {
   background-color: #4CAF50;
@@ -90,8 +90,9 @@ summary.meal-summary strong {
   cursor: pointer;
   font-weight: bold;
   font-size: 0.9em;
-  transition: background-color 0.3s ease;
+  flex-shrink: 0; /* ✅ prevents shrinking on small screen */
 }
+
 
 .add-btn-inline:hover {
   background-color: #388e3c;
