@@ -157,21 +157,38 @@ details > summary::-webkit-details-marker {
 #summary-container table, th, td {
   border: 1px solid #ddd;
 }
-.meal-grid-container {
-  max-width: 600px;
+.calorie-container {
+  max-width: 650px;
   margin: 0 auto;
-  padding: 10px;
+  padding: 20px;
+  text-align: center;
+}
+
+.meal-grid-container {
   background-color: #fafafa;
   border-radius: 8px;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  padding: 15px;
 }
 
 .meal-grid-container details {
   margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 6px;
-  background-color: #fdfdfd;
   padding: 8px 12px;
+  background-color: #fdfdfd;
+}
+
+/* Optional: Center calculate button */
+.calculate-button {
+  margin-top: 15px;
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
 
