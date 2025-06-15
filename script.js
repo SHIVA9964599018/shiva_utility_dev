@@ -401,10 +401,7 @@ window.loadFoodFacts = async function () {
 };
 
 
-// Show 'utilities' section on load
-document.addEventListener("DOMContentLoaded", () => {
-  window.showSection("utilities");
-});
+
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("nutrition-form");
   if (form) {
