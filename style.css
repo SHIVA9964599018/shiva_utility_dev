@@ -68,9 +68,18 @@ summary.meal-summary {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: nowrap;         /* ✅ Prevents line wrap */
+  gap: 10px;                 /* optional spacing */
   padding-right: 10px;
-  list-style: none;
 }
+
+summary.meal-summary strong {
+  white-space: nowrap;       /* ✅ Prevents title text from wrapping too */
+  font-size: 1.1em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 
 .add-btn-inline {
   background-color: #4CAF50;
