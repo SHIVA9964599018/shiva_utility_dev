@@ -49,38 +49,37 @@
       </form>
       <p id="nutrition-message" style="margin-top: 20px;"></p>
     </div>
-<div class="calorie-container">
-	<!-- Daily Calorie Calculator -->
-	<h3>Daily Calorie Calculator</h3>
-<div class="meal-grid-container">
-	<details open>
-	  <summary class="meal-summary">
-		<strong>Breakfast</strong>
-		<button type="button" onclick="addDishRow('breakfast')" class="add-btn-inline">+ Add</button>
-	  </summary>
-	  <div id="breakfast-container"></div>
-	</details>
+	
+	<div class="calorie-wrapper">
+	  <h3 class="calorie-heading">Daily Calorie Calculator</h3>
 
-	<details>
-	  <summary class="meal-summary">
-		<strong>Lunch</strong>
-		<button type="button" onclick="addDishRow('lunch')" class="add-btn-inline">+ Add</button>
-	  </summary>
-	  <div id="lunch-container"></div>
-	</details>
+	  <div class="meal-sections">
+		<!-- Breakfast -->
+		<details open>
+		  <summary><strong>Breakfast</strong></summary>
+		  <button onclick="addDishRow('breakfast')" class="add-btn-inline">+ Add</button>
+		  <div id="breakfast-container"></div>
+		</details>
 
-	<details>
-	  <summary class="meal-summary">
-		<strong>Dinner</strong>
-		<button type="button" onclick="addDishRow('dinner')" class="add-btn-inline">+ Add</button>
-	  </summary>
-	  <div id="dinner-container"></div>
-	</details>
-</div>
-	<!-- Calculate Button -->
-	<button id="calculate-btn">Calculate</button>
+		<!-- Lunch -->
+		<details>
+		  <summary><strong>Lunch</strong></summary>
+		  <button onclick="addDishRow('lunch')" class="add-btn-inline">+ Add</button>
+		  <div id="lunch-container"></div>
+		</details>
 
-</div>
+		<!-- Dinner -->
+		<details>
+		  <summary><strong>Dinner</strong></summary>
+		  <button onclick="addDishRow('dinner')" class="add-btn-inline">+ Add</button>
+		  <div id="dinner-container"></div>
+		</details>
+	  </div>
+
+	  <button id="calculate-btn" class="calculate-button">Calculate</button>
+	  <div id="calorie-result" style="margin-top: 20px;"></div>
+	</div>
+
 
       <div id="summary-container" style="display: none; margin-top: 30px;">
         <h3>Saved Dish Summary (From Supabase)</h3>

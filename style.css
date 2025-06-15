@@ -164,53 +164,42 @@ details > summary::-webkit-details-marker {
   text-align: center;
 }
 
-
-
-
-
 .calorie-wrapper {
-  display: grid;
-  justify-items: start; /* ✅ aligns all children to the left */
-  max-width: 650px;
   padding: 20px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0; /* Left aligned */
 }
 
-
-.calorie-heading {
-  text-align: left;
-  font-size: 1.4em;
-  margin-bottom: 15px;
-  color: #222;
+.meal-sections {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Forces children to left */
+  gap: 15px;
 }
 
-.meal-grid-container {
-  background-color: #fafafa;
-  border-radius: 8px;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-  padding: 15px;
+.meal-sections details {
+  width: 100%;
+  max-width: 600px;
 }
 
-.meal-grid-container details {
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 8px 12px;
-  background-color: #fdfdfd;
+.add-btn-inline {
+  margin: 5px 0 10px 10px;
 }
 
-.calculate-button {
+#calculate-btn {
   margin-top: 20px;
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px 24px;
-  font-size: 1em;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
