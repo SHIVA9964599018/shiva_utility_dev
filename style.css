@@ -169,10 +169,12 @@ details > summary::-webkit-details-marker {
 
 
 .calorie-wrapper {
+  display: grid;
+  justify-items: start; /* ✅ aligns all children to the left */
   max-width: 650px;
   padding: 20px;
-  margin-left: 30px; 
 }
+
 
 .calorie-heading {
   text-align: left;
