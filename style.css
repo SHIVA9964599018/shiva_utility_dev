@@ -23,9 +23,18 @@ html, body {
 }
 
 .table-scroll-wrapper table {
-  width: max-content;
-  min-width: 100%;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
   border-collapse: collapse;
+}
+
+/* On wider screens: restrict to 50% */
+@media (min-width: 768px) {
+  .table-scroll-wrapper {
+    max-width: 50%;
+    margin: 0 auto;
+  }
 }
 
 
