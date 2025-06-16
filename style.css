@@ -46,6 +46,7 @@ summary {
   padding: 6px 12px;
   background-color: #f8f8f8;
   border-radius: 4px;
+  font-size: 16px; /* unify font size for both text and button */
 }
 
 /* Style the "+ Add" button */
@@ -85,7 +86,11 @@ summary {
   margin: 20px;
   border-radius: 6px;
 }
-
+summary strong {
+  font-weight: bold;
+  font-size: 16px; /* match button font size */
+  line-height: 1.2;
+}
 
 details {
   margin-top: 10px;
