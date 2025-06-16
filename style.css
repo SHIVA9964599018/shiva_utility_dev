@@ -39,6 +39,19 @@ summary, button, .btn, .add-btn-inline {
 meta[name="viewport"] {
   content: width=device-width, initial-scale=1.0;
 }
+summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.add-btn-inline {
+  font-size: 0.85em;
+  padding: 4px 8px;
+  margin-left: 12px;
+  cursor: pointer;
+}
 
 
 
@@ -71,11 +84,6 @@ details {
   background-color: #f9f9f9;
 }
 
-summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
 
 
 
@@ -120,18 +128,6 @@ summary.meal-summary strong {
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 1.1em;
-}
-
-.add-btn-inline {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  padding: 5px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 0.9em;
-  flex-shrink: 0; /* ✅ prevents shrinking on small screen */
 }
 
 
