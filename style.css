@@ -227,7 +227,7 @@ details > summary::-webkit-details-marker {
 .calorie-wrapper {
   padding: 20px;
   width: 100%;
-  max-width: 300px;
+  max-width: 500px;
   margin: 0; /* Left aligned */
 }
 
