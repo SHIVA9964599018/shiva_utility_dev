@@ -839,14 +839,7 @@ blockquote {
   padding: 4px;
 }
 
-.remove-btn {
-  padding: 4px 8px;
-  font-size: 14px;
-  background-color: #f44336;
-  color: white;
-  border: none;
-  border-radius: 4px;
-}
+
 
 @media (max-width: 480px) {
   .responsive-dish-name {
@@ -859,11 +852,6 @@ blockquote {
     font-size: 12px;
   }
 
-  .remove-btn {
-    font-size: 12px;
-    padding: 2px 6px;
-  }
-}
 
 
 
