@@ -1,29 +1,45 @@
-/* Fix for horizontal scroll */
+/* Viewport and top-level layout control */
 html, body {
   margin: 0;
   padding: 0;
+  width: 100%;
   max-width: 100%;
   overflow-x: hidden;
   box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
-/* Fix for table overflow on mobile */
-#summary-container {
-  overflow-x: auto;
-}
-
-#summary-container table {
-  width: 100%;
+/* Inherit box-sizing for all children */
+*, *::before, *::after {
+  box-sizing: inherit;
   max-width: 100%;
+}
+
+/* Prevent large elements from breaking layout */
+img, table, canvas, iframe, input, select, textarea, button {
+  max-width: 100%;
+  height: auto;
+  box-sizing: border-box;
+}
+
+/* Fix for wide tables inside containers */
+table {
+  width: 100%;
   border-collapse: collapse;
   table-layout: auto;
 }
 
-/* Ensure buttons and containers wrap correctly */
-button, .meal-sections, details, summary {
-  max-width: 100%;
-  box-sizing: border-box;
+/* Ensure wrapping on long words or wide buttons */
+summary, button, .btn, .add-btn-inline {
+  white-space: normal;
+  word-wrap: break-word;
 }
+
+/* Optional: prevent zoom issues on mobile */
+meta[name="viewport"] {
+  content: width=device-width, initial-scale=1.0;
+}
+
 
 
 
