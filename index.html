@@ -50,34 +50,40 @@
       <p id="nutrition-message" style="margin-top: 20px;"></p>
     </div>
 	
-	<div class="calorie-wrapper">
-	  <h3 class="calorie-heading">Daily Calorie Calculator</h3>
+	 <div class="calorie-wrapper">
+		<h3 class="calorie-heading">Daily Calorie Calculator</h3>
 
-	  <div class="meal-sections">
-		<!-- Breakfast -->
-		<details open>
-		  <summary><strong>Breakfast</strong></summary>
-		  <button onclick="addDishRow('breakfast')" class="add-btn-inline">+ Add</button>
-		  <div id="breakfast-container"></div>
-		</details>
+		<div class="meal-sections">
+		  <!-- Breakfast -->
+		  <details open>
+			<summary>
+			  <strong>Breakfast</strong>
+			  <button onclick="addDishRow('breakfast')" class="add-btn-inline">+ Add</button>
+			</summary>
+			<div id="breakfast-container"></div>
+		  </details>
 
-		<!-- Lunch -->
-		<details>
-		  <summary><strong>Lunch</strong></summary>
-		  <button onclick="addDishRow('lunch')" class="add-btn-inline">+ Add</button>
-		  <div id="lunch-container"></div>
-		</details>
+		  <!-- Lunch -->
+		  <details>
+			<summary>
+			  <strong>Lunch</strong>
+			  <button onclick="addDishRow('lunch')" class="add-btn-inline">+ Add</button>
+			</summary>
+			<div id="lunch-container"></div>
+		  </details>
 
-		<!-- Dinner -->
-		<details>
-		  <summary><strong>Dinner</strong></summary>
-		  <button onclick="addDishRow('dinner')" class="add-btn-inline">+ Add</button>
-		  <div id="dinner-container"></div>
-		</details>
+		  <!-- Dinner -->
+		  <details>
+			<summary>
+			  <strong>Dinner</strong>
+			  <button onclick="addDishRow('dinner')" class="add-btn-inline">+ Add</button>
+			</summary>
+			<div id="dinner-container"></div>
+		  </details>
+		</div>
+
+		<button id="calculate-btn">Calculate</button>
 	  </div>
-
-	  <button id="calculate-btn" class="calculate-button">Calculate</button>
-	</div>
 
 
       <div id="summary-container" style="display: none; margin-top: 30px;">

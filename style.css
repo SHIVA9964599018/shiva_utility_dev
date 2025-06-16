@@ -41,22 +41,27 @@ meta[name="viewport"] {
 }
 summary {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Push left and right */
   align-items: center;
   padding: 6px 12px;
   background-color: #f8f8f8;
   border-radius: 4px;
 }
 
+/* Style the "+ Add" button */
 .add-btn-inline {
-  background-color: #007bff;        /* Blue background */
-  color: #fff;                      /* White text */
+  background-color: #007bff;
+  color: #fff;
   font-size: 0.85em;
   padding: 4px 10px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   margin-left: 12px;
+}
+
+.add-btn-inline:hover {
+  background-color: #0056b3;
 }
 
 
