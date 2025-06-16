@@ -128,13 +128,17 @@
   <script type="module" src="script.js"></script>
 
   <!-- Inline to show welcome message -->
-  <script>
+<script>
+  window.onload = () => {
     const userId = localStorage.getItem("user_id");
     if (userId) {
       const welcomeDiv = document.getElementById("welcome-message");
-      welcomeDiv.textContent = `Welcome, ${userId}!`;
-      welcomeDiv.style.display = "block";
+      if (welcomeDiv) {
+        welcomeDiv.textContent = `Welcome, ${userId}!`;
+        welcomeDiv.style.display = "block";
+      }
     }
-  </script>
+  };
+</script>
 </body>
 </html>
