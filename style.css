@@ -25,18 +25,27 @@ html, body {
 
 /* Force table to be scrollable on narrow screens */
 .summary-table {
-  min-width: 600px;             /* ✅ force overflow on mobile */
-  width: max-content;           /* ✅ expand to fit content */
   border-collapse: collapse;
-  background-color: #fff8e1;    /* optional: your table color */
+  width: max-content;
+  min-width: 600px;
+  table-layout: auto;
 }
 
-/* Optional: basic styling for headers and cells */
-.summary-table th, .summary-table td {
+.summary-table th,
+.summary-table td {
   padding: 8px 12px;
   text-align: left;
   border: 1px solid #ccc;
+  white-space: nowrap; /* ✅ prevents line break */
 }
+
+/* ✅ Only widen the first column (Dish Name) */
+.summary-table th:first-child,
+.summary-table td:first-child {
+  min-width: 160px;  /* or adjust as needed */
+  white-space: normal; /* allow wrapping if name is long */
+}
+
 
 /* Responsive behavior for larger screens */
 @media (min-width: 768px) {
