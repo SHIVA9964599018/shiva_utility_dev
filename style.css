@@ -43,14 +43,20 @@ summary {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 0;
+  padding: 6px 12px;
+  background-color: #f8f8f8;
+  border-radius: 4px;
 }
 
 .add-btn-inline {
+  background-color: #007bff;        /* Blue background */
+  color: #fff;                      /* White text */
   font-size: 0.85em;
-  padding: 4px 8px;
-  margin-left: 12px;
+  padding: 4px 10px;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
+  margin-left: 12px;
 }
 
 
