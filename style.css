@@ -4,16 +4,21 @@ html, body {
   padding: 0;
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden;
+  overflow-x: hidden;    /* ❌ disables horizontal scroll */
+  overflow-y: auto;      /* ✅ enables vertical scroll */
   box-sizing: border-box;
   font-family: Arial, sans-serif;
 }
 
-/* Inherit box-sizing for all children */
+/* Force all elements to stay within screen width */
 *, *::before, *::after {
-  box-sizing: inherit;
+  box-sizing: border-box;
   max-width: 100%;
+  word-wrap: break-word;
 }
+
+
+
 
 /* Prevent large elements from breaking layout */
 img, table, canvas, iframe, input, select, textarea, button {
