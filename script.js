@@ -136,7 +136,7 @@ window.addDishRow = function (mealType, name = "", grams = "") {
   row.innerHTML = `
     <input type="text" class="dish-name responsive-dish-name" value="${name}" placeholder="Dish Name" />
     <input type="number" class="dish-grams responsive-dish-grams" value="${grams}" placeholder="gms" />
-    <button type="button" class="remove-btn" onclick="this.parentElement.remove()">✖</button>
+    <button class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
   `;
 
   container.appendChild(row);
