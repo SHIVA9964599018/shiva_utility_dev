@@ -17,18 +17,28 @@ html, body {
   word-wrap: break-word;
 }
 
+/* Enable scroll when needed */
 .table-scroll-wrapper {
+  width: 100%;
   overflow-x: auto;
-  width: 100%;
 }
 
-.table-scroll-wrapper table {
-  width: 100%;
-  min-width: 600px;
+/* Force table to be scrollable on narrow screens */
+.summary-table {
+  min-width: 600px;             /* ✅ force overflow on mobile */
+  width: max-content;           /* ✅ expand to fit content */
   border-collapse: collapse;
+  background-color: #fff8e1;    /* optional: your table color */
 }
 
-/* Desktop: left-align the table */
+/* Optional: basic styling for headers and cells */
+.summary-table th, .summary-table td {
+  padding: 8px 12px;
+  text-align: left;
+  border: 1px solid #ccc;
+}
+
+/* Responsive behavior for larger screens */
 @media (min-width: 768px) {
   .table-scroll-wrapper {
     max-width: 50%;
@@ -40,6 +50,7 @@ html, body {
 
 
 
+
 /* Prevent large elements from breaking layout */
 img, table, canvas, iframe, input, select, textarea, button {
   max-width: 100%;
@@ -47,12 +58,6 @@ img, table, canvas, iframe, input, select, textarea, button {
   box-sizing: border-box;
 }
 
-/* Fix for wide tables inside containers */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: auto;
-}
 
 /* Ensure wrapping on long words or wide buttons */
 summary, button, .btn, .add-btn-inline {
