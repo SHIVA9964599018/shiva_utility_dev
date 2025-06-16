@@ -86,23 +86,25 @@
 	  </div>
 
 
-      <div id="summary-container" style="display: none; margin-top: 30px;">
-        <h3>Saved Dish Summary (From Supabase)</h3>
-        <table border="1" cellpadding="6" cellspacing="0" style="width: 50%;">
-		<thead>
-		  <tr>
-			<th>Dish Name</th>
-			<th>Calories</th>
-			<th>Protein</th>
-			<th>Fibre</th>
-			<th>Carbs</th>
-			<th>Fats</th>
-		  </tr>
-		</thead>
-          <tbody id="dish-summary-body"></tbody>
-        </table>
-      </div>
-    </div>
+ <div id="summary-container" style="display: none; margin-top: 30px;">
+  <h3>Saved Dish Summary (From Supabase)</h3>
+  <div class="table-scroll-wrapper">
+    <table border="1" cellpadding="6" cellspacing="0">
+      <thead>
+        <tr>
+          <th>Dish Name</th>
+          <th>Calories</th>
+          <th>Protein</th>
+          <th>Fibre</th>
+          <th>Carbs</th>
+          <th>Fats</th>
+        </tr>
+      </thead>
+      <tbody id="dish-summary-body"></tbody>
+    </table>
+  </div>
+</div>
+
 	<!-- Results will appear here -->
 	<div id="calorie-result" style="margin-top: 20px;"></div>
 
