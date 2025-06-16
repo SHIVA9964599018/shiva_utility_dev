@@ -24,18 +24,19 @@ html, body {
 
 .table-scroll-wrapper table {
   width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
+  min-width: 600px;
   border-collapse: collapse;
 }
 
-/* On wider screens: restrict to 50% */
+/* Desktop: left-align the table */
 @media (min-width: 768px) {
   .table-scroll-wrapper {
     max-width: 50%;
-    margin: 0 auto;
+    margin-left: 0;
+    margin-right: auto;
   }
 }
+
 
 
 
@@ -869,17 +870,16 @@ blockquote {
 
 
 #calculate-btn {
-  background-color: #4CAF50;
+  background-color: #28a745;
   color: white;
-  padding: 10px 16px;
-  font-size: 1em;
+  padding: 8px 20px;
+  font-size: 16px;
   border: none;
   border-radius: 5px;
-  margin-top: 20px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  margin-top: 20px;
 }
 
 #calculate-btn:hover {
-  background-color: #388e3c;
+  background-color: #218838;
 }
