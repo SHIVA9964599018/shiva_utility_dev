@@ -382,7 +382,7 @@ window.handleCalorieLogin = async function () {
   localStorage.setItem("user_id", data.username);
   document.getElementById("loginModal").style.display = "none";
   window.showSection('utility-daily-calorie');
-  window.loadDishSummaryTable();
+ // window.loadDishSummaryTable();
   await window.loadDailyDishes();
 };
 
