@@ -342,11 +342,15 @@ window.promptCalorieLogin = async function () {
 
     if (!error && data) {
       console.log("✅ Valid user found:", userId);
+      
       const welcomeDiv = document.getElementById("welcome-message");
       if (welcomeDiv) {
         welcomeDiv.textContent = `Welcome, ${userId}!`;
         welcomeDiv.style.display = "block";
       }
+
+      // ✅ Show the Daily Calorie section
+      window.showSection("utility-daily-calorie");
       return;
     } else {
       console.warn("⚠️ Stale user ID found. Clearing.");
@@ -358,6 +362,7 @@ window.promptCalorieLogin = async function () {
   console.log("🔐 No valid login — showing login modal");
   document.getElementById('loginModal').style.display = 'block';
 };
+
 
 // 🔁 Run on app load
 window.addEventListener('DOMContentLoaded', () => {
