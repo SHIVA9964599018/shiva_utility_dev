@@ -36,15 +36,11 @@ window.showSection = function (sectionId) {
 
 // Show utility sub-section
 window.showUtilitySubSection = function (sectionId) {
-  const allSections = document.querySelectorAll('#utilities > div');
-  allSections.forEach(div => div.style.display = 'none');
+  const sections = document.querySelectorAll("#utilities > div");
+  sections.forEach(sec => sec.style.display = "none");
 
-  const active = document.getElementById(sectionId);
-  if (active) {
-    active.style.display = 'block';
-  } else {
-    console.warn(`No section found for ID: ${sectionId}`);
-  }
+  const target = document.getElementById(sectionId);
+  if (target) target.style.display = "block";
 };
 
 
