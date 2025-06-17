@@ -144,7 +144,7 @@ summary {
 }
 summary strong {
   font-weight: bold;
-  font-size: 16px; /* match button font size */
+  font-size: 8px; /* match button font size */
   line-height: 1.2;
 }
 
@@ -280,6 +280,7 @@ details > summary::-webkit-details-marker {
   flex-direction: column;
   align-items: flex-start; /* Forces children to left */
   gap: 15px;
+  
 }
 
 .meal-sections details {
