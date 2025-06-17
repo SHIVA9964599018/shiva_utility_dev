@@ -56,31 +56,37 @@
 
 		<div class="meal-sections">
 		  <!-- Breakfast -->
-		  <details open>
-			<summary>
-			  <strong>Breakfast</strong>
-			  <button onclick="addDishRow('breakfast')" class="add-btn-inline">+ Add</button>
-			</summary>
-			<div id="breakfast-container"></div>
-		  </details>
+			<details open>
+			  <summary>
+				<div class="meal-header">
+				  <strong>Breakfast</strong>
+				  <button onclick="addDishRow('breakfast')" class="add-btn-inline">+ Add</button>
+				</div>
+			  </summary>
+			  <div id="breakfast-container"></div>
+			</details>
 
-		  <!-- Lunch -->
-		  <details>
-			<summary>
-			  <strong>Lunch</strong>
-			  <button onclick="addDishRow('lunch')" class="add-btn-inline">+ Add</button>
-			</summary>
-			<div id="lunch-container"></div>
-		  </details>
+			<!-- Lunch -->
+			<details>
+			  <summary>
+				<div class="meal-header">
+				  <strong>Lunch</strong>
+				  <button onclick="addDishRow('lunch')" class="add-btn-inline">+ Add</button>
+				</div>
+			  </summary>
+			  <div id="lunch-container"></div>
+			</details>
 
-		  <!-- Dinner -->
-		  <details>
-			<summary>
-			  <strong>Dinner</strong>
-			  <button onclick="addDishRow('dinner')" class="add-btn-inline">+ Add</button>
-			</summary>
-			<div id="dinner-container"></div>
-		  </details>
+			<!-- Dinner -->
+			<details>
+			  <summary>
+				<div class="meal-header">
+				  <strong>Dinner</strong>
+				  <button onclick="addDishRow('dinner')" class="add-btn-inline">+ Add</button>
+				</div>
+			  </summary>
+			  <div id="dinner-container"></div>
+			</details>
 		</div>
 
 		<button id="calculate-btn">Calculate</button>
