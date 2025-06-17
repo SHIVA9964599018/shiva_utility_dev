@@ -745,7 +745,7 @@ blockquote {
 .dish-row {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 2px;
   margin-bottom: 8px;
 }
 
