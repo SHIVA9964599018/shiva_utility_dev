@@ -136,6 +136,7 @@ window.setupAutocomplete = function (input) {
 
 // ✅ Add a dish row
 window.addDishRow = function (mealType, name = "", grams = "") {
+  console.log(`clicked on Add for $(mealType)`);
   const container = document.getElementById(`${mealType}-container`);
   const row = document.createElement("div");
   row.className = "dish-row";
