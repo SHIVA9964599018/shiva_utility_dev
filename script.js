@@ -329,12 +329,11 @@ totalRow.innerHTML = `
 };
 
 
-// Login handlers
 window.promptCalorieLogin = async function () {
   const userId = localStorage.getItem("user_id");
 
   if (userId && userId.trim() !== "") {
-    // 🔍 Verify this user actually exists in Supabase
+    // Verify user in Supabase
     const { data, error } = await supabaseClient
       .from('app_users')
       .select('username')
@@ -343,18 +342,28 @@ window.promptCalorieLogin = async function () {
 
     if (!error && data) {
       console.log("✅ Valid user found:", userId);
-      window.showSection('utility-daily-calorie');
-      window.loadDishSummaryTable();
+      const welcomeDiv = document.getElementById("welcome-message");
+      if (welcomeDiv) {
+        welcomeDiv.textContent = `Welcome, ${userId}!`;
+        welcomeDiv.style.display = "block";
+      }
       return;
     } else {
-      console.warn("⚠️ User ID in localStorage is stale. Clearing it.");
-      localStorage.removeItem("user_id");  // clear stale ID
+      console.warn("⚠️ Stale user ID found. Clearing.");
+      localStorage.removeItem("user_id");
     }
   }
 
+  // Show login modal
   console.log("🔐 No valid login — showing login modal");
   document.getElementById('loginModal').style.display = 'block';
 };
+
+// 🔁 Run on app load
+window.addEventListener('DOMContentLoaded', () => {
+  window.promptCalorieLogin();
+});
+
 
 
 
@@ -598,3 +607,6 @@ window.addEventListener("DOMContentLoaded", () => {
     form.addEventListener("submit", window.handleWeightUpload);
   }
 });
+
+
+
