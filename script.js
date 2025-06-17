@@ -35,11 +35,18 @@ window.showSection = function (sectionId) {
 };
 
 // Show utility sub-section
-window.showUtilitySubSection = function (subSectionId) {
-  document.querySelectorAll("div[id^='utility-']").forEach(el => el.style.display = "none");
-  const target = document.getElementById(subSectionId);
-  if (target) target.style.display = "block";
+window.showUtilitySubSection = function (sectionId) {
+  const allSections = document.querySelectorAll('#utilities > div');
+  allSections.forEach(div => div.style.display = 'none');
+
+  const active = document.getElementById(sectionId);
+  if (active) {
+    active.style.display = 'block';
+  } else {
+    console.warn(`No section found for ID: ${sectionId}`);
+  }
 };
+
 
 let dishNames = [];
 

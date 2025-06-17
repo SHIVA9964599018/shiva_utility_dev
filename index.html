@@ -125,22 +125,22 @@
         </table>
       </div>
     </div>
-<div id="utility-weight-tracker" style="display:none;">
-  <h3>Weight Tracker</h3>
-  <p>Upload a photo of your current weight (e.g., from a weighing scale):</p>
-  <form id="weight-upload-form">
-    <input type="file" accept="image/*" id="weight-image" style="margin-bottom:10px;">
-    <br>
-    <label>Date: <input type="date" id="weight-date" required></label>
-    <label>Weight (kg): <input type="number" id="weight-value" step="0.1" required></label>
-    <button type="submit">Upload Entry</button>
-  </form>
+	<!-- weight tracker -->
+	<div id="utility-weight-tracker" style="display:none;">
+	  <h3>Weight Tracker</h3>
+	  <form id="weight-upload-form">
+		<input type="file" accept="image/*" id="weight-image" />
+		<br>
+		<label>Date: <input type="date" id="weight-date" required></label>
+		<label>Weight (kg): <input type="number" id="weight-value" step="0.1" required></label>
+		<button type="submit">Upload Entry</button>
+	  </form>
+	  <div id="weight-timeline" style="margin-top:20px;">
+		<h4>Progress Timeline</h4>
+		<ul id="timeline-list" style="list-style-type: none; padding-left: 0;"></ul>
+	  </div>
+	</div>
 
-  <div id="weight-timeline" style="margin-top:20px;">
-    <h4>Progress Timeline</h4>
-    <ul id="timeline-list" style="list-style-type: none; padding-left: 0;"></ul>
-  </div>
-</div>	
 	
   </section>
 
