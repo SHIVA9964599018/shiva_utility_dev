@@ -555,3 +555,42 @@ if ('serviceWorker' in navigator) {
     };
   });
 }
+
+// Weight Tracker Script
+window.weightEntries = [];
+
+window.handleWeightUpload = function (event) {
+  event.preventDefault();
+  const date = document.getElementById("weight-date").value;
+  const weight = document.getElementById("weight-value").value;
+  const fileInput = document.getElementById("weight-image");
+
+  if (fileInput.files.length > 0) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const imageSrc = e.target.result;
+      window.weightEntries.push({ date, weight, imageSrc });
+      window.updateWeightTimeline();
+    };
+    reader.readAsDataURL(fileInput.files[0]);
+  }
+};
+
+window.updateWeightTimeline = function () {
+  const list = document.getElementById("timeline-list");
+  list.innerHTML = "";
+  window.weightEntries.slice().reverse().forEach(entry => {
+    const item = document.createElement("li");
+    item.style.marginBottom = "15px";
+    item.innerHTML = `<strong>${entry.date}</strong> - ${entry.weight} kg<br><img src="${entry.imageSrc}" style="width:100px; height:auto; border:1px solid #ccc; margin-top:5px;">`;
+    list.appendChild(item);
+  });
+};
+
+// Attach event listener after DOM is ready
+window.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("weight-upload-form");
+  if (form) {
+    form.addEventListener("submit", window.handleWeightUpload);
+  }
+});
