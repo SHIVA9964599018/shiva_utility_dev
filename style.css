@@ -749,16 +749,13 @@ blockquote {
   margin-bottom: 8px;
 }
 
-.dish-row input {
-  padding: 6px;
-}
 
 .dish-row input.dish-name {
   width: 200px;
 }
 
 .dish-row input.dish-grams {
-  width: 50px;
+  width: 75px;
 }
 
 .dish-row button {
