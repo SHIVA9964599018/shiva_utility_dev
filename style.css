@@ -755,7 +755,8 @@ blockquote {
 }
 
 .dish-row input.dish-grams {
-  width: 75px;
+  width: 50px;
+  margin-right: 4px;
 }
 
 .dish-row button {
