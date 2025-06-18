@@ -226,7 +226,7 @@ details > summary::-webkit-details-marker {
   text-align: left;
   font-weight: bold;
   color: #2c3e50;
-  min-width: 160px;      /* Set a minimum width */
+  min-width: 16px;      /* Set a minimum width */
   word-wrap: break-word;
 }
 
