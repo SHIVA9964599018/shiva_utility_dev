@@ -87,7 +87,7 @@ summary {
   display: flex;
   justify-content: space-between; /* Push left and right */
   align-items: center;
-  padding: 6px 12px;
+  padding: 2px 12px;
   background-color: #f8f8f8;
   border-radius: 4px;
   font-size: 16px; /* unify font size for both text and button */
