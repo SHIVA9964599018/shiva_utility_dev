@@ -195,6 +195,17 @@ details > summary::-webkit-details-marker {
   display: none;
 }
 
+#summary-container table {
+  border-collapse: collapse;         /* merge borders */
+  border: 2px solid #333;            /* outer border of table */
+}
+
+#summary-container th,
+#summary-container td {
+  border: 2px solid #333;            /* inner cell borders */
+  padding: 6px 10px;
+  text-align: left;
+}
 
 
 #summary-container thead {
