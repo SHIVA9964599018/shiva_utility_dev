@@ -171,7 +171,7 @@ details > summary {
 details[open] summary::before {
   content: "-";
   position: absolute;
-  left: -10px;
+  left: -20px;
   font-size: 1.2em;
   color: #4CAF50;
 }
@@ -179,7 +179,7 @@ details[open] summary::before {
 details summary::before {
   content: "+";
   position: absolute;
-  left: -10px;
+  left: -20px;
   font-size: 1.2em;
   color: #4CAF50;
 }
