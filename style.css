@@ -60,7 +60,8 @@ html, body {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start; /* 👈 items will sit left-aligned */
+  gap: 8px;   
   padding: 0;
 }
 
