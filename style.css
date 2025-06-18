@@ -27,7 +27,7 @@ html, body {
 .summary-table {
   border-collapse: collapse;
   width: max-content;
-  min-width: 600px;
+  min-width: 400px;
   table-layout: auto;
 }
 
