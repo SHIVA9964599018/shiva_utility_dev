@@ -224,7 +224,7 @@ details > summary::-webkit-details-marker {
 
 
 #summary-container td {
-  padding: 1px 1px;
+  padding: 1px 1px !important;
   text-align: left;
   font-weight: 500;
 }
