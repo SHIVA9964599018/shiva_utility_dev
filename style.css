@@ -244,6 +244,7 @@ details > summary::-webkit-details-marker {
 
 #summary-container table, th, td {
   border: 1px solid #ddd;
+  background-color: #ffffff;
 }
 .calorie-container {
   max-width: 650px;
