@@ -33,7 +33,7 @@ html, body {
 
 .summary-table th,
 .summary-table td {
-  padding: 8px 12px;
+  padding: 4px 6px;
   text-align: left;
   border: 1px solid #ccc;
   white-space: nowrap; /* ✅ prevents line break */
@@ -42,6 +42,7 @@ html, body {
 /* ✅ Only widen the first column (Dish Name) */
 .summary-table th:first-child,
 .summary-table td:first-child {
+  text-align: left;
   min-width: 160px;  /* or adjust as needed */
   white-space: normal; /* allow wrapping if name is long */
 }
