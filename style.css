@@ -227,7 +227,7 @@ details > summary::-webkit-details-marker {
   font-weight: bold;
   color: #2c3e50;
   max-width: 100px;      /* Set a minimum width */
-  word-wrap: break-word;
+  /*word-wrap: break-word;*/
 }
 
 #summary-container tr:last-child {
