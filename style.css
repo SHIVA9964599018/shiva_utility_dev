@@ -61,6 +61,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0;
 }
 
 
@@ -105,9 +106,6 @@ summary {
   margin-left: 12px;
 }
 
-.add-btn-inline:hover {
-  background-color: #0056b3;
-}
 
 .remove-btn{
   background-color: #007bff;
@@ -185,22 +183,7 @@ details summary::before {
 }
 
 
-summary.meal-summary {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: nowrap;
-  padding-right: 10px;
-  width: 100%;
-  box-sizing: border-box;
-}
 
-summary.meal-summary strong {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 1.1em;
-}
 
 
 .add-btn-inline:hover {
