@@ -290,7 +290,7 @@ window.loadDishSummaryTable = async function () {
   const tbody = document.getElementById("dish-summary-body");
   tbody.innerHTML = "";
 
-  let totalCalories = 0, totalProtein = 0, totalCarbs = 0, totalFibre = 0, totalFats = 0;
+  let totalCalories = 0, totalGrams=0,totalProtein = 0, totalCarbs = 0, totalFibre = 0, totalFats = 0;
   dishes.forEach(dish => {
     const row = document.createElement("tr");
 row.innerHTML = `
