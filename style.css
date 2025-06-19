@@ -25,7 +25,7 @@ html, body {
 
 /* Force table to be scrollable on narrow screens */
 .summary-table {
-  border-collapse: collapse;
+ /* border-collapse: collapse;*/
   width: max-content;
   min-width: 400px;
   table-layout: auto;
