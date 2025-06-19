@@ -218,8 +218,8 @@ details > summary::-webkit-details-marker {
   font-size: 1em;
   font-weight: bold;
   text-align: left;      /* ✅ Align left */
-  background-color: #ffe082; /* Keep the yellow highlight */
-  color: #4e342e;         /* Dark brown for contrast */
+  background-color: blue; /* Keep the blue highlight */
+  color: white;         /* Dark brown for contrast */
 }
 
 
