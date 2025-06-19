@@ -291,12 +291,13 @@ window.loadDishSummaryTable = async function () {
   tbody.innerHTML = "";
 
   let totalCalories = 0, totalProtein = 0, totalCarbs = 0, totalFibre = 0, totalFats = 0;
-
+Dish Name
   dishes.forEach(dish => {
     const row = document.createElement("tr");
 row.innerHTML = `
   <td>${dish.dish_name}</td>
   <td>${dish.calories.toFixed(1)}</td>
+  <td>${dish.grams.toFixed(1)}</td>
   <td>${dish.protein.toFixed(1)}</td>
   <td>${dish.fibre.toFixed(1)}</td>
   <td>${dish.carbs.toFixed(1)}</td>
@@ -306,6 +307,7 @@ row.innerHTML = `
     tbody.appendChild(row);
 
     totalCalories += dish.calories || 0;
+	totalGrams += dish.grams || 0;
     totalProtein += dish.protein || 0;
     totalCarbs += dish.carbs || 0;
     totalFibre += dish.fibre || 0;
@@ -318,6 +320,7 @@ row.innerHTML = `
 totalRow.innerHTML = `
   <td><strong>Total</strong></td>
   <td><strong>${totalCalories.toFixed(1)}</strong></td>
+  <td><strong>${totalGrams.toFixed(1)}</strong></td>
   <td><strong>${totalProtein.toFixed(1)}</strong></td>
   <td><strong>${totalFibre.toFixed(1)}</strong></td>
   <td><strong>${totalCarbs.toFixed(1)}</strong></td>
