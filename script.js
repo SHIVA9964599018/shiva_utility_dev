@@ -291,7 +291,6 @@ window.loadDishSummaryTable = async function () {
   tbody.innerHTML = "";
 
   let totalCalories = 0, totalProtein = 0, totalCarbs = 0, totalFibre = 0, totalFats = 0;
-Dish Name
   dishes.forEach(dish => {
     const row = document.createElement("tr");
 row.innerHTML = `
