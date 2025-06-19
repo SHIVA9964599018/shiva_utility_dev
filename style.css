@@ -218,7 +218,7 @@ details > summary::-webkit-details-marker {
   font-size: 1em;
   font-weight: bold;
   text-align: left;      /* ✅ Align left */
-  background-color: #000080; /* Keep the blue highlight */
+  background-color: #002366; /* Keep the blue highlight */
   color: white;         /* Dark brown for contrast */
 }
 
