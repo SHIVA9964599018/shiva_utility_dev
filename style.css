@@ -214,7 +214,7 @@ details > summary::-webkit-details-marker {
 }
 
 #summary-container thead th {
-  padding: 6px;
+  padding: 0px;
   font-size: 1em;
   font-weight: bold;
   text-align: left;      /* ✅ Align left */
