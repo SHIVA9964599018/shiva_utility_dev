@@ -202,7 +202,7 @@ window.calculateCalories = async function () {
 
   // Show calculated totals
 document.getElementById("calorie-result").innerHTML = `
-  <div style="display: flex; flex-direction: column; gap: 8px; font-family: Arial, sans-serif; font-size: 1rem; margin-top: 10px;">
+  <div style="display: flex; flex-direction: column; gap: 2px; font-family: Arial, sans-serif; font-size: 1rem; margin-top: 10px;">
     <span style="background: #1976d2; color: white; padding: 8px 24px 8px 12px; border-radius: 20px;">Calories: ${totals.calories.toFixed(0)}</span>
     <span style="background: #1976d2; color: white; padding: 8px 24px 8px 12px; border-radius: 20px;">Protein: ${totals.protein.toFixed(0)}</span>
     <span style="background: #1976d2; color: white; padding: 8px 24px 8px 12px; border-radius: 20px;">Fibre: ${totals.fibre.toFixed(0)}</span>
