@@ -202,29 +202,15 @@ window.calculateCalories = async function () {
 
   // Show calculated totals
 document.getElementById("calorie-result").innerHTML = `
-  <div style="display: flex; gap: 10px; justify-content: center; font-family: Arial, sans-serif; font-size: 1rem;">
-    <div style="text-align: center;">
-      <div style="font-weight: bold; background: black; color: white; padding: 6px;">Calories</div>
-      <div style="border: 1px solid #ccc; padding: 6px;">${totals.calories.toFixed(0)}</div>
-    </div>
-    <div style="text-align: center;">
-      <div style="font-weight: bold; background: black; color: white; padding: 6px;">Protein</div>
-      <div style="border: 1px solid #ccc; padding: 6px;">${totals.protein.toFixed(0)}</div>
-    </div>
-    <div style="text-align: center;">
-      <div style="font-weight: bold; background: black; color: white; padding: 6px;">Fibre</div>
-      <div style="border: 1px solid #ccc; padding: 6px;">${totals.fibre.toFixed(0)}</div>
-    </div>
-    <div style="text-align: center;">
-      <div style="font-weight: bold; background: black; color: white; padding: 6px;">Carbs</div>
-      <div style="border: 1px solid #ccc; padding: 6px;">${totals.carbs.toFixed(0)}</div>
-    </div>
-    <div style="text-align: center;">
-      <div style="font-weight: bold; background: black; color: white; padding: 6px;">Fats</div>
-      <div style="border: 1px solid #ccc; padding: 6px;">${totals.fats.toFixed(0)}</div>
-    </div>
+  <div style="font-family: Arial, sans-serif; font-size: 1rem;">
+    <div><strong>Calories:</strong> ${totals.calories.toFixed(0)}</div>
+    <div><strong>Protein:</strong> ${totals.protein.toFixed(0)}</div>
+    <div><strong>Fibre:</strong> ${totals.fibre.toFixed(0)}</div>
+    <div><strong>Carbs:</strong> ${totals.carbs.toFixed(0)}</div>
+    <div><strong>Fats:</strong> ${totals.fats.toFixed(0)}</div>
   </div>
 `;
+
 
 
 
