@@ -40,6 +40,7 @@ window.showUtilitySubSection = function (sectionId) {
   sections.forEach(sec => sec.style.display = "none");
 
   const target = document.getElementById(sectionId);
+  console.log('the section id clicked');
   if (target) target.style.display = "block";
 };
 
