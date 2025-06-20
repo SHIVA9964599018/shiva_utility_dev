@@ -225,6 +225,7 @@ document.getElementById("calorie-result").innerHTML = `
 `;
 
 
+
   // Save to DB and show summary
   await window.saveDishRowsToDB(dishEntries);
 
