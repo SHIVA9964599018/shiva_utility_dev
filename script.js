@@ -203,13 +203,14 @@ window.calculateCalories = async function () {
   // Show calculated totals
 document.getElementById("calorie-result").innerHTML = `
   <div style="display: flex; flex-direction: column; gap: 6px; font-family: Arial, sans-serif; font-size: 1rem; margin-top: 10px;">
-    <span style="background: #1976d2; color: white; padding: 8px 16px 8px 12px; border-radius: 20px; max-width: 180px; align-self: flex-start;">Calories: ${totals.calories.toFixed(0)}</span>
-    <span style="background: #1976d2; color: white; padding: 8px 16px 8px 12px; border-radius: 20px; max-width: 180px; align-self: flex-start;">Protein: ${totals.protein.toFixed(0)}</span>
-    <span style="background: #1976d2; color: white; padding: 8px 16px 8px 12px; border-radius: 20px; max-width: 180px; align-self: flex-start;">Fibre: ${totals.fibre.toFixed(0)}</span>
-    <span style="background: #1976d2; color: white; padding: 8px 16px 8px 12px; border-radius: 20px; max-width: 180px; align-self: flex-start;">Carbs: ${totals.carbs.toFixed(0)}</span>
-    <span style="background: #1976d2; color: white; padding: 8px 16px 8px 12px; border-radius: 20px; max-width: 180px; align-self: flex-start;">Fats: ${totals.fats.toFixed(0)}</span>
+    <span style="background: #1976d2; color: white; padding: 8px 16px; border-radius: 20px; width: 160px;">Calories: ${totals.calories.toFixed(0)}</span>
+    <span style="background: #1976d2; color: white; padding: 8px 16px; border-radius: 20px; width: 160px;">Protein: ${totals.protein.toFixed(0)}</span>
+    <span style="background: #1976d2; color: white; padding: 8px 16px; border-radius: 20px; width: 160px;">Fibre: ${totals.fibre.toFixed(0)}</span>
+    <span style="background: #1976d2; color: white; padding: 8px 16px; border-radius: 20px; width: 160px;">Carbs: ${totals.carbs.toFixed(0)}</span>
+    <span style="background: #1976d2; color: white; padding: 8px 16px; border-radius: 20px; width: 160px;">Fats: ${totals.fats.toFixed(0)}</span>
   </div>
 `;
+
 
 
 
