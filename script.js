@@ -202,27 +202,28 @@ window.calculateCalories = async function () {
 
   // Show calculated totals
 document.getElementById("calorie-result").innerHTML = `
-  <table style="border: 2px solid #1976d2; border-collapse: collapse; font-family: monospace; font-size: 1rem; width: 100%;">
+  <table style="border-collapse: collapse; font-family: monospace; font-size: 1rem; width: 100%; border: 2px solid #1976d2;">
     <thead>
       <tr style="background-color: #2196f3; color: white;">
-        <th style="padding: 6px; user-select: none;">Calories</th>
-        <th style="padding: 6px; user-select: none;">Protein</th>
-        <th style="padding: 6px; user-select: none;">Fibre</th>
-        <th style="padding: 6px; user-select: none;">Carbs</th>
-        <th style="padding: 6px; user-select: none;">Fats</th>
+        <th style="border: 1px solid #ccc; padding: 8px; text-align: center;">Calories</th>
+        <th style="border: 1px solid #ccc; padding: 8px; text-align: center;">Protein</th>
+        <th style="border: 1px solid #ccc; padding: 8px; text-align: center;">Fibre</th>
+        <th style="border: 1px solid #ccc; padding: 8px; text-align: center;">Carbs</th>
+        <th style="border: 1px solid #ccc; padding: 8px; text-align: center;">Fats</th>
       </tr>
     </thead>
     <tbody>
-      <tr style="text-align: center; font-weight: bold;">
-        <td style="padding: 6px;">${totals.calories.toFixed(0)}</td>
-        <td style="padding: 6px;">${totals.protein.toFixed(0)}</td>
-        <td style="padding: 6px;">${totals.fibre.toFixed(0)}</td>
-        <td style="padding: 6px;">${totals.carbs.toFixed(0)}</td>
-        <td style="padding: 6px;">${totals.fats.toFixed(0)}</td>
+      <tr style="font-weight: bold; text-align: center;">
+        <td style="border: 1px solid #ccc; padding: 8px;">${totals.calories.toFixed(0)}</td>
+        <td style="border: 1px solid #ccc; padding: 8px;">${totals.protein.toFixed(0)}</td>
+        <td style="border: 1px solid #ccc; padding: 8px;">${totals.fibre.toFixed(0)}</td>
+        <td style="border: 1px solid #ccc; padding: 8px;">${totals.carbs.toFixed(0)}</td>
+        <td style="border: 1px solid #ccc; padding: 8px;">${totals.fats.toFixed(0)}</td>
       </tr>
     </tbody>
   </table>
 `;
+
 
 
 
