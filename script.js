@@ -202,13 +202,20 @@ window.calculateCalories = async function () {
 
   // Show calculated totals
 document.getElementById("calorie-result").innerHTML = `
-  <div class="macro-box">
-    <div><span class="macro-label">Calories:</span> ${totals.calories.toFixed(2)} kcal</div>
-    <div><span class="macro-label">Protein:</span> ${totals.protein.toFixed(2)} g</div>
-    <div><span class="macro-label">Carbs:</span> ${totals.carbs.toFixed(2)} g</div>
-    <div><span class="macro-label">Fibre:</span> ${totals.fibre.toFixed(2)} g</div>
-    <div><span class="macro-label">Fats:</span> ${totals.fats.toFixed(2)} g</div>
-  </div>`;
+  <div style="font-family: monospace; font-size: 1rem;">
+    <div style="color: #1976d2; font-weight: bold; margin-bottom: 5px;">
+      Calories&nbsp;&nbsp;&nbsp;Protein&nbsp;&nbsp;&nbsp;Fibre&nbsp;&nbsp;&nbsp;Carbs&nbsp;&nbsp;&nbsp;Fats
+    </div>
+    <div style="font-weight: bold;">
+      ${totals.calories.toFixed(0)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      ${totals.protein.toFixed(0)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      ${totals.fibre.toFixed(0)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      ${totals.carbs.toFixed(0)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      ${totals.fats.toFixed(0)}
+    </div>
+  </div>
+`;
+
 
   // Save to DB and show summary
   await window.saveDishRowsToDB(dishEntries);
