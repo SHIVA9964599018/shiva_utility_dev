@@ -202,9 +202,9 @@ window.calculateCalories = async function () {
 
   // Show calculated totals
 document.getElementById("calorie-result").innerHTML = `
-  <table style="border-collapse: collapse; width: 100%; font-family: Arial, sans-serif; font-size: 1rem; border: 2px solid #1976d2;">
+  <table style="border-collapse: collapse; width: 100%; font-family: Arial, sans-serif; font-size: 1rem; border: 2px solid #000;">
     <thead>
-      <tr style="background-color: #1976d2;">
+      <tr style="background-color: black;">
         <th style="border: 1px solid #ccc; padding: 8px; text-align: center; color: white;">Calories</th>
         <th style="border: 1px solid #ccc; padding: 8px; text-align: center; color: white;">Protein</th>
         <th style="border: 1px solid #ccc; padding: 8px; text-align: center; color: white;">Fibre</th>
