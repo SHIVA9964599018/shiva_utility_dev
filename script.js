@@ -202,27 +202,28 @@ window.calculateCalories = async function () {
 
   // Show calculated totals
 document.getElementById("calorie-result").innerHTML = `
-  <table style="border-collapse: collapse; font-family: monospace; font-size: 1rem;">
+  <table style="border: 1px solid #1976d2; border-collapse: collapse; width: 100%;">
     <thead>
       <tr style="background-color: #1976d2; color: white;">
-        <th style="border: 1px solid #ccc; padding: 6px;">Calories</th>
-        <th style="border: 1px solid #ccc; padding: 6px;">Protein</th>
-        <th style="border: 1px solid #ccc; padding: 6px;">Fibre</th>
-        <th style="border: 1px solid #ccc; padding: 6px;">Carbs</th>
-        <th style="border: 1px solid #ccc; padding: 6px;">Fats</th>
+        <th style="padding: 6px;">Calories</th>
+        <th style="padding: 6px;">Protein</th>
+        <th style="padding: 6px;">Fibre</th>
+        <th style="padding: 6px;">Carbs</th>
+        <th style="padding: 6px;">Fats</th>
       </tr>
     </thead>
     <tbody>
-      <tr style="font-weight: bold; text-align: center;">
-        <td style="border: 1px solid #ccc; padding: 6px;">${totals.calories.toFixed(0)}</td>
-        <td style="border: 1px solid #ccc; padding: 6px;">${totals.protein.toFixed(0)}</td>
-        <td style="border: 1px solid #ccc; padding: 6px;">${totals.fibre.toFixed(0)}</td>
-        <td style="border: 1px solid #ccc; padding: 6px;">${totals.carbs.toFixed(0)}</td>
-        <td style="border: 1px solid #ccc; padding: 6px;">${totals.fats.toFixed(0)}</td>
+      <tr style="text-align: center; font-weight: bold;">
+        <td style="padding: 6px;">${totals.calories.toFixed(0)}</td>
+        <td style="padding: 6px;">${totals.protein.toFixed(0)}</td>
+        <td style="padding: 6px;">${totals.fibre.toFixed(0)}</td>
+        <td style="padding: 6px;">${totals.carbs.toFixed(0)}</td>
+        <td style="padding: 6px;">${totals.fats.toFixed(0)}</td>
       </tr>
     </tbody>
   </table>
 `;
+
 
 
 
