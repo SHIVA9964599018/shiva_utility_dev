@@ -113,7 +113,7 @@
       Dish Summary (click to expand)
     </summary>
 
-    <div class="table-scroll-wrapper" style="margin-top: 10px;">
+    <div style="margin-top: 10px; overflow-x: auto;">
       <table style="width: 100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 1rem;">
         <thead>
           <tr style="background-color: #1976d2; color: white;">
@@ -127,10 +127,22 @@
           </tr>
         </thead>
         <tbody id="dish-summary-body"></tbody>
+        <tfoot>
+          <tr style="background-color: #1976d2; color: white; font-weight: bold;">
+            <td style="padding: 6px; border: 1px solid #ccc;">Total</td>
+            <td style="padding: 6px; border: 1px solid #ccc;" id="total-qty"></td>
+            <td style="padding: 6px; border: 1px solid #ccc;" id="total-cal"></td>
+            <td style="padding: 6px; border: 1px solid #ccc;" id="total-protein"></td>
+            <td style="padding: 6px; border: 1px solid #ccc;" id="total-fibre"></td>
+            <td style="padding: 6px; border: 1px solid #ccc;" id="total-carbs"></td>
+            <td style="padding: 6px; border: 1px solid #ccc;" id="total-fats"></td>
+          </tr>
+        </tfoot>
       </table>
     </div>
   </details>
 </div>
+
 
 
 
