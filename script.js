@@ -202,14 +202,14 @@ window.calculateCalories = async function () {
 
   // Show calculated totals
 document.getElementById("calorie-result").innerHTML = `
-  <table style="border-collapse: collapse; font-family: monospace; font-size: 1rem; width: 100%; border: 2px solid #1976d2;">
+  <table style="border-collapse: collapse; width: 100%; font-family: Arial, sans-serif; font-size: 1rem; border: 2px solid #1976d2;">
     <thead>
-      <tr style="background-color: #2196f3; color: white;">
-        <th style="border: 1px solid #ccc; padding: 8px; text-align: center;">Calories</th>
-        <th style="border: 1px solid #ccc; padding: 8px; text-align: center;">Protein</th>
-        <th style="border: 1px solid #ccc; padding: 8px; text-align: center;">Fibre</th>
-        <th style="border: 1px solid #ccc; padding: 8px; text-align: center;">Carbs</th>
-        <th style="border: 1px solid #ccc; padding: 8px; text-align: center;">Fats</th>
+      <tr style="background-color: #1976d2;">
+        <th style="border: 1px solid #ccc; padding: 8px; text-align: center; color: white;">Calories</th>
+        <th style="border: 1px solid #ccc; padding: 8px; text-align: center; color: white;">Protein</th>
+        <th style="border: 1px solid #ccc; padding: 8px; text-align: center; color: white;">Fibre</th>
+        <th style="border: 1px solid #ccc; padding: 8px; text-align: center; color: white;">Carbs</th>
+        <th style="border: 1px solid #ccc; padding: 8px; text-align: center; color: white;">Fats</th>
       </tr>
     </thead>
     <tbody>
@@ -223,6 +223,7 @@ document.getElementById("calorie-result").innerHTML = `
     </tbody>
   </table>
 `;
+
 
 
 
