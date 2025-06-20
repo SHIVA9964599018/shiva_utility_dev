@@ -203,21 +203,21 @@ window.calculateCalories = async function () {
   // Show calculated totals
 document.getElementById("calorie-result").innerHTML = `
   <div style="display: flex; flex-direction: column; gap: 3px; font-family: Arial, sans-serif; font-size: 1rem; margin-top: 10px;">
-    <span style="background: #1976d2; color: white; padding: 8px 16px; border-radius: 20px; width: 140px; display: flex; justify-content: space-between;">
+    <div style="background: #1976d2; color: white; padding: 8px 16px; border-radius: 20px; width: 140px; display: flex; justify-content: space-between;">
       <span>Calories:</span><span>${totals.calories.toFixed(0)}</span>
-    </span>
-    <span style="background: #1976d2; color: white; padding: 8px 16px; border-radius: 20px; width: 140px; display: flex; justify-content: space-between;">
+    </div>
+    <div style="background: #1976d2; color: white; padding: 8px 16px; border-radius: 20px; width: 140px; display: flex; justify-content: space-between;">
       <span>Protein:</span><span>${totals.protein.toFixed(0)}</span>
-    </span>
-    <span style="background: #1976d2; color: white; padding: 8px 16px; border-radius: 20px; width: 140px; display: flex; justify-content: space-between;">
+    </div>
+    <div style="background: #1976d2; color: white; padding: 8px 16px; border-radius: 20px; width: 140px; display: flex; justify-content: space-between;">
       <span>Fibre:</span><span>${totals.fibre.toFixed(0)}</span>
-    </span>
-    <span style="background: #1976d2; color: white; padding: 8px 16px; border-radius: 20px; width: 140px; display: flex; justify-content: space-between;">
+    </div>
+    <div style="background: #1976d2; color: white; padding: 8px 16px; border-radius: 20px; width: 140px; display: flex; justify-content: space-between;">
       <span>Carbs:</span><span>${totals.carbs.toFixed(0)}</span>
-    </span>
-    <span style="background: #1976d2; color: white; padding: 8px 16px; border-radius: 20px; width: 140px; display: flex; justify-content: space-between;">
+    </div>
+    <div style="background: #1976d2; color: white; padding: 8px 16px; border-radius: 20px; width: 140px; display: flex; justify-content: space-between;">
       <span>Fats:</span><span>${totals.fats.toFixed(0)}</span>
-    </span>
+    </div>
   </div>
 `;
 
