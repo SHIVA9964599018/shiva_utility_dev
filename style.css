@@ -917,6 +917,7 @@ blockquote {
   position: fixed;         /* Make sure it's not pushed away */
   top: 10px;
   left: 10px;
+  background: red;
   z-index: 10001;          /* Higher than #sidebar’s z-index */
 }
 
