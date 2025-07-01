@@ -634,10 +634,11 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
 
-function toggleSidebar() {
+window.toggleSidebar = function () {
   const sidebar = document.getElementById("sidebar");
   sidebar.style.display = (sidebar.style.display === "block") ? "none" : "block";
-}
+};
+
 
 
 function showUtilitySubSection(id) {
