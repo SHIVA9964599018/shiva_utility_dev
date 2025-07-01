@@ -912,7 +912,6 @@ blockquote {
 }
 
 
-/* Hamburger style */
 .hamburger {
   font-size: 24px;
   color: white;
@@ -922,11 +921,10 @@ blockquote {
   margin-right: 10px;
 }
 
-/* Sidebar drawer */
 #sidebar {
-  position: fixed;              /* Make it float over content */
+  position: fixed;
   top: 0;
-  left: -220px;                 /* Hide offscreen */
+  left: -220px;
   width: 200px;
   height: 100%;
   background-color: #333;
@@ -935,14 +933,13 @@ blockquote {
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
   z-index: 999;
   transition: left 0.3s ease;
+  overflow-y: auto;
 }
 
-/* When toggled ON */
 #sidebar.open {
   left: 0;
 }
 
-/* Sidebar links */
 #sidebar a {
   color: white;
   display: block;
