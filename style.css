@@ -913,29 +913,24 @@ blockquote {
 
 
 .hamburger {
-  position: fixed;
-  top: 12px;
-  left: 12px;
-  font-size: 24px;
-  cursor: pointer;
-  z-index: 1001;
-  background: #1976d2;
+  font-size: 22px;
   color: white;
+  background-color: transparent;
   padding: 6px 10px;
-  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
 }
 
 #sidebar {
   display: none;
-  position: fixed;
-  top: 50px;
+  position: absolute;
+  top: 60px; /* below the navbar */
   left: 10px;
   background: #333;
   color: white;
   padding: 10px;
   border-radius: 6px;
-  z-index: 1000;
-  min-width: 180px;
+  z-index: 999;
 }
 
 #sidebar a, #sidebar summary {
@@ -943,10 +938,9 @@ blockquote {
   display: block;
   padding: 6px;
   text-decoration: none;
-  cursor: pointer;
 }
 
 #sidebar a:hover {
-  background: #555;
-  border-radius: 4px;
+  background: #444;
 }
+
