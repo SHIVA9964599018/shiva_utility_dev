@@ -635,7 +635,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
 window.toggleSidebar = function () {
-	alert("Hamburger clicked!");
   const sidebar = document.getElementById("sidebar");
   sidebar.classList.toggle("open");
 };
