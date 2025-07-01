@@ -914,13 +914,12 @@ blockquote {
 
 /* Hamburger icon */
 .hamburger {
-  font-size: 24px;
-  color: white;
-  background-color: transparent;
-  padding: 6px 10px;
-  cursor: pointer;
-  margin-right: 10px;
+  position: fixed;         /* Make sure it's not pushed away */
+  top: 10px;
+  left: 10px;
+  z-index: 10001;          /* Higher than #sidebar’s z-index */
 }
+
 
 /* Sidebar styles */
 #sidebar {
