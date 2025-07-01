@@ -924,29 +924,31 @@ blockquote {
 
 /* Sidebar drawer on the left */
 #sidebar {
-  background: red;
-  width: 200px;
-  height: 100vh;
-  position: fixed;
+  position: fixed;         /* Makes it float over the page */
   top: 0;
-  left: -200px;
-  transition: left 0.3s;
+  left: -220px;            /* Hide it off-screen to the left */
+  width: 200px;
+  height: 100%;
+  background-color: #333;  /* Dark background */
+  color: white;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  transition: left 0.3s ease;  /* Smooth slide */
 }
 
 #sidebar.open {
-  left: 0;
+  left: 0;  /* Slide it into view when class "open" is added */
 }
 
-
-/* Sidebar links */
 #sidebar a {
   color: white;
   text-decoration: none;
   display: block;
   padding: 10px;
-  border-radius: 4px;
   margin-bottom: 8px;
 }
+
 
 #sidebar a:hover {
   background-color: #444;
