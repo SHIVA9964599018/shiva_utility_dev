@@ -912,35 +912,36 @@ blockquote {
 }
 
 
-/* Hamburger icon */
 .hamburger {
-  position: fixed;         /* Make sure it's not pushed away */
+  position: fixed;
   top: 10px;
   left: 10px;
+  z-index: 10001;
   background: red;
-  z-index: 10001;          /* Higher than #sidebar’s z-index */
 }
 
-
-/* Sidebar styles */
 #sidebar {
   position: fixed;
   top: 0;
-  left: -220px; /* hidden initially */
+  left: -220px;
   width: 200px;
   height: 100%;
-  background-color: #333;
+  background-color: black;
   color: white;
   padding: 20px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
-  z-index: 6000;
+  z-index: 9999;
   transition: left 0.3s ease;
 }
 
-/* Show sidebar when .open is added */
 #sidebar.open {
   left: 0;
 }
+
+
+#sidebar.open {
+  background-color: red !important;
+}
+
 
 #sidebar a {
   display: block;
@@ -949,5 +950,8 @@ blockquote {
   text-decoration: none;
 }
 
+body {
+  background-color: yellow;
+}
 
 
