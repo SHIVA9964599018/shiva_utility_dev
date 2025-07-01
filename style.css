@@ -915,16 +915,16 @@ blockquote {
 .hamburger {
   font-size: 22px;
   color: white;
-  background-color: transparent;
+  background: transparent;
   padding: 6px 10px;
   cursor: pointer;
   margin-right: 10px;
 }
 
 #sidebar {
-  display: none;
+  display: none; /* Hidden by default */
   position: absolute;
-  top: 60px; /* below the navbar */
+  top: 50px; /* Just below navbar */
   left: 10px;
   background: #333;
   color: white;
@@ -933,14 +933,14 @@ blockquote {
   z-index: 999;
 }
 
-#sidebar a, #sidebar summary {
-  color: white;
+#sidebar a {
   display: block;
-  padding: 6px;
+  color: white;
+  padding: 6px 10px;
   text-decoration: none;
 }
 
 #sidebar a:hover {
-  background: #444;
+  background-color: #444;
 }
 
