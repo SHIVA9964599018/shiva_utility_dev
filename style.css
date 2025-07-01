@@ -8,6 +8,7 @@ html, body {
   overflow-y: auto;      /* ✅ enables vertical scroll */
   box-sizing: border-box;
   font-family: Arial, sans-serif;
+  background-color: yellow;
 }
 
 /* Force all elements to stay within screen width */
@@ -916,26 +917,26 @@ blockquote {
   position: fixed;
   top: 10px;
   left: 10px;
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
   z-index: 10001;
-  background: red;
 }
 
+
+/* Final fix for sidebar rendering on desktop */
 #sidebar {
-  position: fixed;
-  top: 0;
-  left: -220px;
-  width: 200px;
-  height: 100%;
-  background-color: black;
-  color: white;
-  padding: 20px;
-  z-index: 9999;
-  transition: left 0.3s ease;
+  position: fixed !important;
+  top: 0 !important;
+  left: -220px !important;
+  height: 100vh;
+  z-index: 9999 !important;
 }
 
 #sidebar.open {
-  left: 0;
+  left: 0 !important;
 }
+
 
 
 #sidebar.open {
