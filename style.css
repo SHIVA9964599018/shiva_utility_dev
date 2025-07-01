@@ -910,3 +910,43 @@ blockquote {
 #calculate-btn:hover {
   background-color: #218838;
 }
+
+
+.hamburger {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 1001;
+  background: #1976d2;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 5px;
+}
+
+#sidebar {
+  display: none;
+  position: fixed;
+  top: 50px;
+  left: 10px;
+  background: #333;
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+  z-index: 1000;
+  min-width: 180px;
+}
+
+#sidebar a, #sidebar summary {
+  color: white;
+  display: block;
+  padding: 6px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#sidebar a:hover {
+  background: #555;
+  border-radius: 4px;
+}

@@ -634,3 +634,13 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
 
+function toggleSidebar() {
+  const sidebar = document.getElementById("sidebar");
+  sidebar.style.display = (sidebar.style.display === "block") ? "none" : "block";
+}
+
+function showUtilitySubSection(id) {
+  const allSections = document.querySelectorAll("#utilities > div, #bike-records, #bike-summary");
+  allSections.forEach(sec => sec.style.display = "none");
+  document.getElementById(id).style.display = "block";
+}

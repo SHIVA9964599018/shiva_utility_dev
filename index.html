@@ -11,6 +11,21 @@
 </head>
 <body>
 
+<!-- Hamburger Button -->
+<div class="hamburger" onclick="toggleSidebar()">☰</div>
+
+<!-- Sidebar for Bike Info -->
+<div id="sidebar">
+  <div class="sidebar-content">
+    <details open>
+      <summary>🚴 Bike Info</summary>
+      <a href="#" onclick="showUtilitySubSection('bike-records')">➕ Add Bike Record</a>
+      <a href="#" onclick="showUtilitySubSection('bike-summary')">📊 Bike Summary</a>
+    </details>
+  </div>
+</div>
+
+
   <!-- Navigation Bar -->
   <nav>
     <a href="#" onclick="showUtilitySubSection('utility-add-dish')">Add Dish</a>
