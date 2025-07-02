@@ -926,16 +926,24 @@ blockquote {
 
 /* Final fix for sidebar rendering on desktop */
 #sidebar {
-  position: fixed !important;
-  top: 0 !important;
-  left: -220px !important;
-  height: 100vh;
-  z-index: 9999 !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background-color: #111;
+  color: white;
+  overflow-x: hidden;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 1000;
 }
 
+
 #sidebar.open {
-  left: 0 !important;
+  transform: translateX(0);
 }
+
 
 
 
@@ -950,6 +958,7 @@ blockquote {
   color: white;
   text-decoration: none;
 }
+
 
 
 
