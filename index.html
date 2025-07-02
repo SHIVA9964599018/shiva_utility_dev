@@ -68,7 +68,7 @@
 
   <!-- Navigation Bar -->
   <nav>
-    <div class="hamburger" onclick="window.toggleSidebar()">☰</div>
+    <div class="hamburger" onclick="toggleSidebar()">☰</div>
     <a href="#" onclick="showUtilitySubSection('utility-add-dish')">Add Dish</a> 
     <a href="#" onclick="promptCalorieLogin()">Daily Calorie</a> 
     <a href="#" onclick="showUtilitySubSection('utility-food-facts'); loadFoodFacts();">All Food Facts</a> 
@@ -260,15 +260,7 @@
       }
     };
 
-    window.toggleSidebar = function () {
-      const sidebar = document.getElementById("sidebar");
-      if (!sidebar) {
-        console.error("Sidebar not found");
-        return;
-      }
-      sidebar.classList.toggle("open");
-      console.log("Sidebar toggled");
-    };
+   
   </script>
 
 </body>
