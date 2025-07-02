@@ -214,7 +214,7 @@
   <!-- <!-- Script Dependencies --> -->
   <!-- <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script> -->
   <!-- <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script> -->
-  <script type="module" src="script.js"></script>
+  <!-- <script type="module" src="script.js"></script> -->
 
   <!-- <!-- Inline to show welcome message --> -->
 <!-- <script> -->
@@ -229,6 +229,19 @@
     <!-- } -->
   <!-- }; -->
 <!-- </script> -->
+
+<script>
+  window.toggleSidebar = function () {
+    const sidebar = document.getElementById("sidebar");
+    if (!sidebar) {
+      console.error("Sidebar not found");
+      return;
+    }
+    sidebar.classList.toggle("open");
+    console.log("Sidebar toggled");
+  };
+</script>
+
 <div id="sidebar">
   <h4 style="margin-top: 0;">🚴 Bike Info</h4>
   <a href="#" onclick="showUtilitySubSection('bike-records')">➕ Add Bike Record</a>
