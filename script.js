@@ -384,9 +384,9 @@ window.promptCalorieLogin = async function () {
 
 
 // 🔁 Run on app load
-window.addEventListener('DOMContentLoaded', () => {
-  window.promptCalorieLogin();
-});
+//window.addEventListener('DOMContentLoaded', () => {
+ // window.promptCalorieLogin();
+//});
 
 
 
