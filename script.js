@@ -635,6 +635,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
 window.toggleSidebar = function () {
+  console.log("✅ Sidebar toggle clicked");
   const sidebar = document.getElementById("sidebar");
   sidebar.classList.toggle("open");
 };
