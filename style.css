@@ -4,12 +4,11 @@ html, body {
   padding: 0;
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden;    /* ❌ disables horizontal scroll */
-  overflow-y: auto;      /* ✅ enables vertical scroll */
+  overflow-y: auto;
   box-sizing: border-box;
   font-family: Arial, sans-serif;
-
 }
+
 
 /* Force all elements to stay within screen width */
 *, *::before, *::after {
