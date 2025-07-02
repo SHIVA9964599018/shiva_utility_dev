@@ -919,13 +919,13 @@ blockquote {
   left: 10px;
   background-color: #4CAF50;
   color: white;
-  padding: 10px;
-  z-index: 10001;
+  padding: 10px 15px;
+  cursor: pointer;
+  z-index: 1001;
+  font-size: 20px;
+  border-radius: 5px;
 }
 
-
-/* Final fix for sidebar rendering on desktop */
-/* Sidebar is hidden by default using transform */
 #sidebar {
   position: fixed;
   top: 0;
@@ -940,18 +940,15 @@ blockquote {
   z-index: 1000;
 }
 
-/* When .open class is toggled on, slide sidebar into view */
 #sidebar.open {
   transform: translateX(0);
 }
 
-/* Style for the sidebar links */
 #sidebar a {
   display: block;
-  margin: 10px 0;
   color: white;
+  margin: 10px 0;
   text-decoration: none;
-  font-size: 16px;
 }
 
 
