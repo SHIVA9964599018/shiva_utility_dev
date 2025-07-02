@@ -635,9 +635,13 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
 window.toggleSidebar = function () {
-  console.log("✅ Sidebar toggle clicked");
   const sidebar = document.getElementById("sidebar");
-  sidebar.classList.toggle("open");
+  if (sidebar) {
+    sidebar.classList.toggle("open");
+    console.log("✅ Sidebar toggled:", sidebar.className);
+  } else {
+    console.error("❌ Sidebar not found");
+  }
 };
 
 
