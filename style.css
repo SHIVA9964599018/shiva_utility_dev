@@ -320,7 +320,7 @@ nav {
   white-space: nowrap;
   position: relative;
   z-index: 5000;
-  margin-left: 60px; /* enough space so Add Dish starts after hamburger */
+  padding-left: 60px; /* enough space so Add Dish starts after hamburger */
 }
 
 nav a,
