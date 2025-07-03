@@ -651,3 +651,16 @@ function showUtilitySubSection(id) {
   allSections.forEach(sec => sec.style.display = "none");
   document.getElementById(id).style.display = "block";
 }
+
+// Close sidebar if user clicks outside of it
+document.addEventListener("click", function (event) {
+  const sidebar = document.getElementById("sidebar");
+  const hamburger = document.querySelector(".hamburger");
+
+  const isClickInsideSidebar = sidebar.contains(event.target);
+  const isClickOnHamburger = hamburger.contains(event.target);
+
+  if (!isClickInsideSidebar && !isClickOnHamburger) {
+    sidebar.classList.remove("open");
+  }
+});
