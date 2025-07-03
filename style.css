@@ -384,6 +384,7 @@ section.active {
     justify-content: flex-start;
     gap: 5px;
     flex-wrap: wrap;
+	padding-bottom: 0;
   }
 
   .dropdown:hover .dropdown-menu {
@@ -953,7 +954,7 @@ blockquote {
 
 @media screen and (max-width: 600px) {
   #sidebar {
-    padding-top: 160px; /* Adjust this based on actual mobile navbar height */
+    padding-top: 120px; /* Adjust this based on actual mobile navbar height */
   }
 }
 
