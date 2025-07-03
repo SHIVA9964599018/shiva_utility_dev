@@ -953,7 +953,7 @@ blockquote {
 
 @media screen and (max-width: 600px) {
   #sidebar {
-    padding-top: 80px; /* Adjust this based on actual mobile navbar height */
+    padding-top: 160px; /* Adjust this based on actual mobile navbar height */
   }
 }
 
