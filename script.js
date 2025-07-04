@@ -667,14 +667,13 @@ document.addEventListener("click", function (event) {
 
   const isSidebarOpen = sidebar.classList.contains("open");
   const isClickInsideSidebar = sidebar.contains(event.target);
-  const isClickOnHamburger = hamburger && hamburger.contains(event.target);
+  const isClickOnHamburger = event.target.closest("#hamburger") !== null;
 
   console.log("🖱️ Clicked element:", event.target);
   console.log("📍 Inside sidebar:", isClickInsideSidebar);
   console.log("📍 On hamburger:", isClickOnHamburger);
   console.log("📂 Sidebar open state:", isSidebarOpen);
 
-  // ✅ Close only if open and click was outside sidebar and hamburger
   if (isSidebarOpen && !isClickInsideSidebar && !isClickOnHamburger) {
     sidebar.classList.remove("open");
     console.log("✅ Sidebar closed.");
