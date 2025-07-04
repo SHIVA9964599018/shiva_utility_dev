@@ -682,5 +682,67 @@ document.addEventListener("click", function (event) {
   }, 10); // slight delay to ensure toggle has completed
 });
 
+window.addBikeRecordSection = async function () {
+  console.log("🚴 Loading Add Bike Record section");
+
+  const container = document.getElementById("bike-section-container");
+  if (!container) {
+    console.error("❌ Container 'bike-section-container' not found.");
+    return;
+  }
+
+  // Hide default home section
+  const defaultHome = document.getElementById("utility-daily-calorie");
+  if (defaultHome) defaultHome.style.display = "none";
+
+  try {
+    const response = await fetch("bike-history.html");
+    const html = await response.text();
+    container.innerHTML = html;
+    console.log("✅ Add Bike Record HTML loaded.");
+
+    if (typeof initAddBikeRecordSection === "function") {
+      initAddBikeRecordSection();
+    }
+
+  } catch (err) {
+    console.error("❌ Failed to load bike-history.html:", err);
+  }
+};
+
+window.initAddBikeRecordSection = function () {
+  console.log("🚀 Initializing Add Bike Record logic");
+
+  const submitBtn = document.getElementById("submitBikeRecordBtn");
+  if (!submitBtn) {
+    console.warn("⛔ Submit button not found.");
+    return;
+  }
+
+  submitBtn.addEventListener("click", async () => {
+    const date = document.getElementById("date_changed").value;
+    const amount = parseFloat(document.getElementById("amount").value);
+    const distance = parseFloat(document.getElementById("at_distance").value);
+    const user_id = localStorage.getItem("user_id");
+
+    if (!date || isNaN(amount) || isNaN(distance) || !user_id) {
+      alert("Please fill all fields and ensure user is logged in.");
+      return;
+    }
+
+    try {
+      const { data, error } = await supabase.from("bike_history").insert([
+        { user_id, date_changed: date, amount, at_distance: distance }
+      ]);
+      if (error) throw error;
+
+      document.getElementById("record_status").textContent = "✅ Record added!";
+    } catch (err) {
+      document.getElementById("record_status").textContent = "❌ Failed to add record.";
+      console.error(err);
+    }
+  });
+};
+
 
 
