@@ -79,12 +79,18 @@
   <!-- Hamburger inside navbar -->
 
 
-  <!-- Sidebar -->
-  <div id="sidebar">
-    <h4 style="margin-top: 0;">🚴 Bike Info</h4>
-    <a href="#" onclick="showUtilitySubSection('bike-records')">➕ Add Bike Record</a>
-    <a href="#" onclick="showUtilitySubSection('bike-summary')">📊 Bike Summary</a>
-  </div>
+<!-- Sidebar navigation -->
+<div id="sidebar">
+  <h4>🚴 Bike Info</h4>
+  <a href="#" onclick="showBikeSection('bike-records')">➕ Add Bike Record</a>
+  <a href="#" onclick="showBikeSection('bike-summary')">📊 Bike Summary</a>
+  <a href="#" onclick="showBikeSection('bike-history')">🛠️ Bike History</a>
+</div>
+
+<!-- Sections outside #utilities -->
+<div id="bike-records" style="display: none;"></div>
+<div id="bike-summary" style="display: none;"></div>
+<div id="bike-history" style="display: none;"></div>
 
   <!-- Install Prompt -->
   <p style="font-weight: bold; font-size: 1.1em; margin-top: 20px; padding-left: 20px;">
@@ -248,21 +254,7 @@
   <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
   <script type="module" src="script.js"></script>
 
-  <!-- Inline Script -->
-  <script>
-    window.onload = () => {
-      const userId = localStorage.getItem("user_id");
-      if (userId) {
-        const welcomeDiv = document.getElementById("welcome-message");
-        if (welcomeDiv) {
-          welcomeDiv.textContent = `Welcome, ${userId}!`;
-          welcomeDiv.style.display = "block";
-        }
-      }
-    };
-
-   
-  </script>
+  
 
 </body>
 </html>

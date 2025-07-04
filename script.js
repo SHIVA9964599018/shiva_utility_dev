@@ -644,6 +644,15 @@ window.toggleSidebar = function () {
   }
 };
 
+document.addEventListener("DOMContentLoaded", () => {
+  const userId = localStorage.getItem("user_id");
+  const welcomeDiv = document.getElementById("welcome-message");
+
+  if (userId && welcomeDiv) {
+    welcomeDiv.textContent = `Welcome, ${userId}!`;
+    welcomeDiv.style.display = "block";
+  }
+});
 
 
 function showUtilitySubSection(id) {
@@ -664,3 +673,95 @@ document.addEventListener("click", function (event) {
     sidebar.classList.remove("open");
   }
 });
+
+window.loadBikeRecordsHtml = function () {
+  fetch('bike-records.html')
+    .then(res => res.text())
+    .then(html => {
+      const container = document.getElementById('bike-records');
+      container.innerHTML = html;
+
+      document.getElementById('submitBikeRecordBtn')
+        .addEventListener('click', submitBikeRecord);
+
+      fetchAndRenderBikeRecords();
+    });
+};
+
+async function submitBikeRecord() {
+  const date_changed = document.getElementById("date_changed").value;
+  const amount = parseFloat(document.getElementById("amount").value);
+  const at_distance = parseInt(document.getElementById("at_distance").value);
+  const user_id = localStorage.getItem("user_id");
+
+  const statusDiv = document.getElementById("record_status");
+  statusDiv.textContent = "";
+  statusDiv.className = "status";
+
+  if (!user_id) {
+    statusDiv.textContent = "User not logged in.";
+    statusDiv.classList.add("error");
+    return;
+  }
+
+  if (!date_changed || isNaN(amount) || isNaN(at_distance)) {
+    statusDiv.textContent = "Please fill all fields.";
+    statusDiv.classList.add("error");
+    return;
+  }
+
+  const { error } = await supabase.from("bike_fuel_data").insert([
+    { user_id, date_changed, amount, at_distance }
+  ]);
+
+  if (error) {
+    statusDiv.textContent = "Error: " + error.message;
+    statusDiv.classList.add("error");
+  } else {
+    statusDiv.textContent = "Record added!";
+    document.getElementById("date_changed").value = "";
+    document.getElementById("amount").value = "";
+    document.getElementById("at_distance").value = "";
+    fetchAndRenderBikeRecords(); // Refresh records
+  }
+}
+
+async function fetchAndRenderBikeRecords() {
+  const user_id = localStorage.getItem("user_id");
+  const table = document.getElementById("bikeRecordsTable");
+
+  if (!user_id) {
+    table.innerHTML = "Please log in to view your records.";
+    return;
+  }
+
+  const { data, error } = await supabase
+    .from("bike_fuel_data")
+    .select("*")
+    .eq("user_id", user_id)
+    .order("date_changed", { ascending: false });
+
+  if (error) {
+    table.innerHTML = "Error loading records: " + error.message;
+    return;
+  }
+
+  if (!data || data.length === 0) {
+    table.innerHTML = "<i>No records found.</i>";
+    return;
+  }
+
+  let html = `<table border="1" cellpadding="5" cellspacing="0">
+    <tr><th>Date</th><th>Amount (₹)</th><th>Odometer (km)</th></tr>`;
+
+  data.forEach(r => {
+    html += `<tr>
+      <td>${r.date_changed}</td>
+      <td>${r.amount}</td>
+      <td>${r.at_distance}</td>
+    </tr>`;
+  });
+
+  html += "</table>";
+  table.innerHTML = html;
+}

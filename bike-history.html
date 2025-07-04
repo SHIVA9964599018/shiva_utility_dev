@@ -1,14 +1,17 @@
-<h3>Add Bike History Record</h3>
+<h3>Add Bike Fuel Record</h3>
 
-<label for="history_date">Date</label>
-<input type="date" id="history_date" required>
+<label for="date_changed">Date of Refuel</label>
+<input type="date" id="date_changed" required />
 
-<label for="description">Description</label>
-<input type="text" id="description" required>
+<label for="amount">Amount (in ₹)</label>
+<input type="number" id="amount" step="0.01" required />
 
-<label for="cost">Cost (₹)</label>
-<input type="number" id="cost" step="0.01" required>
+<label for="at_distance">Odometer Reading (in km)</label>
+<input type="number" id="at_distance" required />
 
-<button id="submitBikeHistoryBtn">Add History</button>
+<button id="submitBikeRecordBtn">Add Record</button>
 
-<div id="history_status" class="status"></div>
+<div id="record_status" class="status"></div>
+
+<h4>Previous Records</h4>
+<div id="bikeRecordsTable">Loading...</div>
