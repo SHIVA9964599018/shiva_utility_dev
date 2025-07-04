@@ -657,26 +657,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 document.addEventListener("click", function (event) {
-  setTimeout(() => {
-    const sidebar = document.getElementById("sidebar");
+  const sidebar = document.getElementById("sidebar");
+  const hamburger = document.getElementById("hamburger");
 
-    if (!sidebar) {
-      console.log("🔍 Sidebar not found in DOM.");
-      return;
-    }
+  if (!sidebar) {
+    console.log("🔍 Sidebar not found.");
+    return;
+  }
 
-    const isClickInsideSidebar = sidebar.contains(event.target);
-    const isSidebarOpen = sidebar.classList.contains("open");
+  const isSidebarOpen = sidebar.classList.contains("open");
+  const isClickInsideSidebar = sidebar.contains(event.target);
+  const isClickOnHamburger = hamburger && hamburger.contains(event.target);
 
-    console.log("🖱️ Clicked element:", event.target);
-    console.log("📍 Inside sidebar:", isClickInsideSidebar);
-    console.log("📂 Sidebar open state:", isSidebarOpen);
+  console.log("🖱️ Clicked element:", event.target);
+  console.log("📍 Inside sidebar:", isClickInsideSidebar);
+  console.log("📍 On hamburger:", isClickOnHamburger);
+  console.log("📂 Sidebar open state:", isSidebarOpen);
 
-    if (isSidebarOpen && !isClickInsideSidebar) {
-      sidebar.classList.remove("open");
-      console.log("✅ Sidebar closed.");
-    }
-  }, 0); // Run AFTER other click handlers like hamburger toggle
+  // ✅ Close only if open and click was outside sidebar and hamburger
+  if (isSidebarOpen && !isClickInsideSidebar && !isClickOnHamburger) {
+    sidebar.classList.remove("open");
+    console.log("✅ Sidebar closed.");
+  }
 });
 
 
