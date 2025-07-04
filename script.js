@@ -665,7 +665,7 @@ window.showBikeRecordSection = function () {
   container.style.display = "block";
 
   if (!container.dataset.loaded) {
-    fetch('bikehistory.html')
+    fetch('bike-history.html')
       .then(res => res.text())
       .then(html => {
         container.innerHTML = html;
