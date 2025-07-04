@@ -655,58 +655,43 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-function showUtilitySubSection(id) {
-  const allSections = document.querySelectorAll("#utilities > div, #bike-records, #bike-summary");
-  allSections.forEach(sec => sec.style.display = "none");
-  document.getElementById(id).style.display = "block";
-}
+window.showBikeRecordSection = function () {
+  const container = document.getElementById("bike-records");
 
-// Close sidebar if user clicks outside of it
-document.addEventListener("click", function (event) {
-  const sidebar = document.getElementById("sidebar");
-  const hamburger = document.querySelector(".hamburger");
+  // Hide other sections if needed
+  const all = document.querySelectorAll("#bike-records, #bike-summary, #bike-history");
+  all.forEach(sec => sec.style.display = "none");
 
-  const isClickInsideSidebar = sidebar.contains(event.target);
-  const isClickOnHamburger = hamburger.contains(event.target);
+  container.style.display = "block";
 
-  if (!isClickInsideSidebar && !isClickOnHamburger) {
-    sidebar.classList.remove("open");
+  if (!container.dataset.loaded) {
+    fetch('bikehistory.html')
+      .then(res => res.text())
+      .then(html => {
+        container.innerHTML = html;
+        container.dataset.loaded = "true";
+
+        document.getElementById("submitBikeRecordBtn")
+          .addEventListener("click", submitBikeRecord);
+      });
   }
-});
-
-window.loadBikeRecordsHtml = function () {
-  fetch('bike-records.html')
-    .then(res => res.text())
-    .then(html => {
-      const container = document.getElementById('bike-records');
-      container.innerHTML = html;
-
-      document.getElementById('submitBikeRecordBtn')
-        .addEventListener('click', submitBikeRecord);
-
-      fetchAndRenderBikeRecords();
-    });
 };
-
 async function submitBikeRecord() {
+  const user_id = localStorage.getItem("user_id");
   const date_changed = document.getElementById("date_changed").value;
   const amount = parseFloat(document.getElementById("amount").value);
   const at_distance = parseInt(document.getElementById("at_distance").value);
-  const user_id = localStorage.getItem("user_id");
-
-  const statusDiv = document.getElementById("record_status");
-  statusDiv.textContent = "";
-  statusDiv.className = "status";
+  const status = document.getElementById("record_status");
 
   if (!user_id) {
-    statusDiv.textContent = "User not logged in.";
-    statusDiv.classList.add("error");
+    status.textContent = "User not logged in.";
+    status.classList.add("error");
     return;
   }
 
   if (!date_changed || isNaN(amount) || isNaN(at_distance)) {
-    statusDiv.textContent = "Please fill all fields.";
-    statusDiv.classList.add("error");
+    status.textContent = "Please fill all fields.";
+    status.classList.add("error");
     return;
   }
 
@@ -715,53 +700,12 @@ async function submitBikeRecord() {
   ]);
 
   if (error) {
-    statusDiv.textContent = "Error: " + error.message;
-    statusDiv.classList.add("error");
+    status.textContent = "Error: " + error.message;
+    status.classList.add("error");
   } else {
-    statusDiv.textContent = "Record added!";
+    status.textContent = "Record added!";
     document.getElementById("date_changed").value = "";
     document.getElementById("amount").value = "";
     document.getElementById("at_distance").value = "";
-    fetchAndRenderBikeRecords(); // Refresh records
   }
-}
-
-async function fetchAndRenderBikeRecords() {
-  const user_id = localStorage.getItem("user_id");
-  const table = document.getElementById("bikeRecordsTable");
-
-  if (!user_id) {
-    table.innerHTML = "Please log in to view your records.";
-    return;
-  }
-
-  const { data, error } = await supabase
-    .from("bike_fuel_data")
-    .select("*")
-    .eq("user_id", user_id)
-    .order("date_changed", { ascending: false });
-
-  if (error) {
-    table.innerHTML = "Error loading records: " + error.message;
-    return;
-  }
-
-  if (!data || data.length === 0) {
-    table.innerHTML = "<i>No records found.</i>";
-    return;
-  }
-
-  let html = `<table border="1" cellpadding="5" cellspacing="0">
-    <tr><th>Date</th><th>Amount (₹)</th><th>Odometer (km)</th></tr>`;
-
-  data.forEach(r => {
-    html += `<tr>
-      <td>${r.date_changed}</td>
-      <td>${r.amount}</td>
-      <td>${r.at_distance}</td>
-    </tr>`;
-  });
-
-  html += "</table>";
-  table.innerHTML = html;
 }
