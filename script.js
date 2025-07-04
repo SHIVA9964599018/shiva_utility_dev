@@ -655,81 +655,19 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-window.showBikeSection = function (sectionId) {
-  // Hide all bike-related sections
-  const bikeSections = ['bike-records', 'bike-summary', 'bike-history'];
-  bikeSections.forEach(id => {
-    const sec = document.getElementById(id);
-    if (sec) sec.style.display = 'none';
+
+document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListener("click", function (event) {
+    const sidebar = document.getElementById("sidebar");
+    const hamburger = document.getElementById("hamburger");
+
+    if (!sidebar || !hamburger) return; // prevent null error
+
+    const isClickInsideSidebar = sidebar.contains(event.target);
+    const isClickOnHamburger = hamburger.contains(event.target);
+
+    if (sidebar.classList.contains("open") && !isClickInsideSidebar && !isClickOnHamburger) {
+      sidebar.classList.remove("open");
+    }
   });
-
-  // Also hide the utility-daily-calorie page
-  const defaultPage = document.getElementById("utility-daily-calorie");
-  if (defaultPage) defaultPage.style.display = "none";
-
-  // Show the clicked section
-  const target = document.getElementById(sectionId);
-  if (target) {
-    target.style.display = "block";
-
-    // Load dynamic HTML if not already loaded
-    if (sectionId === 'bike-records' && !target.dataset.loaded) {
-      loadBikeRecordsHtml();
-      target.dataset.loaded = "true";
-    }
-
-    if (sectionId === 'bike-history' && !target.dataset.loaded) {
-      loadBikeHistoryHtml();
-      target.dataset.loaded = "true";
-    }
-
-    // Add more loaders as needed...
-  }
-};
-
-async function submitBikeRecord() {
-  const user_id = localStorage.getItem("user_id");
-  const date_changed = document.getElementById("date_changed").value;
-  const amount = parseFloat(document.getElementById("amount").value);
-  const at_distance = parseInt(document.getElementById("at_distance").value);
-  const status = document.getElementById("record_status");
-
-  if (!user_id) {
-    status.textContent = "User not logged in.";
-    status.classList.add("error");
-    return;
-  }
-
-  if (!date_changed || isNaN(amount) || isNaN(at_distance)) {
-    status.textContent = "Please fill all fields.";
-    status.classList.add("error");
-    return;
-  }
-
-  const { error } = await supabase.from("bike_fuel_data").insert([
-    { user_id, date_changed, amount, at_distance }
-  ]);
-
-  if (error) {
-    status.textContent = "Error: " + error.message;
-    status.classList.add("error");
-  } else {
-    status.textContent = "Record added!";
-    document.getElementById("date_changed").value = "";
-    document.getElementById("amount").value = "";
-    document.getElementById("at_distance").value = "";
-  }
-}
-document.addEventListener("click", function (event) {
-  const sidebar = document.getElementById("sidebar");
-  const hamburger = document.getElementById("hamburger"); // the toggle button
-
-  // If sidebar is open AND click is outside both sidebar & hamburger
-  if (
-    sidebar.classList.contains("open") &&
-    !sidebar.contains(event.target) &&
-    !hamburger.contains(event.target)
-  ) {
-    sidebar.classList.remove("open"); // hide sidebar
-  }
 });
