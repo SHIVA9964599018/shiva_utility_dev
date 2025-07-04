@@ -1,14 +1,57 @@
-<h3>Add Bike Fuel Record</h3>
+<style>
+  .bike-form-container {
+    max-width: 400px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+  }
 
-<label for="date_changed">Date of Refuel</label>
-<input type="date" id="date_changed" required />
+  .bike-label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
 
-<label for="amount">Amount (in ₹)</label>
-<input type="number" id="amount" step="0.01" required />
+  .bike-input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
 
-<label for="at_distance">Odometer Reading (in km)</label>
-<input type="number" id="at_distance" required />
+  .bike-button {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+  }
 
-<button id="submitBikeRecordBtn">Add Record</button>
+  .bike-status {
+    margin-top: 12px;
+    font-weight: bold;
+  }
+</style>
 
-<div id="record_status" class="status"></div>
+<h3 style="margin-bottom: 20px;">🛵 Add Bike Fuel Record</h3>
+
+<div class="bike-form-container">
+  <label for="date_changed" class="bike-label">📅 Date of Refuel</label>
+  <input type="date" id="date_changed" required class="bike-input" />
+
+  <label for="amount" class="bike-label">💰 Amount (in ₹)</label>
+  <input type="number" id="amount" step="0.01" required class="bike-input" />
+
+  <label for="at_distance" class="bike-label">📍 Odometer Reading (in km)</label>
+  <input type="number" id="at_distance" required class="bike-input" />
+
+  <button id="submitBikeRecordBtn" class="bike-button">➕ Add Record</button>
+
+  <div id="record_status" class="bike-status"></div>
+</div>
