@@ -657,27 +657,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 document.addEventListener("click", function (event) {
-  const sidebar = document.getElementById("sidebar");
-  const hamburger = document.getElementById("hamburger");
+  setTimeout(() => {
+    const sidebar = document.getElementById("sidebar");
+    const hamburger = document.querySelector(".hamburger");  // ✅ FIXED HERE
 
-  if (!sidebar) {
-    console.log("🔍 Sidebar not found.");
-    return;
-  }
+    if (!sidebar || !hamburger) {
+      console.log("🔍 Sidebar or hamburger not found");
+      return;
+    }
 
-  const isSidebarOpen = sidebar.classList.contains("open");
-  const isClickInsideSidebar = sidebar.contains(event.target);
-  const isClickOnHamburger = event.target.closest("#hamburger") !== null;
+    const isSidebarOpen = sidebar.classList.contains("open");
+    const clickedInsideSidebar = sidebar.contains(event.target);
+    const clickedInsideHamburger = hamburger.contains(event.target);
 
-  console.log("🖱️ Clicked element:", event.target);
-  console.log("📍 Inside sidebar:", isClickInsideSidebar);
-  console.log("📍 On hamburger:", isClickOnHamburger);
-  console.log("📂 Sidebar open state:", isSidebarOpen);
+    console.log("🖱️ Clicked element:", event.target);
+    console.log("📍 Inside sidebar:", clickedInsideSidebar);
+    console.log("📍 On hamburger:", clickedInsideHamburger);
+    console.log("📂 Sidebar open state:", isSidebarOpen);
 
-  if (isSidebarOpen && !isClickInsideSidebar && !isClickOnHamburger) {
-    sidebar.classList.remove("open");
-    console.log("✅ Sidebar closed.");
-  }
+    if (isSidebarOpen && !clickedInsideSidebar && !clickedInsideHamburger) {
+      sidebar.classList.remove("open");
+      console.log("✅ Sidebar closed.");
+    }
+  }, 10); // slight delay to ensure toggle has completed
 });
+
 
 
