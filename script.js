@@ -655,27 +655,38 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-window.showBikeRecordSection = function () {
-  const container = document.getElementById("bike-records");
+window.showBikeSection = function (sectionId) {
+  // Hide all bike-related sections
+  const bikeSections = ['bike-records', 'bike-summary', 'bike-history'];
+  bikeSections.forEach(id => {
+    const sec = document.getElementById(id);
+    if (sec) sec.style.display = 'none';
+  });
 
-  // Hide other sections if needed
-  const all = document.querySelectorAll("#bike-records, #bike-summary, #bike-history");
-  all.forEach(sec => sec.style.display = "none");
+  // Also hide the utility-daily-calorie page
+  const defaultPage = document.getElementById("utility-daily-calorie");
+  if (defaultPage) defaultPage.style.display = "none";
 
-  container.style.display = "block";
+  // Show the clicked section
+  const target = document.getElementById(sectionId);
+  if (target) {
+    target.style.display = "block";
 
-  if (!container.dataset.loaded) {
-    fetch('bike-history.html')
-      .then(res => res.text())
-      .then(html => {
-        container.innerHTML = html;
-        container.dataset.loaded = "true";
+    // Load dynamic HTML if not already loaded
+    if (sectionId === 'bike-records' && !target.dataset.loaded) {
+      loadBikeRecordsHtml();
+      target.dataset.loaded = "true";
+    }
 
-        document.getElementById("submitBikeRecordBtn")
-          .addEventListener("click", submitBikeRecord);
-      });
+    if (sectionId === 'bike-history' && !target.dataset.loaded) {
+      loadBikeHistoryHtml();
+      target.dataset.loaded = "true";
+    }
+
+    // Add more loaders as needed...
   }
 };
+
 async function submitBikeRecord() {
   const user_id = localStorage.getItem("user_id");
   const date_changed = document.getElementById("date_changed").value;
@@ -709,3 +720,16 @@ async function submitBikeRecord() {
     document.getElementById("at_distance").value = "";
   }
 }
+document.addEventListener("click", function (event) {
+  const sidebar = document.getElementById("sidebar");
+  const hamburger = document.getElementById("hamburger"); // the toggle button
+
+  // If sidebar is open AND click is outside both sidebar & hamburger
+  if (
+    sidebar.classList.contains("open") &&
+    !sidebar.contains(event.target) &&
+    !hamburger.contains(event.target)
+  ) {
+    sidebar.classList.remove("open"); // hide sidebar
+  }
+});
