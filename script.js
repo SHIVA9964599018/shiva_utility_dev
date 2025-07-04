@@ -658,30 +658,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("click", function (event) {
   const sidebar = document.getElementById("sidebar");
-  const hamburger = document.getElementById("hamburger");
 
-  // Log element presence
-  if (!sidebar) console.log("🔍 Sidebar not found in DOM.");
-  if (!hamburger) console.log("🔍 Hamburger not found in DOM.");
-
-  // Exit safely if either element is missing
-  if (!sidebar || !hamburger) return;
+  if (!sidebar) {
+    console.log("🔍 Sidebar not found in DOM.");
+    return;
+  }
 
   const isClickInsideSidebar = sidebar.contains(event.target);
-  const isClickOnHamburger = hamburger.contains(event.target);
+  const isSidebarOpen = sidebar.classList.contains("open");
 
-  // Log what was clicked and where
   console.log("🖱️ Clicked element:", event.target);
   console.log("📍 Inside sidebar:", isClickInsideSidebar);
-  console.log("📍 On hamburger:", isClickOnHamburger);
-  console.log("📂 Sidebar open state:", sidebar.classList.contains("open"));
+  console.log("📂 Sidebar open state:", isSidebarOpen);
 
-  if (
-    sidebar.classList.contains("open") &&
-    !isClickInsideSidebar &&
-    !isClickOnHamburger
-  ) {
+  if (isSidebarOpen && !isClickInsideSidebar) {
     sidebar.classList.remove("open");
     console.log("✅ Sidebar closed.");
   }
 });
+
