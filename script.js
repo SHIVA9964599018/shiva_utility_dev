@@ -745,4 +745,133 @@ window.initAddBikeRecordSection = function () {
 };
 
 
+window.loadBikeHistory = async function () {
+  console.log("📥 Fetching Bike History");
+
+  const container = document.getElementById("bike-section-container");
+  if (!container) {
+    console.error("❌ Container not found");
+    return;
+  }
+
+  const user_id = localStorage.getItem("user_id");
+  if (!user_id) {
+    container.innerHTML = "<p>Please log in to view your bike history.</p>";
+    return;
+  }
+
+  try {
+    const { data, error } = await supabaseClient
+      .from("bike_history")
+      .select("*")
+      .eq("user_id", user_id)
+      .order("date_changed", { ascending: false });
+
+    if (error) throw error;
+
+    if (data.length === 0) {
+      container.innerHTML = "<p>No records found.</p>";
+      return;
+    }
+
+    let html = `
+      <table border="1" style="border-collapse: collapse; width: 100%; margin-top: 10px;">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Odometer (km)</th>
+            <th>Amount (₹)</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+
+    for (const row of data) {
+      html += `
+        <tr>
+          <td>${new Date(row.date_changed).toLocaleDateString()}</td>
+          <td>${row.at_distance}</td>
+          <td>${row.amount}</td>
+        </tr>
+      `;
+    }
+
+    html += "</tbody></table>";
+    container.innerHTML = html;
+  } catch (err) {
+    console.error("❌ Failed to fetch bike history", err);
+    container.innerHTML = "<p>Error loading records.</p>";
+  }
+};
+
+window.loadBikeHistorySection = async function () {
+  const container = document.getElementById("bike-history-container");
+
+  // Hide other containers if needed
+  const addForm = document.getElementById("bike-section-container");
+  if (addForm) addForm.style.display = "none";
+
+  if (!container) {
+    console.error("❌ #bike-history-container not found");
+    return;
+  }
+
+  container.style.display = "block";
+
+  try {
+    const response = await fetch("bike-history-view.html");
+    const html = await response.text();
+    container.innerHTML = html;
+
+    // Now fetch and load the user's history
+    const user_id = localStorage.getItem("user_id");
+    if (!user_id) {
+      document.getElementById("bikeHistoryTable").innerHTML = "<p>⚠️ Not logged in.</p>";
+      return;
+    }
+
+    const { data, error } = await supabaseClient
+      .from("bike_history")
+      .select("*")
+      .eq("user_id", user_id)
+      .order("date_changed", { ascending: false });
+
+    if (error) throw error;
+
+    if (!data || data.length === 0) {
+      document.getElementById("bikeHistoryTable").innerHTML = "<p>No records found.</p>";
+      return;
+    }
+
+    // Build and show the table
+    let htmlTable = `
+      <table style="width: 100%; border-collapse: collapse;" border="1">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Odometer (km)</th>
+            <th>Amount (₹)</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+
+    for (const row of data) {
+      htmlTable += `
+        <tr>
+          <td>${new Date(row.date_changed).toLocaleDateString()}</td>
+          <td>${row.at_distance}</td>
+          <td>${row.amount}</td>
+        </tr>
+      `;
+    }
+
+    htmlTable += "</tbody></table>";
+    document.getElementById("bikeHistoryTable").innerHTML = htmlTable;
+
+  } catch (err) {
+    console.error("❌ Failed to load bike history:", err);
+    container.innerHTML = "<p>❌ Error loading history.</p>";
+  }
+};
 
