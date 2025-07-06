@@ -788,7 +788,7 @@ window.loadBikeHistorySection = async function () {
 
     // Build and show the table
     let htmlTable = `
-      <table style="margin-left: 20px; padding:220px; width: 95%; border-collapse: collapse; font-size: 14px;">
+      <table style="margin-left: 50px; width: 50%; border-collapse: collapse; font-size: 14px;">
         <thead>
           <tr style="background-color: #f0f0f0;">
             <th style="padding: 8px; border: 1px solid #ccc;">Date</th>
