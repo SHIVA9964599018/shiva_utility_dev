@@ -731,7 +731,7 @@ window.initAddBikeRecordSection = function () {
     }
 
     try {
-      const { data, error } = await supabase.from("bike_history").insert([
+      const { data, error } = await supabaseClient.from("bike_history").insert([
         { user_id, date_changed: date, amount, at_distance: distance }
       ]);
       if (error) throw error;
