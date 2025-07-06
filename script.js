@@ -745,85 +745,28 @@ window.initAddBikeRecordSection = function () {
 };
 
 
-window.loadBikeHistory = async function () {
-  console.log("📥 Fetching Bike History");
-
-  const container = document.getElementById("bike-section-container");
-  if (!container) {
-    console.error("❌ Container not found");
-    return;
-  }
-
-  const user_id = localStorage.getItem("user_id");
-  if (!user_id) {
-    container.innerHTML = "<p>Please log in to view your bike history.</p>";
-    return;
-  }
-
-  try {
-    const { data, error } = await supabaseClient
-      .from("bike_history")
-      .select("*")
-      .eq("user_id", user_id)
-      .order("date_changed", { ascending: false });
-
-    if (error) throw error;
-
-    if (data.length === 0) {
-      container.innerHTML = "<p>No records found.</p>";
-      return;
-    }
-
-    let html = `
-      <table border="1" style="border-collapse: collapse; width: 100%; margin-top: 10px;">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Odometer (km)</th>
-            <th>Amount (₹)</th>
-          </tr>
-        </thead>
-        <tbody>
-    `;
-
-    for (const row of data) {
-      html += `
-        <tr>
-          <td>${new Date(row.date_changed).toLocaleDateString()}</td>
-          <td>${row.at_distance}</td>
-          <td>${row.amount}</td>
-        </tr>
-      `;
-    }
-
-    html += "</tbody></table>";
-    container.innerHTML = html;
-  } catch (err) {
-    console.error("❌ Failed to fetch bike history", err);
-    container.innerHTML = "<p>Error loading records.</p>";
-  }
-};
-
 window.loadBikeHistorySection = async function () {
-  const container = document.getElementById("bike-history-container");
+  const historyContainer = document.getElementById("bike-history-container");
+  const formContainer = document.getElementById("bike-section-container");
+  const homeSection = document.getElementById("utility-daily-calorie");
 
-  // Hide other containers if needed
-  const addForm = document.getElementById("bike-section-container");
-  if (addForm) addForm.style.display = "none";
+  // Hide all other sections
+  if (formContainer) formContainer.style.display = "none";
+  if (homeSection) homeSection.style.display = "none";
 
-  if (!container) {
+  if (!historyContainer) {
     console.error("❌ #bike-history-container not found");
     return;
   }
 
-  container.style.display = "block";
+  historyContainer.style.display = "block";
 
   try {
     const response = await fetch("bike-history-view.html");
     const html = await response.text();
-    container.innerHTML = html;
+    historyContainer.innerHTML = html;
 
-    // Now fetch and load the user's history
+    // After loading HTML, fetch data
     const user_id = localStorage.getItem("user_id");
     if (!user_id) {
       document.getElementById("bikeHistoryTable").innerHTML = "<p>⚠️ Not logged in.</p>";
@@ -845,33 +788,44 @@ window.loadBikeHistorySection = async function () {
 
     // Build and show the table
     let htmlTable = `
-      <table style="width: 100%; border-collapse: collapse;" border="1">
+      <table style="margin-left: 20px; width: 95%; border-collapse: collapse; font-size: 14px;">
         <thead>
-          <tr>
-            <th>Date</th>
-            <th>Odometer (km)</th>
-            <th>Amount (₹)</th>
+          <tr style="background-color: #f0f0f0;">
+            <th style="padding: 8px; border: 1px solid #ccc;">Date</th>
+            <th style="padding: 8px; border: 1px solid #ccc;">Odometer (km)</th>
+            <th style="padding: 8px; border: 1px solid #ccc;">Amount (₹)</th>
           </tr>
         </thead>
         <tbody>
     `;
 
     for (const row of data) {
+      const date = new Date(row.date_changed);
+      const formattedDate = date
+        ? `${String(date.getDate()).padStart(2, '0')}-${date.toLocaleString('en-US', {
+            month: 'short',
+          }).toUpperCase()}-${date.getFullYear()}`
+        : "—";
+
       htmlTable += `
         <tr>
-          <td>${new Date(row.date_changed).toLocaleDateString()}</td>
-          <td>${row.at_distance}</td>
-          <td>${row.amount}</td>
+          <td style="padding: 6px 8px; border: 1px solid #ccc;">${formattedDate}</td>
+          <td style="padding: 6px 8px; border: 1px solid #ccc;">${row.at_distance}</td>
+          <td style="padding: 6px 8px; border: 1px solid #ccc;">${row.amount}</td>
         </tr>
       `;
     }
 
-    htmlTable += "</tbody></table>";
+    htmlTable += `
+        </tbody>
+      </table>
+    `;
+
     document.getElementById("bikeHistoryTable").innerHTML = htmlTable;
 
   } catch (err) {
     console.error("❌ Failed to load bike history:", err);
-    container.innerHTML = "<p>❌ Error loading history.</p>";
+    historyContainer.innerHTML = "<p>❌ Error loading history.</p>";
   }
 };
 
