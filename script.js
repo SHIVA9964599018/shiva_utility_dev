@@ -807,27 +807,24 @@ window.loadBikeHistorySection = async function () {
 `;
 
 
-    for (const row of data) {
-      const date = new Date(row.date_changed);
-      const formattedDate = date
-        ? `${String(date.getDate()).padStart(2, '0')}-${date.toLocaleString('en-US', {
-            month: 'short',
-          }).toUpperCase()}-${date.getFullYear()}`
-        : "—";
+		data.forEach((row, rowIndex) => {
+	  const formattedDate = new Date(row.date_changed).toLocaleDateString("en-GB", {
+		day: "2-digit", month: "short", year: "numeric"
+	  }).toUpperCase().replace(/ /g, "-"); // e.g., 06-JUL-2025
+
+	  htmlTable += `
+		<tr style="background-color: ${rowIndex % 2 === 0 ? '#f9f9f9' : '#ffffff'};">
+		  <td style="padding: 5px 10px; border: 1px solid #ccc;">${formattedDate}</td>
+		  <td style="padding: 5px 10px; border: 1px solid #ccc;">${row.at_distance}</td>
+		  <td style="padding: 5px 10px; border: 1px solid #ccc;">${row.amount}</td>
+		</tr>
+	  `;
+	});
 
 		htmlTable += `
-		  <tr style="background-color: ${rowIndex % 2 === 0 ? '#f9f9f9' : '#ffffff'};">
-			<td style="padding: 5px 10px; border: 1px solid #ccc;">${formattedDate}</td>
-			<td style="padding: 5px 10px; border: 1px solid #ccc;">${row.at_distance}</td>
-			<td style="padding: 5px 10px; border: 1px solid #ccc;">${row.amount}</td>
-		  </tr>
+			</tbody>
+		  </table>
 		`;
-    }
-
-    htmlTable += `
-        </tbody>
-      </table>
-    `;
 
     document.getElementById("bikeHistoryTable").innerHTML = htmlTable;
 
