@@ -788,16 +788,24 @@ window.loadBikeHistorySection = async function () {
 
     // Build and show the table
     let htmlTable = `
-      <table style="margin-left: 50px; width: 50%; border-collapse: collapse; font-size: 14px;">
-        <thead>
-          <tr style="background-color: #f0f0f0;">
-            <th style="padding: 8px; border: 1px solid #ccc;">Date</th>
-            <th style="padding: 8px; border: 1px solid #ccc;">Odometer (km)</th>
-            <th style="padding: 8px; border: 1px solid #ccc;">Amount (₹)</th>
-          </tr>
-        </thead>
-        <tbody>
-    `;
+  <table style="
+    margin-left: 20px;
+    width: 95%;
+    border-collapse: collapse;
+    font-size: 12px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.05);
+    border: 1px solid #ddd;
+  ">
+    <thead>
+      <tr style="background-color: #004085; color: white;">
+        <th style="padding: 6px 10px; border: 1px solid #ccc;">📅 Date</th>
+        <th style="padding: 6px 10px; border: 1px solid #ccc;">📍 Odometer (km)</th>
+        <th style="padding: 6px 10px; border: 1px solid #ccc;">💰 Amount (₹)</th>
+      </tr>
+    </thead>
+    <tbody>
+`;
+
 
     for (const row of data) {
       const date = new Date(row.date_changed);
@@ -807,13 +815,13 @@ window.loadBikeHistorySection = async function () {
           }).toUpperCase()}-${date.getFullYear()}`
         : "—";
 
-      htmlTable += `
-        <tr>
-          <td style="padding: 6px 8px; border: 1px solid #ccc;">${formattedDate}</td>
-          <td style="padding: 6px 8px; border: 1px solid #ccc;">${row.at_distance}</td>
-          <td style="padding: 6px 8px; border: 1px solid #ccc;">${row.amount}</td>
-        </tr>
-      `;
+		htmlTable += `
+		  <tr style="background-color: ${rowIndex % 2 === 0 ? '#f9f9f9' : '#ffffff'};">
+			<td style="padding: 5px 10px; border: 1px solid #ccc;">${formattedDate}</td>
+			<td style="padding: 5px 10px; border: 1px solid #ccc;">${row.at_distance}</td>
+			<td style="padding: 5px 10px; border: 1px solid #ccc;">${row.amount}</td>
+		  </tr>
+		`;
     }
 
     htmlTable += `
