@@ -789,10 +789,10 @@ window.loadBikeHistorySection = async function () {
     // Build and show the table
     let htmlTable = `
   <table style="
-    margin-left: 20px;
-    width: 95%;
+    margin-left: 100px;
+    width: 50%;
     border-collapse: collapse;
-    font-size: 12px;
+    font-size: 20px;
     box-shadow: 0 0 8px rgba(0,0,0,0.05);
     border: 1px solid #ddd;
   ">
