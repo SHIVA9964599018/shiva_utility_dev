@@ -786,6 +786,7 @@ window.loadBikeHistorySection = async function () {
       <div style="color: initial;">
         <table style="
           margin-left: 100px;
+		  margin-top: 100px;
           width: 50%;
           border-collapse: collapse;
           font-size: 20px;
