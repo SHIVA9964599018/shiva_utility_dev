@@ -793,7 +793,7 @@ window.loadBikeHistorySection = async function () {
 			">
 
 			<thead>
-			  <tr style="background-color: #004085; color: white; font-weight: bold; font-size: 14px;">
+			  <tr style="background-color: #004085; color: black; font-weight: bold; font-size: 14px;">
 				<th style="border: 1px solid #ccc; padding: 4px 10px; min-width: 12ch; white-space: nowrap; text-align: center;">
 				  Date
 				</th>
