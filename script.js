@@ -812,9 +812,9 @@ window.loadBikeHistorySection = async function () {
 
       htmlTable += `
         <tr style="background-color: ${rowIndex % 2 === 0 ? '#f9f9f9' : '#ffffff'};">
-          <td style="padding: 5px 10px; border: 1px solid #ccc;">${formattedDate}</td>
-          <td style="padding: 5px 10px; border: 1px solid #ccc;">${row.at_distance}</td>
-          <td style="padding: 5px 10px; border: 1px solid #ccc;">${row.amount}</td>
+          <td style="padding: 1px 1px; border: 1px solid #ccc;">${formattedDate}</td>
+          <td style="padding: 1px 1px; border: 1px solid #ccc;">${row.at_distance}</td>
+          <td style="padding: 1px 1px; border: 1px solid #ccc;">${row.amount}</td>
         </tr>
       `;
     });
