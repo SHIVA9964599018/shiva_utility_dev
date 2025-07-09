@@ -787,47 +787,50 @@ window.loadBikeHistorySection = async function () {
     }
 
     // Build and show the table
-    let htmlTable = `
-  <table style="
-    margin-left: 100px;
-    width: 50%;
-    border-collapse: collapse;
-    font-size: 20px;
-    box-shadow: 0 0 8px rgba(0,0,0,0.05);
-    border: 1px solid #ddd;
-  ">
-	<thead>
-	<tr style="background-color: #004085; color: white; font-size: 16px; font-weight: bold;">
-	<th style="border: 1px solid #ccc;">📅 Date</th>
-	<th style="border: 1px solid #ccc;">📍 Odometer (km)</th>
-	<th style="border: 1px solid #ccc;">💰 Amount (₹)</th>
-	</tr>
-	</thead>
-
-    <tbody>
+let htmlTable = `
+  <div style="color: initial;">
+    <table style="
+      margin-left: 100px;
+      width: 50%;
+      border-collapse: collapse;
+      font-size: 20px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.05);
+      border: 1px solid #ddd;
+    ">
+      <thead>
+        <tr style="background-color: #004085; color: white; font-size: 16px; font-weight: bold;">
+          <th style="border: 1px solid #ccc;">📅 Date</th>
+          <th style="border: 1px solid #ccc;">📍 Odometer (km)</th>
+          <th style="border: 1px solid #ccc;">💰 Amount (₹)</th>
+        </tr>
+      </thead>
+      <tbody>
 `;
 
+// Replace `data` with your actual data array
+data.forEach((row, rowIndex) => {
+  const formattedDate = new Date(row.date_changed).toLocaleDateString("en-GB", {
+    day: "2-digit", month: "short", year: "numeric"
+  }).toUpperCase().replace(/ /g, "-");
 
-		data.forEach((row, rowIndex) => {
-	  const formattedDate = new Date(row.date_changed).toLocaleDateString("en-GB", {
-		day: "2-digit", month: "short", year: "numeric"
-	  }).toUpperCase().replace(/ /g, "-"); // e.g., 06-JUL-2025
+  htmlTable += `
+    <tr style="background-color: ${rowIndex % 2 === 0 ? '#f9f9f9' : '#ffffff'};">
+      <td style="padding: 5px 10px; border: 1px solid #ccc;">${formattedDate}</td>
+      <td style="padding: 5px 10px; border: 1px solid #ccc;">${row.at_distance}</td>
+      <td style="padding: 5px 10px; border: 1px solid #ccc;">${row.amount}</td>
+    </tr>
+  `;
+});
 
-	  htmlTable += `
-		<tr style="background-color: ${rowIndex % 2 === 0 ? '#f9f9f9' : '#ffffff'};">
-		  <td style="padding: 5px 10px; border: 1px solid #ccc;">${formattedDate}</td>
-		  <td style="padding: 5px 10px; border: 1px solid #ccc;">${row.at_distance}</td>
-		  <td style="padding: 5px 10px; border: 1px solid #ccc;">${row.amount}</td>
-		</tr>
-	  `;
-	});
+htmlTable += `
+      </tbody>
+    </table>
+  </div>
+`;
 
-		htmlTable += `
-			</tbody>
-		  </table>
-		`;
+// Inject it into the page (change `bikeHistorySection` to your actual target ID)
+document.getElementById("bikeHistorySection").innerHTML = htmlTable;
 
-    document.getElementById("bikeHistoryTable").innerHTML = htmlTable;
 
   } catch (err) {
     console.error("❌ Failed to load bike history:", err);
