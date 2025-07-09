@@ -750,7 +750,6 @@ window.loadBikeHistorySection = async function () {
   const formContainer = document.getElementById("bike-section-container");
   const homeSection = document.getElementById("utility-daily-calorie");
 
-  // Hide other sections
   if (formContainer) formContainer.style.display = "none";
   if (homeSection) homeSection.style.display = "none";
 
@@ -781,23 +780,21 @@ window.loadBikeHistorySection = async function () {
       return;
     }
 
-    // Build the table
     let htmlTable = `
       <div style="color: initial;">
         <table style="
-          margin-left: 100px;
-          width: 50%;
-          border-collapse: collapse;
-          font-size: 14px;
+          margin: 20px auto;
+          width: auto;
           table-layout: fixed;
-          box-shadow: 0 0 8px rgba(0,0,0,0.05);
+          border-collapse: collapse;
+          font-size: 13px;
           border: 1px solid #ddd;
         ">
           <thead>
-            <tr style="background-color: #004085 !important; color: white !important; font-weight: bold;">
-              <th style="border: 1px solid #ccc; padding: 2px 4px; width: 100px;">📅</th>
-              <th style="border: 1px solid #ccc; padding: 2px 4px; width: 60px;">📍</th>
-              <th style="border: 1px solid #ccc; padding: 2px 4px; width: 60px;">💰</th>
+            <tr style="background-color: #004085; color: white; font-weight: bold;">
+              <th style="border: 1px solid #ccc; padding: 2px 6px; width: 10ch;">📅</th>
+              <th style="border: 1px solid #ccc; padding: 2px 6px; width: 10ch;">📍</th>
+              <th style="border: 1px solid #ccc; padding: 2px 6px; width: 10ch;">💰</th>
             </tr>
           </thead>
           <tbody>
@@ -812,9 +809,9 @@ window.loadBikeHistorySection = async function () {
 
       htmlTable += `
         <tr style="background-color: ${rowIndex % 2 === 0 ? '#f9f9f9' : '#ffffff'};">
-          <td style="padding: 2px 4px; border: 1px solid #ccc; width: 100px;">${formattedDate}</td>
-          <td style="padding: 2px 4px; border: 1px solid #ccc; width: 60px; text-align: center;">${row.at_distance}</td>
-          <td style="padding: 2px 4px; border: 1px solid #ccc; width: 60px; text-align: center;">${row.amount}</td>
+          <td style="padding: 2px 6px; border: 1px solid #ccc; text-align: center; width: 10ch;">${formattedDate}</td>
+          <td style="padding: 2px 6px; border: 1px solid #ccc; text-align: center; width: 10ch;">${row.at_distance}</td>
+          <td style="padding: 2px 6px; border: 1px solid #ccc; text-align: center; width: 10ch;">${row.amount}</td>
         </tr>
       `;
     });
