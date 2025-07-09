@@ -780,56 +780,76 @@ window.loadBikeHistorySection = async function () {
       return;
     }
 
-    let htmlTable = `
-      <div style="color: initial; margin-top: 40px;">
-			<table style="
-			margin-left: 40px;
-			margin-top: 40px;
-			table-layout: fixed;
-			border-collapse: collapse;
-			font-size: 13px;
-			border: 1px solid #ddd;
-			width: auto;
-			">
+		let htmlTable = `
+	  <style>
+		.bike-table-container {
+		  margin-top: 40px;
+		  margin-left: 40px;
+		}
+		.bike-table {
+		  border-collapse: collapse;
+		  font-size: 13px;
+		  table-layout: fixed;
+		  border: 1px solid #ccc;
+		  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+		  width: auto;
+		  font-family: "Segoe UI", sans-serif;
+		}
+		.bike-table th {
+		  background-color: #003366;
+		  color: white;
+		  padding: 6px 10px;
+		  border: 1px solid #ccc;
+		  text-align: center;
+		  font-weight: bold;
+		}
+		.bike-table td {
+		  border: 1px solid #ccc;
+		  padding: 6px 10px;
+		  text-align: center;
+		}
+		.bike-table tr:nth-child(even) {
+		  background-color: #f9f9f9;
+		}
+		.bike-table tr:hover {
+		  background-color: #e6f2ff;
+		}
+	  </style>
 
-			<thead>
-			  <tr style="background-color: #004085; color: black; font-weight: bold; font-size: 14px;">
-				<th style="border: 1px solid #ccc; padding: 4px 10px; min-width: 12ch; white-space: nowrap; text-align: center;">
-				  Date
-				</th>
-				<th style="border: 1px solid #ccc; padding: 4px 6px; width: 10ch; text-align: center;">
-				  Odometer
-				</th>
-				<th style="border: 1px solid #ccc; padding: 4px 6px; width: 10ch; text-align: center;">
-				  Amount
-				</th>
-			  </tr>
-			</thead>
+	  <div class="bike-table-container">
+		<table class="bike-table">
+		  <thead>
+			<tr>
+			  <th>Date</th>
+			  <th>Odometer</th>
+			  <th>Amount</th>
+			</tr>
+		  </thead>
+		  <tbody>
+	`;
 
-          <tbody>
-    `;
+	data.forEach((row, rowIndex) => {
+	  const formattedDate = new Date(row.date_changed).toLocaleDateString("en-GB", {
+		day: "2-digit",
+		month: "short",
+		year: "numeric"
+	  }).toUpperCase().replace(/ /g, "-");
 
-    data.forEach((row, rowIndex) => {
-      const formattedDate = new Date(row.date_changed).toLocaleDateString("en-GB", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric"
-      }).toUpperCase().replace(/ /g, "-");
+	  htmlTable += `
+		<tr>
+		  <td>${formattedDate}</td>
+		  <td>${row.at_distance}</td>
+		  <td>${row.amount}</td>
+		</tr>
+	  `;
+	});
 
-      htmlTable += `
-        <tr style="background-color: ${rowIndex % 2 === 0 ? '#f9f9f9' : '#ffffff'};">
-          <td style="padding: 4px 10px; border: 1px solid #ccc; white-space: nowrap; min-width: 12ch;">${formattedDate}</td>
-          <td style="padding: 4px 6px; border: 1px solid #ccc; text-align: center; width: 10ch;">${row.at_distance}</td>
-          <td style="padding: 4px 6px; border: 1px solid #ccc; text-align: center; width: 10ch;">${row.amount}</td>
-        </tr>
-      `;
-    });
+	htmlTable += `
+		  </tbody>
+		</table>
+	  </div>
+	`;
 
-    htmlTable += `
-          </tbody>
-        </table>
-      </div>
-    `;
 
     historyContainer.innerHTML = htmlTable;
 
