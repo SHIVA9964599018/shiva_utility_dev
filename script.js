@@ -782,26 +782,27 @@ window.loadBikeHistorySection = async function () {
 
     let htmlTable = `
       <div style="color: initial; margin-top: 40px;">
-        <table style="
-          margin-left: 40px;
-          table-layout: fixed;
-          border-collapse: collapse;
-          font-size: 13px;
-          border: 1px solid #ddd;
-          width: auto;
-        ">
+			<table style="
+			margin-left: 40px;
+			margin-top: 40px;
+			table-layout: fixed;
+			border-collapse: collapse;
+			font-size: 13px;
+			border: 1px solid #ddd;
+			width: auto;
+			">
+
 			<thead>
-			  <tr style="
-				all: unset;
-				display: table-header-group;
-				background-color: #004085 !important;
-				color: white !important;
-				font-weight: bold;
-				font-size: 14px;
-			  ">
-				<th style="border: 1px solid #ccc; padding: 4px 10px; min-width: 12ch; text-align: center;">Date</th>
-				<th style="border: 1px solid #ccc; padding: 4px 6px; width: 10ch; text-align: center;">Odometer</th>
-				<th style="border: 1px solid #ccc; padding: 4px 6px; width: 10ch; text-align: center;">Amount</th>
+			  <tr style="background-color: #004085; color: white; font-weight: bold; font-size: 14px;">
+				<th style="border: 1px solid #ccc; padding: 4px 10px; min-width: 12ch; white-space: nowrap; text-align: center;">
+				  Date
+				</th>
+				<th style="border: 1px solid #ccc; padding: 4px 6px; width: 10ch; text-align: center;">
+				  Odometer
+				</th>
+				<th style="border: 1px solid #ccc; padding: 4px 6px; width: 10ch; text-align: center;">
+				  Amount
+				</th>
 			  </tr>
 			</thead>
 
