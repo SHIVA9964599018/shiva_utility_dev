@@ -839,9 +839,9 @@ data.forEach((row) => {
 
   htmlTable += `
     <tr>
-      <td>${formattedDate}</td>
-      <td>${row.at_distance}</td>
-      <td>${row.amount}</td>
+    <td>${formattedDate}</td>
+    <td>${row.at_distance} km</td>
+    <td>₹${row.amount}</td>
     </tr>
   `;
 });
