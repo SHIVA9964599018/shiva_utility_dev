@@ -791,11 +791,11 @@ window.loadBikeHistorySection = async function () {
           width: auto;
         ">
           <thead>
-            <tr style="background-color: #004085; color: yellow; font-weight: bold;">
-              <th style="border: 1px solid #ccc; padding: 4px 10px; min-width: 12ch; white-space: nowrap;">Date</th>
-              <th style="border: 1px solid #ccc; padding: 4px 6px; width: 10ch; text-align: center;">Odometer</th>
-              <th style="border: 1px solid #ccc; padding: 4px 6px; width: 10ch; text-align: center;">Amount</th>
-            </tr>
+			<tr style="background-color: #004085 !important; color: white !important; font-weight: bold;">
+			  <th style="border: 1px solid #ccc; padding: 4px 10px; min-width: 12ch;">Date</th>
+			  <th style="border: 1px solid #ccc; padding: 4px 6px; width: 10ch;">Odometer</th>
+			  <th style="border: 1px solid #ccc; padding: 4px 6px; width: 10ch;">Amount</th>
+			</tr>
           </thead>
           <tbody>
     `;
