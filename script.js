@@ -781,19 +781,20 @@ window.loadBikeHistorySection = async function () {
     }
 
     let htmlTable = `
-      <div style="color: initial;">
+      <div style="color: initial; margin-top: 40px;">
         <table style="
-          margin-left: 100px;
+          margin-left: 40px;
           table-layout: fixed;
           border-collapse: collapse;
           font-size: 13px;
           border: 1px solid #ddd;
+          width: auto;
         ">
           <thead>
             <tr style="background-color: #004085; color: white; font-weight: bold;">
-              <th style="border: 1px solid #ccc; padding: 4px 15px; width: 15ch;">📅</th>
-              <th style="border: 1px solid #ccc; padding: 2px 6px; width: 10ch;">📍</th>
-              <th style="border: 1px solid #ccc; padding: 2px 6px; width: 10ch;">💰</th>
+              <th style="border: 1px solid #ccc; padding: 4px 10px; min-width: 12ch; white-space: nowrap;">📅</th>
+              <th style="border: 1px solid #ccc; padding: 4px 6px; width: 10ch; text-align: center;">📍</th>
+              <th style="border: 1px solid #ccc; padding: 4px 6px; width: 10ch; text-align: center;">💰</th>
             </tr>
           </thead>
           <tbody>
@@ -808,9 +809,9 @@ window.loadBikeHistorySection = async function () {
 
       htmlTable += `
         <tr style="background-color: ${rowIndex % 2 === 0 ? '#f9f9f9' : '#ffffff'};">
-          <td style="padding: 4px 15px; border: 1px solid #ccc; text-align: center; width: 15ch;">${formattedDate}</td>
-          <td style="padding: 2px 6px; border: 1px solid #ccc; text-align: center; width: 10ch;">${row.at_distance}</td>
-          <td style="padding: 2px 6px; border: 1px solid #ccc; text-align: center; width: 10ch;">${row.amount}</td>
+          <td style="padding: 4px 10px; border: 1px solid #ccc; white-space: nowrap; min-width: 12ch;">${formattedDate}</td>
+          <td style="padding: 4px 6px; border: 1px solid #ccc; text-align: center; width: 10ch;">${row.at_distance}</td>
+          <td style="padding: 4px 6px; border: 1px solid #ccc; text-align: center; width: 10ch;">${row.amount}</td>
         </tr>
       `;
     });
