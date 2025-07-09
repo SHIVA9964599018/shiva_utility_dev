@@ -780,7 +780,7 @@ window.loadBikeHistorySection = async function () {
       return;
     }
 
-		let htmlTable = `
+	let htmlTable = `
   <style>
     .bike-table-container {
       margin-top: 40px;
@@ -788,31 +788,33 @@ window.loadBikeHistorySection = async function () {
     }
     .bike-table {
       border-collapse: collapse;
-      font-size: 13px;
+      font-size: 14px;
       table-layout: fixed;
       border: 1px solid #ccc;
       box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
-      width: auto;
       font-family: "Segoe UI", sans-serif;
     }
     .bike-table th {
       background-color: #003366;
       color: white;
-      padding: 6px 10px;
+      padding: 8px 12px;
       border: 1px solid #ccc;
       text-align: center;
       font-weight: bold;
     }
     .bike-table td {
       border: 1px solid #ccc;
-      padding: 6px 10px;
+      padding: 8px 12px;
       text-align: center;
     }
-    .bike-table tr:nth-child(even) {
-      background-color: #f9f9f9;
+    .bike-table tr:nth-child(even) td {
+      background-color: #f2f8fc;
     }
-    .bike-table tr:hover {
-      background-color: #e6f2ff;
+    .bike-table tr:nth-child(odd) td {
+      background-color: #ffffff;
+    }
+    .bike-table tr:hover td {
+      background-color: #d6ebff;
     }
   </style>
 
@@ -849,6 +851,7 @@ htmlTable += `
     </table>
   </div>
 `;
+
 
 
     historyContainer.innerHTML = htmlTable;
