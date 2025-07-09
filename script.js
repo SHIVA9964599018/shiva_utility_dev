@@ -804,7 +804,7 @@ window.loadBikeHistorySection = async function () {
     }
     .bike-table td {
       border: 1px solid #ccc;
-      padding: 8px 12px;
+      padding: 4px 6px;
       text-align: center;
     }
     .bike-table tr:nth-child(even) td {
