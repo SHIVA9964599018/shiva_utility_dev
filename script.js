@@ -783,8 +783,7 @@ window.loadBikeHistorySection = async function () {
     let htmlTable = `
       <div style="color: initial;">
         <table style="
-          margin: 20px auto;
-          width: auto;
+          margin-left: 100px;
           table-layout: fixed;
           border-collapse: collapse;
           font-size: 13px;
@@ -792,7 +791,7 @@ window.loadBikeHistorySection = async function () {
         ">
           <thead>
             <tr style="background-color: #004085; color: white; font-weight: bold;">
-              <th style="border: 1px solid #ccc; padding: 2px 6px; width: 10ch;">📅</th>
+              <th style="border: 1px solid #ccc; padding: 4px 15px; width: 15ch;">📅</th>
               <th style="border: 1px solid #ccc; padding: 2px 6px; width: 10ch;">📍</th>
               <th style="border: 1px solid #ccc; padding: 2px 6px; width: 10ch;">💰</th>
             </tr>
@@ -809,7 +808,7 @@ window.loadBikeHistorySection = async function () {
 
       htmlTable += `
         <tr style="background-color: ${rowIndex % 2 === 0 ? '#f9f9f9' : '#ffffff'};">
-          <td style="padding: 2px 6px; border: 1px solid #ccc; text-align: center; width: 10ch;">${formattedDate}</td>
+          <td style="padding: 4px 15px; border: 1px solid #ccc; text-align: center; width: 15ch;">${formattedDate}</td>
           <td style="padding: 2px 6px; border: 1px solid #ccc; text-align: center; width: 10ch;">${row.at_distance}</td>
           <td style="padding: 2px 6px; border: 1px solid #ccc; text-align: center; width: 10ch;">${row.amount}</td>
         </tr>
@@ -829,4 +828,5 @@ window.loadBikeHistorySection = async function () {
     historyContainer.innerHTML = "<p>❌ Error loading history.</p>";
   }
 };
+
 
