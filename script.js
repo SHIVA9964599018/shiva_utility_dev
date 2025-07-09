@@ -750,7 +750,7 @@ window.loadBikeHistorySection = async function () {
   const formContainer = document.getElementById("bike-section-container");
   const homeSection = document.getElementById("utility-daily-calorie");
 
-  // Hide all other sections
+  // Hide other sections
   if (formContainer) formContainer.style.display = "none";
   if (homeSection) homeSection.style.display = "none";
 
@@ -761,18 +761,13 @@ window.loadBikeHistorySection = async function () {
 
   historyContainer.style.display = "block";
 
+  const user_id = localStorage.getItem("user_id");
+  if (!user_id) {
+    historyContainer.innerHTML = "<p>⚠️ Not logged in.</p>";
+    return;
+  }
+
   try {
-    const response = await fetch("bike-history-view.html");
-    const html = await response.text();
-    historyContainer.innerHTML = html;
-
-    // After loading HTML, fetch data
-    const user_id = localStorage.getItem("user_id");
-    if (!user_id) {
-      document.getElementById("bikeHistoryTable").innerHTML = "<p>⚠️ Not logged in.</p>";
-      return;
-    }
-
     const { data, error } = await supabaseClient
       .from("bike_history")
       .select("*")
@@ -782,57 +777,55 @@ window.loadBikeHistorySection = async function () {
     if (error) throw error;
 
     if (!data || data.length === 0) {
-      document.getElementById("bikeHistoryTable").innerHTML = "<p>No records found.</p>";
+      historyContainer.innerHTML = "<p>No records found.</p>";
       return;
     }
 
-    // Build and show the table
- let htmlTable = `
-    <div style="color: initial;">
-      <table style="
-        margin-left: 100px;
-        width: 50%;
-        border-collapse: collapse;
-        font-size: 20px;
-        box-shadow: 0 0 8px rgba(0,0,0,0.05);
-        border: 1px solid #ddd;
-      ">
-        <thead>
-          <tr style="background-color: #004085; color: white; font-size: 16px; font-weight: bold;">
-            <th style="border: 1px solid #ccc;">📅 Date</th>
-            <th style="border: 1px solid #ccc;">📍 Odometer (km)</th>
-            <th style="border: 1px solid #ccc;">💰 Amount (₹)</th>
-          </tr>
-        </thead>
-        <tbody>
-  `;
+    // Build the table
+    let htmlTable = `
+      <div style="color: initial;">
+        <table style="
+          margin-left: 100px;
+          width: 50%;
+          border-collapse: collapse;
+          font-size: 20px;
+          box-shadow: 0 0 8px rgba(0,0,0,0.05);
+          border: 1px solid #ddd;
+        ">
+          <thead>
+            <tr style="background-color: #004085; color: white; font-size: 16px; font-weight: bold;">
+              <th style="border: 1px solid #ccc;">📅 Date</th>
+              <th style="border: 1px solid #ccc;">📍 Odometer (km)</th>
+              <th style="border: 1px solid #ccc;">💰 Amount (₹)</th>
+            </tr>
+          </thead>
+          <tbody>
+    `;
 
-  // Loop through your data array
-  data.forEach((row, rowIndex) => {
-    const formattedDate = new Date(row.date_changed).toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric"
-    }).toUpperCase().replace(/ /g, "-");
+    data.forEach((row, rowIndex) => {
+      const formattedDate = new Date(row.date_changed).toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+      }).toUpperCase().replace(/ /g, "-");
+
+      htmlTable += `
+        <tr style="background-color: ${rowIndex % 2 === 0 ? '#f9f9f9' : '#ffffff'};">
+          <td style="padding: 5px 10px; border: 1px solid #ccc;">${formattedDate}</td>
+          <td style="padding: 5px 10px; border: 1px solid #ccc;">${row.at_distance}</td>
+          <td style="padding: 5px 10px; border: 1px solid #ccc;">${row.amount}</td>
+        </tr>
+      `;
+    });
 
     htmlTable += `
-      <tr style="background-color: ${rowIndex % 2 === 0 ? '#f9f9f9' : '#ffffff'};">
-        <td style="padding: 5px 10px; border: 1px solid #ccc;">${formattedDate}</td>
-        <td style="padding: 5px 10px; border: 1px solid #ccc;">${row.at_distance}</td>
-        <td style="padding: 5px 10px; border: 1px solid #ccc;">${row.amount}</td>
-      </tr>
+          </tbody>
+        </table>
+      </div>
     `;
-  });
 
-  htmlTable += `
-        </tbody>
-      </table>
-    </div>
-  `;
-
-  // Inject into container and show it
-  const container = document.getElementById("bike-history-container");
-
+    // Inject table into container
+    historyContainer.innerHTML = htmlTable;
 
   } catch (err) {
     console.error("❌ Failed to load bike history:", err);
