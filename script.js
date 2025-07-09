@@ -789,18 +789,19 @@ window.loadBikeHistorySection = async function () {
     // Build and show the table
     let htmlTable = `
   <table style="
+    margin-left: 100px;
     width: 50%;
     border-collapse: collapse;
-    font-size: 10px;
+    font-size: 20px;
     box-shadow: 0 0 8px rgba(0,0,0,0.05);
     border: 1px solid #ddd;
   ">
 	<thead>
-	  <tr style="background-color: #004085; color: white; font-size: 16px; font-weight: bold;">
-		<th style="border: 1px solid #ccc;">📅 Date</th>
-		<th style="border: 1px solid #ccc;">📍 Odometer (km)</th>
-		<th style="border: 1px solid #ccc;">💰 Amount (₹)</th>
-	  </tr>
+	<tr style="background-color: #004085; color: white; font-size: 16px; font-weight: bold;">
+	<th style="border: 1px solid #ccc;">📅 Date</th>
+	<th style="border: 1px solid #ccc;">📍 Odometer (km)</th>
+	<th style="border: 1px solid #ccc;">💰 Amount (₹)</th>
+	</tr>
 	</thead>
 
     <tbody>
