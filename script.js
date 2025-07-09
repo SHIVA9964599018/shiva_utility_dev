@@ -794,7 +794,7 @@ window.loadBikeHistorySection = async function () {
           border: 1px solid #ddd;
         ">
           <thead>
-            <tr style="background-color: #004085; color: white; font-size: 16px; font-weight: bold;">
+            <tr style="background-color: yellow; color: white; font-size: 16px; font-weight: bold;">
               <th style="border: 1px solid #ccc;">📅 Date</th>
               <th style="border: 1px solid #ccc;">📍 Odometer (km)</th>
               <th style="border: 1px solid #ccc;">💰 Amount (₹)</th>
