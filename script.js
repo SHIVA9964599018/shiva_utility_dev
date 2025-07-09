@@ -786,18 +786,18 @@ window.loadBikeHistorySection = async function () {
       <div style="color: initial;">
         <table style="
           margin-left: 100px;
-		  margin-top: 100px;
           width: 50%;
           border-collapse: collapse;
-          font-size: 20px;
+          font-size: 14px;
+          table-layout: fixed;
           box-shadow: 0 0 8px rgba(0,0,0,0.05);
           border: 1px solid #ddd;
         ">
           <thead>
-            <tr style="background-color: yellow; color: white; font-size: 16px; font-weight: bold;">
-              <th style="border: 1px solid #ccc;">📅 Date</th>
-              <th style="border: 1px solid #ccc;">📍 Odometer (km)</th>
-              <th style="border: 1px solid #ccc;">💰 Amount (₹)</th>
+            <tr style="background-color: #004085 !important; color: white !important; font-weight: bold;">
+              <th style="border: 1px solid #ccc; padding: 2px 4px; width: 100px;">📅</th>
+              <th style="border: 1px solid #ccc; padding: 2px 4px; width: 60px;">📍</th>
+              <th style="border: 1px solid #ccc; padding: 2px 4px; width: 60px;">💰</th>
             </tr>
           </thead>
           <tbody>
@@ -812,9 +812,9 @@ window.loadBikeHistorySection = async function () {
 
       htmlTable += `
         <tr style="background-color: ${rowIndex % 2 === 0 ? '#f9f9f9' : '#ffffff'};">
-          <td style="padding: 1px 1px; border: 1px solid #ccc;">${formattedDate}</td>
-          <td style="padding: 1px 1px; border: 1px solid #ccc;">${row.at_distance}</td>
-          <td style="padding: 1px 1px; border: 1px solid #ccc;">${row.amount}</td>
+          <td style="padding: 2px 4px; border: 1px solid #ccc; width: 100px;">${formattedDate}</td>
+          <td style="padding: 2px 4px; border: 1px solid #ccc; width: 60px; text-align: center;">${row.at_distance}</td>
+          <td style="padding: 2px 4px; border: 1px solid #ccc; width: 60px; text-align: center;">${row.amount}</td>
         </tr>
       `;
     });
@@ -825,7 +825,6 @@ window.loadBikeHistorySection = async function () {
       </div>
     `;
 
-    // Inject table into container
     historyContainer.innerHTML = htmlTable;
 
   } catch (err) {
