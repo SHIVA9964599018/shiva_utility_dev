@@ -872,6 +872,8 @@ window.loadBikeSummary = async function () {
   document.querySelectorAll(".bike-section").forEach(sec => {
     sec.style.display = "none";
   });
+  document.getElementById("calorie-container").style.display = "none"; // hide calorie explicitly
+document.getElementById("bike-summary-container").style.display = "block"; // show summary
 
   // Load only once
   if (!container.innerHTML.trim()) {
