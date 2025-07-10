@@ -868,29 +868,38 @@ window.loadBikeSummary = async function () {
 
   console.log("📥 Loading bike summary...");
 
-  // Hide other bike sections
+  // ✅ Hide all bike-related sections
   document.querySelectorAll(".bike-section").forEach(sec => {
     sec.style.display = "none";
   });
-  document.getElementById("utility-daily-calorie").style.display = "none"; // hide calorie explicitly
-document.getElementById("bike-summary-container").style.display = "block"; // show summary
 
-  // Load only once
+  // ✅ Only fetch and inject HTML if not already loaded
   if (!container.innerHTML.trim()) {
     try {
       const response = await fetch("bike-summary.html");
       console.log("✅ Fetch response status:", response.status);
 
-      if (!response.ok) throw new Error("Failed to fetch");
+      if (!response.ok) throw new Error("Failed to fetch bike-summary.html");
 
       const html = await response.text();
       container.innerHTML = html;
       console.log("✅ Injected HTML successfully");
+
     } catch (error) {
       console.error("❌ Error loading bike summary:", error);
-      container.innerHTML = `<p style="color:red;">Error loading content</p>`;
+
+      // Optional fallback message
+      container.innerHTML = `
+        <div style="padding: 20px; background: #fee; color: red;">
+          🚫 Failed to load bike summary content.
+        </div>`;
     }
   }
 
+  // ✅ Ensure container is visible and visually styled for debugging
   container.style.display = "block";
+  container.style.border = "2px dashed red";        // Debug border
+  container.style.minHeight = "300px";              // Force height
+  container.style.backgroundColor = "#ffffe0";      // Light yellow
+  container.scrollIntoView({ behavior: "smooth" }); // Optional scroll
 };
