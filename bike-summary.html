@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bike Fuel Summary</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    h2 {
+      color: #333;
+    }
+    details {
+      margin-top: 15px;
+      background: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    summary {
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+    img {
+      margin-top: 10px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Bike Summary Section -->
+  <section id="bike-summary">
+    <div>
+      <h2>Bike Fuel Summary</h2>
+      <img src="All_images/bike.jpg" alt="My bike Photo" width="400" height="300">
+
+      <div id="loading-message" style="display: none;">Loading bike data...</div>
+
+      <!-- Summary -->
+      <details>
+        <summary><strong>Bike Summary</strong></summary>
+        <div id="bike-summary-data">
+          <p><strong>Total Distance:</strong> <span id="total-distance"></span> km</p>
+          <p><strong>Total Fuel:</strong> <span id="total-fuel"></span> liters</p>
+          <p><strong>Mileage:</strong> <span id="mileage"></span> km/l</p>
+          <p><strong>Total Expense:</strong> ₹<span id="total-expense"></span></p>
+        </div>
+      </details>
+
+      <!-- Monthly -->
+      <details>
+        <summary><strong>Monthly Expenses</strong></summary>
+        <div id="monthly-expense-data">
+          <div id="monthly-expenses-container"></div>
+        </div>
+      </details>
+
+      <!-- Weekly -->
+      <details>
+        <summary><strong>Weekly Expenses</strong></summary>
+        <div id="weekly-expense-data">
+          <p><strong>Last 7 Days:</strong> ₹<span id="weekly-expense"></span></p>
+          <div id="weekly-expenses-container"></div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- Optional: Link your JS here -->
+  <script src="js/bike-summary.js"></script>
+</body>
+</html>
