@@ -863,3 +863,23 @@ htmlTable += `
 };
 
 
+window.loadBikeSummary = async function () {
+  const container = document.getElementById("bike-summary-container");
+
+  // Hide all other sections (optional – adjust if needed)
+  document.querySelectorAll("section").forEach(sec => sec.style.display = "none");
+
+  // Load only if content not already loaded
+  if (!container.innerHTML.trim()) {
+    try {
+      const response = await fetch("bike-summary.html");
+      if (!response.ok) throw new Error("Failed to load bike summary");
+      const html = await response.text();
+      container.innerHTML = html;
+    } catch (error) {
+      container.innerHTML = `<p style="color:red;">Error loading content: ${error.message}</p>`;
+    }
+  }
+
+  container.style.display = "block";
+};
