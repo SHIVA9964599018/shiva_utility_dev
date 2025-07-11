@@ -884,6 +884,8 @@ window.loadBikeSummary = async function () {
       const html = await response.text();
       container.innerHTML = html;
       console.log("✅ Injected HTML successfully");
+	  console.log("✅ Injected content:", container.innerHTML);
+
 
     } catch (error) {
       console.error("❌ Error loading bike summary:", error);
