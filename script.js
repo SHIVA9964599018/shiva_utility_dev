@@ -884,6 +884,12 @@ window.loadBikeSummary = async function () {
       const html = await response.text();
       container.innerHTML = html;
       console.log("✅ Injected HTML successfully");
+	  
+		// ✅ FIX: Make sure the section is visible
+		const bikeSection = container.querySelector("#bike-summary");
+		if (bikeSection) {
+		bikeSection.classList.add("active"); // <-- THIS LINE MAKES IT VISIBLE
+		}
 	  console.log("✅ Injected content:", container.innerHTML);
 
 
