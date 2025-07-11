@@ -3,12 +3,12 @@
   <section id="bike-summary">
     <div>
       <h2>Bike Fuel Summary</h2>
-      <img src="All_images/bike.jpg" alt="My bike Photo" width="400" height="300">
+      <!-- <img src="All_images/bike.jpg" alt="My bike Photo" width="400" height="300"> -->
 
       <div id="loading-message" style="display: none;">Loading bike data...</div>
 
       <!-- Summary -->
-      <details>
+      <details open>
         <summary><strong>Bike Summary</strong></summary>
         <div id="bike-summary-data">
           <p><strong>Total Distance:</strong> <span id="total-distance"></span> km</p>
@@ -19,7 +19,7 @@
       </details>
 
       <!-- Monthly -->
-      <details>
+        <details open>
         <summary><strong>Monthly Expenses</strong></summary>
         <div id="monthly-expense-data">
           <div id="monthly-expenses-container"></div>
@@ -27,7 +27,7 @@
       </details>
 
       <!-- Weekly -->
-      <details>
+        <details open>
         <summary><strong>Weekly Expenses</strong></summary>
         <div id="weekly-expense-data">
           <p><strong>Last 7 Days:</strong> ₹<span id="weekly-expense"></span></p>
