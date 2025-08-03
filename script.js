@@ -866,25 +866,26 @@ htmlTable += `
 window.loadBikeSummary = async function () {
   const container = document.getElementById("bike-summary-container");
 
-  // 1. Hide all bike-related sections first
+  // Hide the main homepage/content if it exists
+  const home = document.getElementById("main-content");
+  if (home) home.style.display = "none";
+
+  // Hide all bike sections
   document.querySelectorAll(".bike-section").forEach(sec => {
     sec.style.display = "none";
   });
 
-  // 2. Show the summary container only
+  // Show the summary container only
   container.style.display = "block";
-  container.style.border = "2px dashed red";        // Debug border (optional)
-  container.style.minHeight = "300px";              // Optional for layout
-  container.style.backgroundColor = "#ffffe0";      // Optional for layout
   container.innerHTML = "<b>Loading summary...</b>";
 
   try {
-    // 3. Fetch records from Supabase for the logged-in user (replace with dynamic user_id if needed)
-    const { data: records, error } = await supabase
+    // ✅ Use supabaseClient instead of supabase
+    const { data: records, error } = await supabaseClient
       .from('bike_history')
       .select('*')
-      .eq('user_id', 'shiva') // Change 'shiva' as per logged-in user
-      .order('date_changed', { ascending: true }); // ascending for mileage diff
+      .eq('user_id', 'shiva') // Replace with actual user if needed
+      .order('date_changed', { ascending: true });
 
     if (error) {
       container.innerHTML = `<span style="color:red;">Error loading data: ${error.message}</span>`;
@@ -896,7 +897,7 @@ window.loadBikeSummary = async function () {
       return;
     }
 
-    // 4. Calculate totals and breakdowns
+    // (Rest of summary logic remains unchanged...)
     let totalCost = 0;
     let monthly = {};
     let weekly = {};
@@ -925,11 +926,9 @@ window.loadBikeSummary = async function () {
       if (rec.at_distance > weekly[weekKey].last) weekly[weekKey].last = rec.at_distance;
     });
 
-    // Calculate per month/week km
     for (let key in monthly) monthly[key].km = monthly[key].last - monthly[key].first;
     for (let key in weekly) weekly[key].km = weekly[key].last - weekly[key].first;
 
-    // 5. Build HTML summary
     let html = `
       <h2>Bike Summary</h2>
       <b>Total Cost:</b> ₹${totalCost}<br>
