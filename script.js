@@ -866,8 +866,8 @@ htmlTable += `
 window.loadBikeSummary = async function () {
   const container = document.getElementById("bike-summary-container");
 
-  // Hide the main homepage/content if it exists
-  const home = document.getElementById("main-content");
+  // Hide the home page
+  const home = document.getElementById("utility-daily-calorie");
   if (home) home.style.display = "none";
 
   // Hide all bike sections
@@ -875,16 +875,16 @@ window.loadBikeSummary = async function () {
     sec.style.display = "none";
   });
 
-  // Show the summary container only
+  // Show the summary container
   container.style.display = "block";
   container.innerHTML = "<b>Loading summary...</b>";
 
   try {
-    // ✅ Use supabaseClient instead of supabase
+    // Fetch data from Supabase
     const { data: records, error } = await supabaseClient
       .from('bike_history')
       .select('*')
-      .eq('user_id', 'shiva') // Replace with actual user if needed
+      .eq('user_id', 'shiva') // Replace with your user logic if needed
       .order('date_changed', { ascending: true });
 
     if (error) {
@@ -897,7 +897,7 @@ window.loadBikeSummary = async function () {
       return;
     }
 
-    // (Rest of summary logic remains unchanged...)
+    // Calculate totals and breakdowns
     let totalCost = 0;
     let monthly = {};
     let weekly = {};
@@ -926,30 +926,42 @@ window.loadBikeSummary = async function () {
       if (rec.at_distance > weekly[weekKey].last) weekly[weekKey].last = rec.at_distance;
     });
 
+    // Calculate per month/week km
     for (let key in monthly) monthly[key].km = monthly[key].last - monthly[key].first;
     for (let key in weekly) weekly[key].km = weekly[key].last - weekly[key].first;
 
+    // Calculate bike mileage
+    let mileage = (totalKm / (totalCost / 103)).toFixed(2);
+
+    // Collapsible HTML with details/summary
     let html = `
-      <h2>Bike Summary</h2>
-      <b>Total Cost:</b> ₹${totalCost}<br>
-      <b>Total KM Driven:</b> ${totalKm} km<br>
-      <hr>
-      <b>Monthly Breakdown:</b>
-      <table border="1" cellpadding="4" style="border-collapse:collapse;min-width:280px;">
-        <tr><th>Month</th><th>Cost (₹)</th><th>KM</th></tr>
-        ${Object.entries(monthly).map(([m, v]) =>
-          `<tr><td>${m}</td><td>${v.cost}</td><td>${v.km}</td></tr>`
-        ).join('')}
-      </table>
-      <hr>
-      <b>Weekly Breakdown:</b>
-      <table border="1" cellpadding="4" style="border-collapse:collapse;min-width:280px;">
-        <tr><th>Week</th><th>Cost (₹)</th><th>KM</th></tr>
-        ${Object.entries(weekly).map(([w, v]) =>
-          `<tr><td>${w}</td><td>${v.cost}</td><td>${v.km}</td></tr>`
-        ).join('')}
-      </table>
-    `;
+<details open>
+  <summary><b>Summary</b></summary>
+  <ul>
+    <li><b>Total Cost:</b> ₹${totalCost}</li>
+    <li><b>Total KM Driven:</b> ${totalKm} km</li>
+    <li><b>Bike Fuel Mileage:</b> ${mileage} km/l</li>
+  </ul>
+</details>
+<details>
+  <summary><b>Monthly Summary</b></summary>
+  <table border="1" cellpadding="4" style="border-collapse:collapse;min-width:280px;">
+    <tr><th>Month</th><th>Cost (₹)</th><th>KM</th></tr>
+    ${Object.entries(monthly).map(([m, v]) =>
+      `<tr><td>${m}</td><td>${v.cost}</td><td>${v.km}</td></tr>`
+    ).join('')}
+  </table>
+</details>
+<details>
+  <summary><b>Weekly Summary</b></summary>
+  <table border="1" cellpadding="4" style="border-collapse:collapse;min-width:280px;">
+    <tr><th>Week</th><th>Cost (₹)</th><th>KM</th></tr>
+    ${Object.entries(weekly).map(([w, v]) =>
+      `<tr><td>${w}</td><td>${v.cost}</td><td>${v.km}</td></tr>`
+    ).join('')}
+  </table>
+</details>
+`;
 
     container.innerHTML = html;
 
@@ -961,8 +973,4 @@ window.loadBikeSummary = async function () {
 // Helper: ISO week number
 function getWeekNumber(d) {
   d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
-  const dayNum = d.getUTCDay() || 7;
-  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
-  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-  return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
-}
+  const dayNum = d.getUTCDa
