@@ -903,20 +903,28 @@ window.loadBikeSummary = async function () {
       return;
     }
 
+    // === Expense calculation: Exclude latest entry ===
     let totalCost = 0;
+    for (let i = 0; i < records.length - 1; i++) {
+      totalCost += records[i].amount;
+    }
+
     let monthly = {};
     let weekly = {};
     let firstDistance = records[0].at_distance;
     let lastDistance = records[records.length - 1].at_distance;
     let totalKm = lastDistance - firstDistance;
 
-    records.forEach((rec) => {
-      totalCost += rec.amount;
+    // For breakdowns, you may also want to exclude the last entry if needed.
+    // (Optional: If you want monthly/weekly breakdowns to also exclude the last entry, adjust logic here.)
+    records.forEach((rec, idx) => {
+      // Exclude the last entry from monthly/weekly cost and km if you want
+      let include = idx < records.length - 1;
 
       // --- Monthly ---
       const month = rec.date_changed.slice(0, 7); // 'YYYY-MM'
       if (!monthly[month]) monthly[month] = { cost: 0, first: rec.at_distance, last: rec.at_distance };
-      monthly[month].cost += rec.amount;
+      if (include) monthly[month].cost += rec.amount;
       if (rec.at_distance < monthly[month].first) monthly[month].first = rec.at_distance;
       if (rec.at_distance > monthly[month].last) monthly[month].last = rec.at_distance;
 
@@ -926,7 +934,7 @@ window.loadBikeSummary = async function () {
       const week = getWeekNumber(d);
       const weekKey = `${year}-W${week}`;
       if (!weekly[weekKey]) weekly[weekKey] = { cost: 0, first: rec.at_distance, last: rec.at_distance };
-      weekly[weekKey].cost += rec.amount;
+      if (include) weekly[weekKey].cost += rec.amount;
       if (rec.at_distance < weekly[weekKey].first) weekly[weekKey].first = rec.at_distance;
       if (rec.at_distance > weekly[weekKey].last) weekly[weekKey].last = rec.at_distance;
     });
@@ -934,7 +942,7 @@ window.loadBikeSummary = async function () {
     for (let key in monthly) monthly[key].km = monthly[key].last - monthly[key].first;
     for (let key in weekly) weekly[key].km = weekly[key].last - weekly[key].first;
 
-    let mileage = (totalKm / (totalCost / 103)).toFixed(2);
+    let mileage = totalCost > 0 ? (totalKm / (totalCost / 103)).toFixed(2) : "N/A";
 
     let html = `
 <style>
