@@ -866,7 +866,7 @@ htmlTable += `
 window.loadBikeSummary = async function () {
   const container = document.getElementById("bike-summary-container");
 
-  // Hide the home page
+  // Hide the home page section
   const home = document.getElementById("utility-daily-calorie");
   if (home) home.style.display = "none";
 
@@ -875,15 +875,22 @@ window.loadBikeSummary = async function () {
     sec.style.display = "none";
   });
 
-  // Show the summary container
+  // Show the summary container only
   container.style.display = "block";
   container.innerHTML = "<b>Loading summary...</b>";
+
+  // Get logged-in user id from localStorage
+  const userId = localStorage.getItem("user_id");
+  if (!userId) {
+    container.innerHTML = `<span style="color:orange;">No user logged in. Please log in to view bike summary.</span>`;
+    return;
+  }
 
   try {
     const { data: records, error } = await supabaseClient
       .from('bike_history')
       .select('*')
-      .eq('user_id', 'shiva')
+      .eq('user_id', userId)
       .order('date_changed', { ascending: true });
 
     if (error) {
@@ -906,12 +913,14 @@ window.loadBikeSummary = async function () {
     records.forEach((rec) => {
       totalCost += rec.amount;
 
+      // --- Monthly ---
       const month = rec.date_changed.slice(0, 7); // 'YYYY-MM'
       if (!monthly[month]) monthly[month] = { cost: 0, first: rec.at_distance, last: rec.at_distance };
       monthly[month].cost += rec.amount;
       if (rec.at_distance < monthly[month].first) monthly[month].first = rec.at_distance;
       if (rec.at_distance > monthly[month].last) monthly[month].last = rec.at_distance;
 
+      // --- Weekly ---
       const d = new Date(rec.date_changed);
       const year = d.getFullYear();
       const week = getWeekNumber(d);
@@ -927,33 +936,60 @@ window.loadBikeSummary = async function () {
 
     let mileage = (totalKm / (totalCost / 103)).toFixed(2);
 
-    // ---- HERE'S THE COLORFUL HTML! ----
     let html = `
 <style>
+  .bike-summary-details {
+    margin-bottom: 10px;
+    border-radius: 8px;
+    background: #fcfcfc;
+    box-shadow: 0 2px 8px #f6f6f6;
+    border: 1px solid #eee;
+    padding: 0;
+    max-width: 600px;
+  }
   .bike-summary-details summary {
-    font-size: 1.2em;
+    font-size: 1.15em;
     font-weight: bold;
-    color: #2d5be3;
+    color: #222;
     cursor: pointer;
-    padding: 6px;
+    padding: 12px 20px;
+    outline: none;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #f4f8ff;
+    border-bottom: 1px solid #ececec;
+    margin: 0;
+    transition: background 0.2s;
   }
   .bike-summary-details[open] summary {
-    background: #f0f8ff;
-    border-radius: 8px 8px 0 0;
+    background: #e5edfb;
+  }
+  .bike-summary-details summary .summary-title {
+    flex: 1;
+    text-align: left;
+    font-size: 1.08em;
+  }
+  .bike-summary-summary    { color: #2d5be3; }
+  .bike-summary-monthly    { color: #f7b500; }
+  .bike-summary-weekly     { color: #fd7c25; }
+  .bike-summary-details > *:not(summary) {
+    padding: 10px 26px 15px 26px;
+    margin: 0;
   }
   .bike-summary-ul {
     list-style: none;
     padding-left: 0;
-    margin-top: 8px;
-    margin-bottom: 10px;
+    margin: 8px 0 0 0;
   }
   .bike-summary-ul li {
     margin: 8px 0;
     font-size: 1.05em;
   }
   .bike-summary-table {
-    width: 90%;
-    margin: 12px 0;
+    width: 100%;
+    margin: 10px 0;
     border-collapse: collapse;
     background: #fff7ec;
     box-shadow: 0 2px 8px #f0e9e3;
@@ -982,7 +1018,10 @@ window.loadBikeSummary = async function () {
 </style>
 
 <details class="bike-summary-details" open>
-  <summary>🚦 <span style="color:#2d5be3">Summary</span></summary>
+  <summary>
+    <span>🚦</span>
+    <span class="summary-title bike-summary-summary">Summary</span>
+  </summary>
   <ul class="bike-summary-ul">
     <li>⛽ <b>Total Cost:</b> <span class="bike-summary-highlight">₹${totalCost}</span></li>
     <li>🏍️ <b>Total KM Driven:</b> <span class="bike-summary-highlight">${totalKm} km</span></li>
@@ -990,7 +1029,10 @@ window.loadBikeSummary = async function () {
   </ul>
 </details>
 <details class="bike-summary-details">
-  <summary>📅 <span style="color:#f7b500">Monthly Summary</span></summary>
+  <summary>
+    <span>📅</span>
+    <span class="summary-title bike-summary-monthly">Monthly Summary</span>
+  </summary>
   <table class="bike-summary-table">
     <tr><th>Month</th><th>Cost (₹)</th><th>KM</th></tr>
     ${Object.entries(monthly).map(([m, v]) =>
@@ -999,7 +1041,10 @@ window.loadBikeSummary = async function () {
   </table>
 </details>
 <details class="bike-summary-details">
-  <summary>📆 <span style="color:#fd7c25">Weekly Summary</span></summary>
+  <summary>
+    <span>📆</span>
+    <span class="summary-title bike-summary-weekly">Weekly Summary</span>
+  </summary>
   <table class="bike-summary-table">
     <tr><th>Week</th><th>Cost (₹)</th><th>KM</th></tr>
     ${Object.entries(weekly).map(([w, v]) =>
