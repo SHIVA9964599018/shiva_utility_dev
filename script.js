@@ -394,7 +394,7 @@ document.addEventListener("DOMContentLoaded", () => {
           protein_per_100gm: protein,
           carbs_per_100gm: carbs,
           fibre_per_100gm: fibre,
-          fats: fats
+          fats_per_100gm: fats
         }
       ]);
       const message = document.getElementById("nutrition-message");
