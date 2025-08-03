@@ -880,11 +880,10 @@ window.loadBikeSummary = async function () {
   container.innerHTML = "<b>Loading summary...</b>";
 
   try {
-    // Fetch data from Supabase
     const { data: records, error } = await supabaseClient
       .from('bike_history')
       .select('*')
-      .eq('user_id', 'shiva') // Replace with your user logic if needed
+      .eq('user_id', 'shiva')
       .order('date_changed', { ascending: true });
 
     if (error) {
@@ -897,7 +896,6 @@ window.loadBikeSummary = async function () {
       return;
     }
 
-    // Calculate totals and breakdowns
     let totalCost = 0;
     let monthly = {};
     let weekly = {};
@@ -908,14 +906,12 @@ window.loadBikeSummary = async function () {
     records.forEach((rec) => {
       totalCost += rec.amount;
 
-      // --- Monthly ---
       const month = rec.date_changed.slice(0, 7); // 'YYYY-MM'
       if (!monthly[month]) monthly[month] = { cost: 0, first: rec.at_distance, last: rec.at_distance };
       monthly[month].cost += rec.amount;
       if (rec.at_distance < monthly[month].first) monthly[month].first = rec.at_distance;
       if (rec.at_distance > monthly[month].last) monthly[month].last = rec.at_distance;
 
-      // --- Weekly ---
       const d = new Date(rec.date_changed);
       const year = d.getFullYear();
       const week = getWeekNumber(d);
@@ -926,35 +922,85 @@ window.loadBikeSummary = async function () {
       if (rec.at_distance > weekly[weekKey].last) weekly[weekKey].last = rec.at_distance;
     });
 
-    // Calculate per month/week km
     for (let key in monthly) monthly[key].km = monthly[key].last - monthly[key].first;
     for (let key in weekly) weekly[key].km = weekly[key].last - weekly[key].first;
 
-    // Calculate bike mileage
     let mileage = (totalKm / (totalCost / 103)).toFixed(2);
 
-    // Collapsible HTML with details/summary
+    // ---- HERE'S THE COLORFUL HTML! ----
     let html = `
-<details open>
-  <summary><b>Summary</b></summary>
-  <ul>
-    <li><b>Total Cost:</b> ₹${totalCost}</li>
-    <li><b>Total KM Driven:</b> ${totalKm} km</li>
-    <li><b>Bike Fuel Mileage:</b> ${mileage} km/l</li>
+<style>
+  .bike-summary-details summary {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #2d5be3;
+    cursor: pointer;
+    padding: 6px;
+  }
+  .bike-summary-details[open] summary {
+    background: #f0f8ff;
+    border-radius: 8px 8px 0 0;
+  }
+  .bike-summary-ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 8px;
+    margin-bottom: 10px;
+  }
+  .bike-summary-ul li {
+    margin: 8px 0;
+    font-size: 1.05em;
+  }
+  .bike-summary-table {
+    width: 90%;
+    margin: 12px 0;
+    border-collapse: collapse;
+    background: #fff7ec;
+    box-shadow: 0 2px 8px #f0e9e3;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .bike-summary-table th {
+    background: #f7b500;
+    color: #222;
+    padding: 7px 12px;
+    font-weight: bold;
+  }
+  .bike-summary-table td {
+    padding: 7px 12px;
+    text-align: center;
+    border-bottom: 1px solid #ffe7b6;
+  }
+  .bike-summary-table tr:last-child td {
+    border-bottom: none;
+  }
+  .bike-summary-highlight {
+    font-weight: bold;
+    color: #17b317;
+    font-size: 1.08em;
+  }
+</style>
+
+<details class="bike-summary-details" open>
+  <summary>🚦 <span style="color:#2d5be3">Summary</span></summary>
+  <ul class="bike-summary-ul">
+    <li>⛽ <b>Total Cost:</b> <span class="bike-summary-highlight">₹${totalCost}</span></li>
+    <li>🏍️ <b>Total KM Driven:</b> <span class="bike-summary-highlight">${totalKm} km</span></li>
+    <li>🛣️ <b>Bike Fuel Mileage:</b> <span class="bike-summary-highlight">${mileage} km/l</span></li>
   </ul>
 </details>
-<details>
-  <summary><b>Monthly Summary</b></summary>
-  <table border="1" cellpadding="4" style="border-collapse:collapse;min-width:280px;">
+<details class="bike-summary-details">
+  <summary>📅 <span style="color:#f7b500">Monthly Summary</span></summary>
+  <table class="bike-summary-table">
     <tr><th>Month</th><th>Cost (₹)</th><th>KM</th></tr>
     ${Object.entries(monthly).map(([m, v]) =>
       `<tr><td>${m}</td><td>${v.cost}</td><td>${v.km}</td></tr>`
     ).join('')}
   </table>
 </details>
-<details>
-  <summary><b>Weekly Summary</b></summary>
-  <table border="1" cellpadding="4" style="border-collapse:collapse;min-width:280px;">
+<details class="bike-summary-details">
+  <summary>📆 <span style="color:#fd7c25">Weekly Summary</span></summary>
+  <table class="bike-summary-table">
     <tr><th>Week</th><th>Cost (₹)</th><th>KM</th></tr>
     ${Object.entries(weekly).map(([w, v]) =>
       `<tr><td>${w}</td><td>${v.cost}</td><td>${v.km}</td></tr>`
