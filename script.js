@@ -398,14 +398,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       ]);
       const message = document.getElementById("nutrition-message");
-      if (error) {
-        message.textContent = "❌ Failed to save dish.";
-        message.style.color = "red";
-      } else {
-        message.textContent = "✅ Dish saved successfully.";
-        message.style.color = "green";
-        form.reset();
-      }
+		if (error) {
+			console.error("❌ Supabase insert error:", error); // <-- Log error details!
+			message.textContent = "❌ Failed to save dish.";
+			message.style.color = "red";
+		} else {
+			message.textContent = "✅ Dish saved successfully.";
+			message.style.color = "green";
+			form.reset();
+		}
     });
   }
 });
