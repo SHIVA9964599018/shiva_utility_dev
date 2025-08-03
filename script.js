@@ -9,23 +9,32 @@ localStorage.removeItem("user_id"); // ✅ run IMMEDIATELY on script load
 
 window.dishNames = [];
 
-window.showSection = function (sectionId) {
-  console.log(`Switching to Section: ${sectionId}`);
-
-  // Hide all sections
-  document.querySelectorAll("section, div[id^='utility-']").forEach((el) => {
-    el.style.display = "none";
+// === SPA section hider helper ===
+window.hideAllAppSections = function () {
+  [
+    "bike-section-container",
+    "bike-history-container",
+    "bike-summary-container",
+    "utility-add-dish",
+    "utility-daily-calorie",
+    "summary-container",
+    "utility-food-facts",
+    "utility-weight-tracker",
+    "loginModal"
+  ].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = "none";
   });
+};
 
-  // Show main utility section if needed
+window.showSection = function (sectionId) {
+  window.hideAllAppSections();
   if (sectionId.startsWith("utility-")) {
     const utilitiesSection = document.getElementById("utilities");
     if (utilitiesSection) {
       utilitiesSection.style.display = "block";
     }
   }
-
-  // Show the requested section
   const targetSection = document.getElementById(sectionId);
   if (targetSection) {
     targetSection.style.display = "block";
@@ -34,16 +43,13 @@ window.showSection = function (sectionId) {
   }
 };
 
-// Show utility sub-section
 window.showUtilitySubSection = function (sectionId) {
-  const sections = document.querySelectorAll("#utilities > div");
-  sections.forEach(sec => sec.style.display = "none");
-
+  window.hideAllAppSections();
+  const utilitiesSection = document.getElementById("utilities");
+  if (utilitiesSection) utilitiesSection.style.display = "block";
   const target = document.getElementById(sectionId);
-  console.log('the section id clicked');
   if (target) target.style.display = "block";
 };
-
 
 let dishNames = [];
 
@@ -59,8 +65,6 @@ window.loadDishNames = async function () {
 window.addEventListener("DOMContentLoaded", () => {
   loadDishNames(); // make sure this is called on page load
 });
-
-
 
 window.setupAutocomplete = function (input) {
   // Wrap input in a relative container
@@ -129,29 +133,20 @@ window.setupAutocomplete = function (input) {
   });
 };
 
-
-
 // ✅ Add a dish row
 window.addDishRow = function (mealType, name = "", grams = "") {
-console.log(`clicked on Add for ${mealType}`);
   const container = document.getElementById(`${mealType}-container`);
   const row = document.createElement("div");
   row.className = "dish-row";
-
   row.innerHTML = `
     <input type="text" class="dish-name responsive-dish-name" value="${name}" placeholder="Dish Name" />
     <input type="number" class="dish-grams responsive-dish-grams" value="${grams}" placeholder="gms" />
     <button class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
   `;
-
   container.appendChild(row);
-
   const input = row.querySelector(".dish-name");
   setupAutocomplete(input); // autocomplete support
 };
-
-
-
 
 // ✅ Fetch dish info
 window.getDishInfo = async function (name) {
@@ -159,11 +154,9 @@ window.getDishInfo = async function (name) {
     .from("food_items")
     .select("*")
     .ilike("dish_name", name.trim());
-
   if (!error && data && data.length) return data[0];
   return null;
 };
-
 
 // ✅ Calculate total macros
 window.calculateCalories = async function () {
@@ -175,22 +168,18 @@ window.calculateCalories = async function () {
   for (const meal of meals) {
     const container = document.getElementById(`${meal}-container`);
     const rows = container.querySelectorAll(".dish-row");
-
     for (const row of rows) {
       const name = row.querySelector(".dish-name").value;
       const grams = parseFloat(row.querySelector(".dish-grams").value);
       if (!name || isNaN(grams)) continue;
-
       const info = await window.getDishInfo(name);
       if (!info) continue;
-
       const factor = grams / 100;
       totals.calories += (info.calorie_per_100gm || 0) * factor;
       totals.protein += (info.protein_per_100gm || 0) * factor;
       totals.carbs += (info.carbs_per_100gm || 0) * factor;
       totals.fibre += (info.fibre_per_100gm || 0) * factor;
       totals.fats += (info.fats_per_100gm || 0) * factor;
-
       dishEntries.push({
         date: today,
         meal_type: meal,
@@ -200,57 +189,41 @@ window.calculateCalories = async function () {
     }
   }
 
-  // Show calculated totals
-document.getElementById("calorie-result").innerHTML = `
-  <div style="display: flex; flex-direction: column; gap: 3px; font-family: Arial, sans-serif; font-size: 1rem; margin-top: 10px;">
-    <div style="background: #1976d2; color: white; padding: 8px 16px; border-radius: 20px; width: 160px; display: flex; justify-content: space-between;">
-      <span>Calories:</span><span>${totals.calories.toFixed(0)}</span>
+  document.getElementById("calorie-result").innerHTML = `
+    <div style="display: flex; flex-direction: column; gap: 3px; font-family: Arial, sans-serif; font-size: 1rem; margin-top: 10px;">
+      <div style="background: #1976d2; color: white; padding: 8px 16px; border-radius: 20px; width: 160px; display: flex; justify-content: space-between;">
+        <span>Calories:</span><span>${totals.calories.toFixed(0)}</span>
+      </div>
+      <div style="background: #1976d2; color: white; padding: 8px 16px; border-radius: 20px; width: 160px; display: flex; justify-content: space-between;">
+        <span>Protein:</span><span>${totals.protein.toFixed(0)}</span>
+      </div>
+      <div style="background: #1976d2; color: white; padding: 8px 16px; border-radius: 20px; width: 160px; display: flex; justify-content: space-between;">
+        <span>Fibre:</span><span>${totals.fibre.toFixed(0)}</span>
+      </div>
+      <div style="background: #1976d2; color: white; padding: 8px 16px; border-radius: 20px; width: 160px; display: flex; justify-content: space-between;">
+        <span>Carbs:</span><span>${totals.carbs.toFixed(0)}</span>
+      </div>
+      <div style="background: #1976d2; color: white; padding: 8px 16px; border-radius: 20px; width: 160px; display: flex; justify-content: space-between;">
+        <span>Fats:</span><span>${totals.fats.toFixed(0)}</span>
+      </div>
     </div>
-    <div style="background: #1976d2; color: white; padding: 8px 16px; border-radius: 20px; width: 160px; display: flex; justify-content: space-between;">
-      <span>Protein:</span><span>${totals.protein.toFixed(0)}</span>
-    </div>
-    <div style="background: #1976d2; color: white; padding: 8px 16px; border-radius: 20px; width: 160px; display: flex; justify-content: space-between;">
-      <span>Fibre:</span><span>${totals.fibre.toFixed(0)}</span>
-    </div>
-    <div style="background: #1976d2; color: white; padding: 8px 16px; border-radius: 20px; width: 160px; display: flex; justify-content: space-between;">
-      <span>Carbs:</span><span>${totals.carbs.toFixed(0)}</span>
-    </div>
-    <div style="background: #1976d2; color: white; padding: 8px 16px; border-radius: 20px; width: 160px; display: flex; justify-content: space-between;">
-      <span>Fats:</span><span>${totals.fats.toFixed(0)}</span>
-    </div>
-  </div>
-`;
+  `;
 
-
-
-
-
-
-
-  // Save to DB and show summary
   await window.saveDishRowsToDB(dishEntries);
-
   const summaryContainer = document.getElementById("summary-container");
   summaryContainer.style.display = "block";
   await window.loadDishSummaryTable();
-
-  // Scroll to summary smoothly
   summaryContainer.scrollIntoView({ behavior: "smooth" });
 };
-
-
 
 // ✅ Save dish entries to DB
 window.saveDishRowsToDB = async function (dishEntries) {
   const today = new Date().toISOString().split("T")[0];
   const userId = localStorage.getItem("user_id");
-
   if (!userId) {
     console.error("❌ No user_id found in localStorage");
     return;
   }
-
-  // Delete existing dishes for this user and date
   await supabaseClient
     .from("daily_dishes")
     .delete()
@@ -258,11 +231,9 @@ window.saveDishRowsToDB = async function (dishEntries) {
     .eq("user_id", userId);
 
   const rowsToInsert = [];
-
   for (const entry of dishEntries) {
     const info = await window.getDishInfo(entry.dish_name);
     if (!info) continue;
-
     const factor = entry.quantity_grams / 100;
     rowsToInsert.push({
       user_id: userId,
@@ -277,152 +248,118 @@ window.saveDishRowsToDB = async function (dishEntries) {
       fats: (info.fats_per_100gm || 0) * factor
     });
   }
-
   if (rowsToInsert.length) {
     await supabaseClient.from("daily_dishes").insert(rowsToInsert);
   }
 };
 
-
 // Load summary table
 window.loadDishSummaryTable = async function () {
   const today = new Date().toISOString().split("T")[0];
   const userId = localStorage.getItem("user_id");
-
   if (!userId) {
     console.error("❌ No user_id found in localStorage");
     return;
   }
-
   const { data: dishes, error } = await supabaseClient
     .from("daily_dishes")
     .select("*")
     .eq("date", today)
     .eq("user_id", userId);
-
   if (error) {
     console.error("❌ Error fetching dish summary:", error.message);
     return;
   }
-
   const tbody = document.getElementById("dish-summary-body");
   tbody.innerHTML = "";
-
-  let totalCalories = 0, totalGrams=0,totalProtein = 0, totalCarbs = 0, totalFibre = 0, totalFats = 0;
+  let totalCalories = 0, totalGrams = 0, totalProtein = 0, totalCarbs = 0, totalFibre = 0, totalFats = 0;
   dishes.forEach(dish => {
     const row = document.createElement("tr");
-row.innerHTML = `
-  <td>${dish.dish_name}</td>
-  <td>${dish.grams.toFixed(1)}</td>
-  <td>${dish.calories.toFixed(1)}</td>
-  <td>${dish.protein.toFixed(1)}</td>
-  <td>${dish.fibre.toFixed(1)}</td>
-  <td>${dish.carbs.toFixed(1)}</td>
-  <td>${dish.fats.toFixed(1)}</td>
-`;
-
+    row.innerHTML = `
+      <td>${dish.dish_name}</td>
+      <td>${dish.grams.toFixed(1)}</td>
+      <td>${dish.calories.toFixed(1)}</td>
+      <td>${dish.protein.toFixed(1)}</td>
+      <td>${dish.fibre.toFixed(1)}</td>
+      <td>${dish.carbs.toFixed(1)}</td>
+      <td>${dish.fats.toFixed(1)}</td>
+    `;
     tbody.appendChild(row);
-	totalGrams += dish.grams || 0;
+    totalGrams += dish.grams || 0;
     totalCalories += dish.calories || 0;
     totalProtein += dish.protein || 0;
     totalCarbs += dish.carbs || 0;
     totalFibre += dish.fibre || 0;
     totalFats += dish.fats || 0;
   });
-
   const totalRow = document.createElement("tr");
   totalRow.style.backgroundColor = "#f0f0f0";
   totalRow.style.fontWeight = "bold";
-totalRow.innerHTML = `
-  <td><strong>Total</strong></td>
-  <td><strong>${totalGrams.toFixed(1)}</strong></td>
-  <td><strong>${totalCalories.toFixed(1)}</strong></td>
-  <td><strong>${totalProtein.toFixed(1)}</strong></td>
-  <td><strong>${totalFibre.toFixed(1)}</strong></td>
-  <td><strong>${totalCarbs.toFixed(1)}</strong></td>
-  <td><strong>${totalFats.toFixed(1)}</strong></td>
-`;
-
-
+  totalRow.innerHTML = `
+    <td><strong>Total</strong></td>
+    <td><strong>${totalGrams.toFixed(1)}</strong></td>
+    <td><strong>${totalCalories.toFixed(1)}</strong></td>
+    <td><strong>${totalProtein.toFixed(1)}</strong></td>
+    <td><strong>${totalFibre.toFixed(1)}</strong></td>
+    <td><strong>${totalCarbs.toFixed(1)}</strong></td>
+    <td><strong>${totalFats.toFixed(1)}</strong></td>
+  `;
   tbody.appendChild(totalRow);
 };
 
-
 window.promptCalorieLogin = async function () {
+  window.hideAllAppSections();
   const userId = localStorage.getItem("user_id");
-
   if (userId && userId.trim() !== "") {
-    // Verify user in Supabase
     const { data, error } = await supabaseClient
       .from('app_users')
       .select('username')
       .eq('username', userId)
       .maybeSingle();
-
     if (!error && data) {
-      console.log("✅ Valid user found:", userId);
-      
       const welcomeDiv = document.getElementById("welcome-message");
       if (welcomeDiv) {
         welcomeDiv.textContent = `Welcome, ${userId}!`;
         welcomeDiv.style.display = "block";
       }
-
-      // ✅ Show the Daily Calorie section
       window.showSection("utility-daily-calorie");
       return;
     } else {
-      console.warn("⚠️ Stale user ID found. Clearing.");
       localStorage.removeItem("user_id");
     }
   }
-
-  // Show login modal
-  console.log("🔐 No valid login — showing login modal");
   document.getElementById('loginModal').style.display = 'block';
 };
-
-
-// 🔁 Run on app load
-window.addEventListener('DOMContentLoaded', () => {
-  window.promptCalorieLogin();
-});
-
-
-
 
 window.handleCalorieLogin = async function () {
   const username = document.getElementById("usernameInput").value.trim().toLowerCase();
   const password = document.getElementById("passwordInput").value.trim();
-
   const { data, error } = await supabaseClient
     .from('app_users')
     .select('*')
-    .ilike('username', username)  // case-insensitive username
-    .eq('password', password)     // case-sensitive password
+    .ilike('username', username)
+    .eq('password', password)
     .single();
-
   if (error || !data) {
     alert("Invalid username or password.");
     return;
   }
-
-  // ✅ Only runs if data is present
+  window.hideAllAppSections();
   localStorage.setItem("user_id", data.username);
   document.getElementById("loginModal").style.display = "none";
   window.showSection('utility-daily-calorie');
- // window.loadDishSummaryTable();
   await window.loadDailyDishes();
 };
 
-
-
 // Load food facts
 window.loadFoodFacts = async function () {
+  window.hideAllAppSections();
+  const utilitiesSection = document.getElementById("utilities");
+  if (utilitiesSection) utilitiesSection.style.display = "block";
+  document.getElementById("utility-food-facts").style.display = "block";
   const { data, error } = await supabaseClient.from("food_items").select("*");
   const tbody = document.querySelector("#food-facts-table tbody");
   tbody.innerHTML = "";
-
   if (!error && data) {
     data.forEach(dish => {
       const row = document.createElement("tr");
@@ -435,25 +372,21 @@ window.loadFoodFacts = async function () {
         <td>${dish.fats_per_100gm || 0}</td>`;
       tbody.appendChild(row);
     });
-    enableTableSorting();  // <-- important call added here
+    enableTableSorting();
   }
 };
-
-
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("nutrition-form");
   if (form) {
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-
       const dishName = document.getElementById("dish_name").value.trim();
       const calorie = parseFloat(document.getElementById("calorie").value);
       const protein = parseFloat(document.getElementById("protein").value);
       const carbs = parseFloat(document.getElementById("carbs").value);
       const fibre = parseFloat(document.getElementById("fibre").value);
       const fats = parseFloat(document.getElementById("fats").value);
-
       const { error } = await supabaseClient.from("food_items").insert([
         {
           dish_name: dishName,
@@ -461,10 +394,9 @@ document.addEventListener("DOMContentLoaded", () => {
           protein_per_100gm: protein,
           carbs_per_100gm: carbs,
           fibre_per_100gm: fibre,
-          fats_per_100gm: fats
+          fats: fats
         }
       ]);
-
       const message = document.getElementById("nutrition-message");
       if (error) {
         message.textContent = "❌ Failed to save dish.";
@@ -482,7 +414,6 @@ function enableTableSorting() {
   const table = document.getElementById("food-facts-table");
   const headers = table.querySelectorAll("th");
   const tbody = table.querySelector("tbody");
-
   headers.forEach((header, index) => {
     header.style.cursor = "pointer";
     header.addEventListener("click", () => {
@@ -509,28 +440,23 @@ document.addEventListener("DOMContentLoaded", () => {
 window.loadDailyDishes = async function () {
   const today = new Date().toISOString().split("T")[0];
   const userId = localStorage.getItem("user_id");
-
   if (!userId) {
     console.error("❌ No user_id found in localStorage");
     return;
   }
-
   const { data, error } = await supabaseClient
     .from("daily_dishes")
     .select("*")
     .eq("date", today)
     .eq("user_id", userId);
-
   if (error) {
     console.error("Error loading daily dishes:", error);
     return;
   }
-
   const meals = ["breakfast", "lunch", "dinner"];
   meals.forEach(meal => {
     const container = document.getElementById(`${meal}-container`);
     container.innerHTML = ""; // Clear old rows
-
     data
       .filter(d => d.meal_type === meal)
       .forEach(dish => {
@@ -541,20 +467,15 @@ window.loadDailyDishes = async function () {
 
 let deferredPrompt;
 const installBtn = document.getElementById('installApp');
-
-// Listen for the install prompt event
 window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault(); // Prevent auto-prompt
+  e.preventDefault();
   deferredPrompt = e;
-  installBtn.style.display = 'inline-block'; // Show the button
+  installBtn.style.display = 'inline-block';
 });
-
-// Handle click on install button
 installBtn.addEventListener('click', () => {
   if (deferredPrompt) {
     deferredPrompt.prompt();
     deferredPrompt.userChoice.then(choiceResult => {
-      console.log('User response to the install prompt:', choiceResult.outcome);
       deferredPrompt = null;
       installBtn.style.display = 'none';
     });
@@ -563,30 +484,25 @@ installBtn.addEventListener('click', () => {
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js').then(registration => {
-    console.log('✅ SW registered');
-
     registration.onupdatefound = () => {
       const newSW = registration.installing;
       newSW.onstatechange = () => {
         if (newSW.state === 'installed') {
           if (navigator.serviceWorker.controller) {
-            console.log('🔄 New version available — reloading...');
-            window.location.reload(); // Reload to activate the new SW
+            window.location.reload();
           }
         }
       };
     };
   });
 }
-
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./service-worker.js').then(registration => {
     registration.onupdatefound = () => {
       const newWorker = registration.installing;
       newWorker.onstatechange = () => {
         if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-          console.log("New version available. Reloading...");
-          window.location.reload(); // 🔁 Force reload to apply new cache
+          window.location.reload();
         }
       };
     };
@@ -595,13 +511,11 @@ if ('serviceWorker' in navigator) {
 
 // Weight Tracker Script
 window.weightEntries = [];
-
 window.handleWeightUpload = function (event) {
   event.preventDefault();
   const date = document.getElementById("weight-date").value;
   const weight = document.getElementById("weight-value").value;
   const fileInput = document.getElementById("weight-image");
-
   if (fileInput.files.length > 0) {
     const reader = new FileReader();
     reader.onload = function (e) {
@@ -623,8 +537,6 @@ window.updateWeightTimeline = function () {
     list.appendChild(item);
   });
 };
-
-// Attach event listener after DOM is ready
 window.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("weight-upload-form");
   if (form) {
@@ -632,13 +544,10 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-
-
 window.toggleSidebar = function () {
   const sidebar = document.getElementById("sidebar");
   if (sidebar) {
     sidebar.classList.toggle("open");
-    console.log("✅ Sidebar toggled:", sidebar.className);
   } else {
     console.error("❌ Sidebar not found");
   }
@@ -647,140 +556,97 @@ window.toggleSidebar = function () {
 document.addEventListener("DOMContentLoaded", () => {
   const userId = localStorage.getItem("user_id");
   const welcomeDiv = document.getElementById("welcome-message");
-
   if (userId && welcomeDiv) {
     welcomeDiv.textContent = `Welcome, ${userId}!`;
     welcomeDiv.style.display = "block";
   }
 });
 
-
-
 document.addEventListener("click", function (event) {
   setTimeout(() => {
     const sidebar = document.getElementById("sidebar");
-    const hamburger = document.querySelector(".hamburger");  // ✅ FIXED HERE
-
-    if (!sidebar || !hamburger) {
-      console.log("🔍 Sidebar or hamburger not found");
-      return;
-    }
-
+    const hamburger = document.querySelector(".hamburger");
+    if (!sidebar || !hamburger) return;
     const isSidebarOpen = sidebar.classList.contains("open");
     const clickedInsideSidebar = sidebar.contains(event.target);
     const clickedInsideHamburger = hamburger.contains(event.target);
-
-    console.log("🖱️ Clicked element:", event.target);
-    console.log("📍 Inside sidebar:", clickedInsideSidebar);
-    console.log("📍 On hamburger:", clickedInsideHamburger);
-    console.log("📂 Sidebar open state:", isSidebarOpen);
-
     if (isSidebarOpen && !clickedInsideSidebar && !clickedInsideHamburger) {
       sidebar.classList.remove("open");
-      console.log("✅ Sidebar closed.");
     }
-  }, 10); // slight delay to ensure toggle has completed
+  }, 10);
 });
 
 window.addBikeRecordSection = async function () {
-  console.log("🚴 Loading Add Bike Record section");
-
+  window.hideAllAppSections();
   const container = document.getElementById("bike-section-container");
   if (!container) {
     console.error("❌ Container 'bike-section-container' not found.");
     return;
   }
-
-  // Hide default home section
-  const defaultHome = document.getElementById("utility-daily-calorie");
-  if (defaultHome) defaultHome.style.display = "none";
-
+  container.style.display = "block";
   try {
     const response = await fetch("bike-history.html");
     const html = await response.text();
     container.innerHTML = html;
-    console.log("✅ Add Bike Record HTML loaded.");
-
     if (typeof initAddBikeRecordSection === "function") {
       initAddBikeRecordSection();
     }
-
   } catch (err) {
     console.error("❌ Failed to load bike-history.html:", err);
   }
 };
 
 window.initAddBikeRecordSection = function () {
-  console.log("🚀 Initializing Add Bike Record logic");
-
   const submitBtn = document.getElementById("submitBikeRecordBtn");
   if (!submitBtn) {
-    console.warn("⛔ Submit button not found.");
     return;
   }
-
   submitBtn.addEventListener("click", async () => {
     const date = document.getElementById("date_changed").value;
     const amount = parseFloat(document.getElementById("amount").value);
     const distance = parseFloat(document.getElementById("at_distance").value);
     const user_id = localStorage.getItem("user_id");
-
     if (!date || isNaN(amount) || isNaN(distance) || !user_id) {
       alert("Please fill all fields and ensure user is logged in.");
       return;
     }
-
     try {
       const { data, error } = await supabaseClient.from("bike_history").insert([
         { user_id, date_changed: date, amount, at_distance: distance }
       ]);
       if (error) throw error;
-
       document.getElementById("record_status").textContent = "✅ Record added!";
     } catch (err) {
       document.getElementById("record_status").textContent = "❌ Failed to add record.";
-      console.error(err);
     }
   });
 };
 
-
 window.loadBikeHistorySection = async function () {
+  window.hideAllAppSections();
   const historyContainer = document.getElementById("bike-history-container");
-  const formContainer = document.getElementById("bike-section-container");
-  const homeSection = document.getElementById("utility-daily-calorie");
-
-  if (formContainer) formContainer.style.display = "none";
-  if (homeSection) homeSection.style.display = "none";
-
   if (!historyContainer) {
     console.error("❌ #bike-history-container not found");
     return;
   }
-
   historyContainer.style.display = "block";
-
   const user_id = localStorage.getItem("user_id");
   if (!user_id) {
     historyContainer.innerHTML = "<p>⚠️ Not logged in.</p>";
     return;
   }
-
   try {
     const { data, error } = await supabaseClient
       .from("bike_history")
       .select("*")
       .eq("user_id", user_id)
       .order("date_changed", { ascending: false });
-
     if (error) throw error;
-
     if (!data || data.length === 0) {
       historyContainer.innerHTML = "<p>No records found.</p>";
       return;
     }
-
-	let htmlTable = `
+    let htmlTable = `
   <style>
     .bike-table-container {
       margin-top: 40px;
@@ -817,7 +683,6 @@ window.loadBikeHistorySection = async function () {
       background-color: #d6ebff;
     }
   </style>
-
   <div class="bike-table-container">
     <table class="bike-table">
       <thead>
@@ -829,108 +694,75 @@ window.loadBikeHistorySection = async function () {
       </thead>
       <tbody>
 `;
-
-data.forEach((row) => {
-  const formattedDate = new Date(row.date_changed).toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric"
-  }).toUpperCase().replace(/ /g, "-");
-
-  htmlTable += `
-    <tr>
-    <td>${formattedDate}</td>
-    <td>${row.at_distance} km</td>
-    <td>₹${row.amount}</td>
-    </tr>
-  `;
-});
-
-htmlTable += `
+    data.forEach((row) => {
+      const formattedDate = new Date(row.date_changed).toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+      }).toUpperCase().replace(/ /g, "-");
+      htmlTable += `
+        <tr>
+        <td>${formattedDate}</td>
+        <td>${row.at_distance} km</td>
+        <td>₹${row.amount}</td>
+        </tr>
+      `;
+    });
+    htmlTable += `
       </tbody>
     </table>
   </div>
 `;
-
-
-
     historyContainer.innerHTML = htmlTable;
-
   } catch (err) {
-    console.error("❌ Failed to load bike history:", err);
     historyContainer.innerHTML = "<p>❌ Error loading history.</p>";
   }
 };
 
-
 window.loadBikeSummary = async function () {
+  window.hideAllAppSections();
   const container = document.getElementById("bike-summary-container");
-
-  // Hide the home page section
-  const home = document.getElementById("utility-daily-calorie");
-  if (home) home.style.display = "none";
-
-  // Hide all bike sections
-  document.querySelectorAll(".bike-section").forEach(sec => {
-    sec.style.display = "none";
-  });
-
-  // Show the summary container only
   container.style.display = "block";
   container.innerHTML = "<b>Loading summary...</b>";
-
-  // Get logged-in user id from localStorage
   const userId = localStorage.getItem("user_id");
   if (!userId) {
     container.innerHTML = `<span style="color:orange;">No user logged in. Please log in to view bike summary.</span>`;
     return;
   }
-
   try {
     const { data: records, error } = await supabaseClient
       .from('bike_history')
       .select('*')
       .eq('user_id', userId)
       .order('date_changed', { ascending: true });
-
     if (error) {
       container.innerHTML = `<span style="color:red;">Error loading data: ${error.message}</span>`;
       return;
     }
-
     if (!records || records.length < 2) {
       container.innerHTML = `<span style="color: orange;">Not enough bike records to calculate summary.</span>`;
       return;
     }
-
     // === Expense calculation: Exclude latest entry ===
     let totalCost = 0;
     for (let i = 0; i < records.length - 1; i++) {
       totalCost += records[i].amount;
     }
-
     let monthly = {};
     let firstDistance = records[0].at_distance;
     let lastDistance = records[records.length - 1].at_distance;
     let totalKm = lastDistance - firstDistance;
-
     records.forEach((rec, idx) => {
       let include = idx < records.length - 1;
-      // --- Monthly ---
-      const month = rec.date_changed.slice(0, 7); // 'YYYY-MM'
+      const month = rec.date_changed.slice(0, 7);
       if (!monthly[month]) monthly[month] = { cost: 0, first: rec.at_distance, last: rec.at_distance };
       if (include) monthly[month].cost += rec.amount;
       if (rec.at_distance < monthly[month].first) monthly[month].first = rec.at_distance;
       if (rec.at_distance > monthly[month].last) monthly[month].last = rec.at_distance;
     });
-
     for (let key in monthly) monthly[key].km = monthly[key].last - monthly[key].first;
-
-    // --- Fuel in litres and mileage ---
     let fuelLitres = totalCost > 0 ? (totalCost / 103).toFixed(2) : "N/A";
     let mileage = totalCost > 0 ? (totalKm / (totalCost / 103)).toFixed(2) : "N/A";
-
-    // --- HTML ---
     let html = `
 <style>
   .bike-summary-details {
@@ -1010,7 +842,6 @@ window.loadBikeSummary = async function () {
     font-size: 1.08em;
   }
 </style>
-
 <details class="bike-summary-details" open>
   <summary>
     <span>🚦</span>
@@ -1036,9 +867,7 @@ window.loadBikeSummary = async function () {
   </table>
 </details>
 `;
-
     container.innerHTML = html;
-
   } catch (err) {
     container.innerHTML = `<span style="color:red;">❌ Error loading bike summary: ${err.message}</span>`;
   }
