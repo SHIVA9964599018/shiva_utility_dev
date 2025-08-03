@@ -910,40 +910,27 @@ window.loadBikeSummary = async function () {
     }
 
     let monthly = {};
-    let weekly = {};
     let firstDistance = records[0].at_distance;
     let lastDistance = records[records.length - 1].at_distance;
     let totalKm = lastDistance - firstDistance;
 
-    // For breakdowns, you may also want to exclude the last entry if needed.
-    // (Optional: If you want monthly/weekly breakdowns to also exclude the last entry, adjust logic here.)
     records.forEach((rec, idx) => {
-      // Exclude the last entry from monthly/weekly cost and km if you want
       let include = idx < records.length - 1;
-
       // --- Monthly ---
       const month = rec.date_changed.slice(0, 7); // 'YYYY-MM'
       if (!monthly[month]) monthly[month] = { cost: 0, first: rec.at_distance, last: rec.at_distance };
       if (include) monthly[month].cost += rec.amount;
       if (rec.at_distance < monthly[month].first) monthly[month].first = rec.at_distance;
       if (rec.at_distance > monthly[month].last) monthly[month].last = rec.at_distance;
-
-      // --- Weekly ---
-      const d = new Date(rec.date_changed);
-      const year = d.getFullYear();
-      const week = getWeekNumber(d);
-      const weekKey = `${year}-W${week}`;
-      if (!weekly[weekKey]) weekly[weekKey] = { cost: 0, first: rec.at_distance, last: rec.at_distance };
-      if (include) weekly[weekKey].cost += rec.amount;
-      if (rec.at_distance < weekly[weekKey].first) weekly[weekKey].first = rec.at_distance;
-      if (rec.at_distance > weekly[weekKey].last) weekly[weekKey].last = rec.at_distance;
     });
 
     for (let key in monthly) monthly[key].km = monthly[key].last - monthly[key].first;
-    for (let key in weekly) weekly[key].km = weekly[key].last - weekly[key].first;
 
+    // --- Fuel in litres and mileage ---
+    let fuelLitres = totalCost > 0 ? (totalCost / 103).toFixed(2) : "N/A";
     let mileage = totalCost > 0 ? (totalKm / (totalCost / 103)).toFixed(2) : "N/A";
 
+    // --- HTML ---
     let html = `
 <style>
   .bike-summary-details {
@@ -981,7 +968,6 @@ window.loadBikeSummary = async function () {
   }
   .bike-summary-summary    { color: #2d5be3; }
   .bike-summary-monthly    { color: #f7b500; }
-  .bike-summary-weekly     { color: #fd7c25; }
   .bike-summary-details > *:not(summary) {
     padding: 10px 26px 15px 26px;
     margin: 0;
@@ -1032,6 +1018,7 @@ window.loadBikeSummary = async function () {
   </summary>
   <ul class="bike-summary-ul">
     <li>⛽ <b>Total Cost:</b> <span class="bike-summary-highlight">₹${totalCost}</span></li>
+    <li>🛢️ <b>Total Fuel Used:</b> <span class="bike-summary-highlight">${fuelLitres} litres</span></li>
     <li>🏍️ <b>Total KM Driven:</b> <span class="bike-summary-highlight">${totalKm} km</span></li>
     <li>🛣️ <b>Bike Fuel Mileage:</b> <span class="bike-summary-highlight">${mileage} km/l</span></li>
   </ul>
@@ -1044,19 +1031,7 @@ window.loadBikeSummary = async function () {
   <table class="bike-summary-table">
     <tr><th>Month</th><th>Cost (₹)</th><th>KM</th></tr>
     ${Object.entries(monthly).map(([m, v]) =>
-      `<tr><td>${m}</td><td>${v.cost}</td><td>${v.km}</td></tr>`
-    ).join('')}
-  </table>
-</details>
-<details class="bike-summary-details">
-  <summary>
-    <span>📆</span>
-    <span class="summary-title bike-summary-weekly">Weekly Summary</span>
-  </summary>
-  <table class="bike-summary-table">
-    <tr><th>Week</th><th>Cost (₹)</th><th>KM</th></tr>
-    ${Object.entries(weekly).map(([w, v]) =>
-      `<tr><td>${w}</td><td>${v.cost}</td><td>${v.km}</td></tr>`
+      `<tr><td>${formatMonth(m)}</td><td>${v.cost}</td><td>${v.km}</td></tr>`
     ).join('')}
   </table>
 </details>
@@ -1069,11 +1044,9 @@ window.loadBikeSummary = async function () {
   }
 }
 
-// Helper: ISO week number
-function getWeekNumber(d) {
-  d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
-  const dayNum = d.getUTCDay() || 7;
-  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
-  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-  return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+// Helper: Format 'YYYY-MM' to 'MMM-YYYY'
+function formatMonth(monthStr) {
+  const [year, month] = monthStr.split("-");
+  const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+  return `${months[parseInt(month) - 1]}-${year}`;
 }
