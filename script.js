@@ -866,48 +866,104 @@ htmlTable += `
 window.loadBikeSummary = async function () {
   const container = document.getElementById("bike-summary-container");
 
-  console.log("📥 Loading bike summary...");
-
-  // ✅ Hide all bike-related sections
+  // 1. Hide all bike-related sections first
   document.querySelectorAll(".bike-section").forEach(sec => {
     sec.style.display = "none";
   });
 
-  // ✅ Only fetch and inject HTML if not already loaded
-  if (!container.innerHTML.trim()) {
-    try {
-      const response = await fetch("bike-summary.html");
-      console.log("✅ Fetch response status:", response.status);
-
-      if (!response.ok) throw new Error("Failed to fetch bike-summary.html");
-
-      const html = await response.text();
-      container.innerHTML = html;
-      console.log("✅ Injected HTML successfully");
-	  
-		// ✅ FIX: Make sure the section is visible
-		const bikeSection = container.querySelector("#bike-summary");
-		if (bikeSection) {
-		bikeSection.classList.add("active"); // <-- THIS LINE MAKES IT VISIBLE
-		}
-	  console.log("✅ Injected content:", container.innerHTML);
-
-
-    } catch (error) {
-      console.error("❌ Error loading bike summary:", error);
-
-      // Optional fallback message
-      container.innerHTML = `
-        <div style="padding: 20px; background: #fee; color: red;">
-          🚫 Failed to load bike summary content.
-        </div>`;
-    }
-  }
-
-  // ✅ Ensure container is visible and visually styled for debugging
+  // 2. Show the summary container only
   container.style.display = "block";
-  container.style.border = "2px dashed red";        // Debug border
-  container.style.minHeight = "300px";              // Force height
-  container.style.backgroundColor = "#ffffe0";      // Light yellow
-  container.scrollIntoView({ behavior: "smooth" }); // Optional scroll
-};
+  container.style.border = "2px dashed red";        // Debug border (optional)
+  container.style.minHeight = "300px";              // Optional for layout
+  container.style.backgroundColor = "#ffffe0";      // Optional for layout
+  container.innerHTML = "<b>Loading summary...</b>";
+
+  try {
+    // 3. Fetch records from Supabase for the logged-in user (replace with dynamic user_id if needed)
+    const { data: records, error } = await supabase
+      .from('bike_history')
+      .select('*')
+      .eq('user_id', 'shiva') // Change 'shiva' as per logged-in user
+      .order('date_changed', { ascending: true }); // ascending for mileage diff
+
+    if (error) {
+      container.innerHTML = `<span style="color:red;">Error loading data: ${error.message}</span>`;
+      return;
+    }
+
+    if (!records || records.length < 2) {
+      container.innerHTML = `<span style="color: orange;">Not enough bike records to calculate summary.</span>`;
+      return;
+    }
+
+    // 4. Calculate totals and breakdowns
+    let totalCost = 0;
+    let monthly = {};
+    let weekly = {};
+    let firstDistance = records[0].at_distance;
+    let lastDistance = records[records.length - 1].at_distance;
+    let totalKm = lastDistance - firstDistance;
+
+    records.forEach((rec) => {
+      totalCost += rec.amount;
+
+      // --- Monthly ---
+      const month = rec.date_changed.slice(0, 7); // 'YYYY-MM'
+      if (!monthly[month]) monthly[month] = { cost: 0, first: rec.at_distance, last: rec.at_distance };
+      monthly[month].cost += rec.amount;
+      if (rec.at_distance < monthly[month].first) monthly[month].first = rec.at_distance;
+      if (rec.at_distance > monthly[month].last) monthly[month].last = rec.at_distance;
+
+      // --- Weekly ---
+      const d = new Date(rec.date_changed);
+      const year = d.getFullYear();
+      const week = getWeekNumber(d);
+      const weekKey = `${year}-W${week}`;
+      if (!weekly[weekKey]) weekly[weekKey] = { cost: 0, first: rec.at_distance, last: rec.at_distance };
+      weekly[weekKey].cost += rec.amount;
+      if (rec.at_distance < weekly[weekKey].first) weekly[weekKey].first = rec.at_distance;
+      if (rec.at_distance > weekly[weekKey].last) weekly[weekKey].last = rec.at_distance;
+    });
+
+    // Calculate per month/week km
+    for (let key in monthly) monthly[key].km = monthly[key].last - monthly[key].first;
+    for (let key in weekly) weekly[key].km = weekly[key].last - weekly[key].first;
+
+    // 5. Build HTML summary
+    let html = `
+      <h2>Bike Summary</h2>
+      <b>Total Cost:</b> ₹${totalCost}<br>
+      <b>Total KM Driven:</b> ${totalKm} km<br>
+      <hr>
+      <b>Monthly Breakdown:</b>
+      <table border="1" cellpadding="4" style="border-collapse:collapse;min-width:280px;">
+        <tr><th>Month</th><th>Cost (₹)</th><th>KM</th></tr>
+        ${Object.entries(monthly).map(([m, v]) =>
+          `<tr><td>${m}</td><td>${v.cost}</td><td>${v.km}</td></tr>`
+        ).join('')}
+      </table>
+      <hr>
+      <b>Weekly Breakdown:</b>
+      <table border="1" cellpadding="4" style="border-collapse:collapse;min-width:280px;">
+        <tr><th>Week</th><th>Cost (₹)</th><th>KM</th></tr>
+        ${Object.entries(weekly).map(([w, v]) =>
+          `<tr><td>${w}</td><td>${v.cost}</td><td>${v.km}</td></tr>`
+        ).join('')}
+      </table>
+    `;
+
+    container.innerHTML = html;
+
+  } catch (err) {
+    container.innerHTML = `<span style="color:red;">❌ Error loading bike summary: ${err.message}</span>`;
+  }
+}
+
+// Helper: ISO week number
+function getWeekNumber(d) {
+  d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  const dayNum = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+}
