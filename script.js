@@ -1,5 +1,7 @@
 // ✅ script.js (module-compatible with full function support)
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+//import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/+esm";
+
 
 const supabaseClient = createClient(
   "https://wzgchcvyzskespcfrjvi.supabase.co",
