@@ -637,65 +637,83 @@ window.initAddBikeRecordSection = function () {
 
 window.loadBikeHistorySection = async function () {
   window.hideAllAppSections();
+
   const historyContainer = document.getElementById("bike-history-container");
   if (!historyContainer) {
     console.error("❌ #bike-history-container not found");
     return;
   }
+
   historyContainer.style.display = "block";
+
   const user_id = localStorage.getItem("user_id");
   if (!user_id) {
     historyContainer.innerHTML = "<p>⚠️ Not logged in.</p>";
     return;
   }
+
   try {
     const { data, error } = await supabaseClient
       .from("bike_history")
       .select("*")
       .eq("user_id", user_id)
       .order("date_changed", { ascending: false });
+
     if (error) throw error;
+
     if (!data || data.length === 0) {
       historyContainer.innerHTML = "<p>No records found.</p>";
       return;
     }
+
     let htmlTable = `
-  
-  <div class="bike-table-container">
-    <table class="bike-table">
-      <thead>
-        <tr>
-          <th style="white-space: nowrap;">Date</th>
-          <th>Odometer</th>
-          <th>Amount</th>
-        </tr>
-      </thead>
-      <tbody>
-`;
+      <div style="padding-left:16px; box-sizing:border-box;">
+        <div class="bike-table-container">
+          <table class="bike-table">
+            <thead>
+              <tr>
+                <th style="white-space: nowrap;">Date</th>
+                <th>Odometer</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+    `;
+
     data.forEach((row) => {
-      const formattedDate = new Date(row.date_changed).toLocaleDateString("en-GB", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric"
-      }).toUpperCase().replace(/ /g, "-");
+      const formattedDate = new Date(row.date_changed)
+        .toLocaleDateString("en-GB", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        })
+        .toUpperCase()
+        .replace(/ /g, "-");
+
       htmlTable += `
         <tr>
-        <td>${formattedDate}</td>
-        <td>${row.at_distance} km</td>
-        <td>₹${row.amount}</td>
+          <td>${formattedDate}</td>
+          <td>${row.at_distance} km</td>
+          <td>₹${row.amount}</td>
         </tr>
       `;
     });
+
     htmlTable += `
-      </tbody>
-    </table>
-  </div>
-`;
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `;
+
     historyContainer.innerHTML = htmlTable;
+
   } catch (err) {
+    console.error(err);
     historyContainer.innerHTML = "<p>❌ Error loading history.</p>";
   }
 };
+
 
 window.loadBikeSummary = async function () {
   window.hideAllAppSections();
