@@ -11,12 +11,21 @@ localStorage.removeItem("user_id"); // ✅ run IMMEDIATELY on script load
 
 window.dishNames = [];
 
+
 // === SPA section hider helper ===
 window.hideAllAppSections = function () {
   [
+    // Bike
     "bike-section-container",
     "bike-history-container",
     "bike-summary-container",
+
+    // Car  👈 ADD THESE
+    "car-section-container",
+    "car-history-container",
+    "car-summary-container",
+
+    // Utilities
     "utility-add-dish",
     "utility-daily-calorie",
     "summary-container",
@@ -28,6 +37,7 @@ window.hideAllAppSections = function () {
     if (el) el.style.display = "none";
   });
 };
+
 
 window.showSection = function (sectionId) {
   window.hideAllAppSections();
