@@ -669,21 +669,21 @@ window.loadBikeHistorySection = async function () {
       <div style="padding-left:10px; padding-top:6px;">
         <table style="
           border-collapse: collapse;
-          font-size: 14px;              /* ✅ FIX 1: was 20px */
-          line-height: 1.2;             /* ✅ slightly relaxed */
+          font-size: 13px;        /* 🔧 FIX: reduced */
+          line-height: 1;         /* 🔧 FIX: MAIN culprit */
           min-width: 460px;
           border: 1px solid #9fb6d1;
           font-family: Arial, sans-serif;
         ">
           <thead>
             <tr>
-              <th style="padding:4px 8px; background:#003366; color:white; border:1px solid #9fb6d1; font-weight:bold;">
+              <th style="padding:3px 8px; background:#003366; color:white; border:1px solid #9fb6d1; font-weight:bold;">
                 Date
               </th>
-              <th style="padding:4px 8px; background:#003366; color:white; border:1px solid #9fb6d1; font-weight:bold;">
+              <th style="padding:3px 8px; background:#003366; color:white; border:1px solid #9fb6d1; font-weight:bold;">
                 Odometer
               </th>
-              <th style="padding:4px 8px; background:#003366; color:white; border:1px solid #9fb6d1; font-weight:bold;">
+              <th style="padding:3px 8px; background:#003366; color:white; border:1px solid #9fb6d1; font-weight:bold;">
                 Amount
               </th>
             </tr>
@@ -705,13 +705,13 @@ window.loadBikeHistorySection = async function () {
 
       html += `
         <tr style="background:${bg};">
-          <td style="padding:3px 8px; border:1px solid #b6c9e3; text-align:center;">
+          <td style="padding:2px 8px; border:1px solid #b6c9e3; text-align:center;">
             ${formattedDate}
           </td>
-          <td style="padding:3px 8px; border:1px solid #b6c9e3; text-align:center;">
+          <td style="padding:2px 8px; border:1px solid #b6c9e3; text-align:center;">
             ${row.at_distance} km
           </td>
-          <td style="padding:3px 8px; border:1px solid #b6c9e3; text-align:right;">
+          <td style="padding:2px 8px; border:1px solid #b6c9e3; text-align:right;">
             ₹${row.amount}
           </td>
         </tr>
