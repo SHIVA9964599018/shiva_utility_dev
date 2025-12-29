@@ -669,16 +669,17 @@ window.loadBikeHistorySection = async function () {
       <div style="padding-left:10px; padding-top:6px;">
         <table style="
           border-collapse: collapse;
-          font-size: 12.5px;
+          font-size: 12px;
+          line-height: 1.1;
           min-width: 460px;
           border: 1px solid #9fb6d1;
           font-family: Arial, sans-serif;
         ">
           <thead>
             <tr>
-              <th style="background:#003366;color:white;padding:3px 6px;border:1px solid #9fb6d1;">Date</th>
-              <th style="background:#003366;color:white;padding:3px 6px;border:1px solid #9fb6d1;">Odometer</th>
-              <th style="background:#003366;color:white;padding:3px 6px;border:1px solid #9fb6d1;">Amount</th>
+              <th style="padding:2px 6px; line-height:1.1; background:#003366; color:white; border:1px solid #9fb6d1;">Date</th>
+              <th style="padding:2px 6px; line-height:1.1; background:#003366; color:white; border:1px solid #9fb6d1;">Odometer</th>
+              <th style="padding:2px 6px; line-height:1.1; background:#003366; color:white; border:1px solid #9fb6d1;">Amount</th>
             </tr>
           </thead>
           <tbody>
@@ -694,14 +695,13 @@ window.loadBikeHistorySection = async function () {
         .toUpperCase()
         .replace(/ /g, "-");
 
-      // 👇 STRONGER alternating colors
-      const bg = index % 2 === 0 ? "#ffffff" : "#eaf2ff";
+      const bg = index % 2 === 0 ? "#ffffff" : "#eef4ff";
 
       html += `
         <tr style="background:${bg};">
-          <td style="padding:2px 6px;border:1px solid #b6c9e3;text-align:center;">${formattedDate}</td>
-          <td style="padding:2px 6px;border:1px solid #b6c9e3;text-align:center;">${row.at_distance} km</td>
-          <td style="padding:2px 6px;border:1px solid #b6c9e3;text-align:right;">₹${row.amount}</td>
+          <td style="padding:1px 6px; line-height:1.1; border:1px solid #b6c9e3; text-align:center;">${formattedDate}</td>
+          <td style="padding:1px 6px; line-height:1.1; border:1px solid #b6c9e3; text-align:center;">${row.at_distance} km</td>
+          <td style="padding:1px 6px; line-height:1.1; border:1px solid #b6c9e3; text-align:right;">₹${row.amount}</td>
         </tr>
       `;
     });
