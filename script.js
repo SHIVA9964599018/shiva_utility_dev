@@ -889,3 +889,183 @@ function toggleSubmenu(id) {
 }
 
 window.toggleSubmenu = toggleSubmenu; // REQUIRED for type="module"
+
+/* =======================
+   🚗 CAR – EXACT COPY OF BIKE
+   ======================= */
+
+/* ➕ Add Car Record Section */
+window.addCarRecordSection = async function () {
+  window.hideAllAppSections();
+
+  const container = document.getElementById("car-section-container");
+  if (!container) {
+    console.error("❌ car-section-container not found");
+    return;
+  }
+
+  container.style.display = "block";
+
+  try {
+    const response = await fetch("car-history.html"); // same structure as bike-history.html
+    const html = await response.text();
+    container.innerHTML = html;
+
+    if (typeof window.initAddCarRecordSection === "function") {
+      window.initAddCarRecordSection();
+    }
+  } catch (err) {
+    console.error("❌ Failed to load car-history.html:", err);
+  }
+};
+
+/* 💾 Init + Save Car Record */
+window.initAddCarRecordSection = function () {
+  const submitBtn = document.getElementById("submitCarRecordBtn");
+  if (!submitBtn) return;
+
+  submitBtn.addEventListener("click", async () => {
+    const date = document.getElementById("date_changed").value;
+    const amount = parseFloat(document.getElementById("amount").value);
+    const distance = parseFloat(document.getElementById("at_distance").value);
+    const user_id = localStorage.getItem("user_id");
+
+    if (!date || isNaN(amount) || isNaN(distance) || !user_id) {
+      alert("Please fill all fields and ensure user is logged in.");
+      return;
+    }
+
+    try {
+      const { error } = await supabaseClient
+        .from("car_history")
+        .insert([{ user_id, date_changed: date, amount, at_distance: distance }]);
+
+      if (error) throw error;
+
+      document.getElementById("record_status").textContent = "✅ Record added!";
+    } catch (err) {
+      document.getElementById("record_status").textContent = "❌ Failed to add record.";
+    }
+  });
+};
+
+/* 🛠️ Load Car History */
+window.loadCarHistorySection = async function () {
+  window.hideAllAppSections();
+
+  const container = document.getElementById("car-history-container");
+  if (!container) {
+    console.error("❌ car-history-container not found");
+    return;
+  }
+
+  container.style.display = "block";
+
+  const user_id = localStorage.getItem("user_id");
+  if (!user_id) {
+    container.innerHTML = "<p>⚠️ Not logged in.</p>";
+    return;
+  }
+
+  try {
+    const { data, error } = await supabaseClient
+      .from("car_history")
+      .select("*")
+      .eq("user_id", user_id)
+      .order("date_changed", { ascending: false });
+
+    if (error) throw error;
+
+    if (!data || data.length === 0) {
+      container.innerHTML = "<p>No car records found.</p>";
+      return;
+    }
+
+    let html = `
+      <div class="bike-table-container">
+        <table class="bike-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Odometer</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${data.map(row => {
+              const formattedDate = new Date(row.date_changed)
+                .toLocaleDateString("en-GB")
+                .toUpperCase()
+                .replace(/ /g, "-");
+              return `
+                <tr>
+                  <td>${formattedDate}</td>
+                  <td>${row.at_distance} km</td>
+                  <td>₹${row.amount}</td>
+                </tr>
+              `;
+            }).join("")}
+          </tbody>
+        </table>
+      </div>
+    `;
+
+    container.innerHTML = html;
+  } catch (err) {
+    container.innerHTML = "<p>❌ Error loading car history.</p>";
+  }
+};
+
+/* 📊 Load Car Summary */
+window.loadCarSummary = async function () {
+  window.hideAllAppSections();
+
+  const container = document.getElementById("car-summary-container");
+  container.style.display = "block";
+  container.innerHTML = "<b>Loading summary...</b>";
+
+  const userId = localStorage.getItem("user_id");
+  if (!userId) {
+    container.innerHTML = "⚠️ Not logged in.";
+    return;
+  }
+
+  try {
+    const { data: records, error } = await supabaseClient
+      .from("car_history")
+      .select("*")
+      .eq("user_id", userId)
+      .order("date_changed", { ascending: true });
+
+    if (error || !records || records.length < 2) {
+      container.innerHTML = "Not enough car records to calculate summary.";
+      return;
+    }
+
+    // Same logic as bike
+    let totalCost = 0;
+    for (let i = 0; i < records.length - 1; i++) {
+      totalCost += records[i].amount;
+    }
+
+    let totalKm =
+      records[records.length - 1].at_distance -
+      records[0].at_distance;
+
+    let litres = (totalCost / 103).toFixed(2);
+    let mileage = (totalKm / (totalCost / 103)).toFixed(2);
+
+    container.innerHTML = `
+      <h3>🚗 Car Summary</h3>
+      <ul>
+        <li>⛽ Total Cost: ₹${totalCost}</li>
+        <li>🛢️ Fuel Used: ${litres} L</li>
+        <li>🛣️ Distance: ${totalKm} km</li>
+        <li>🚘 Mileage: ${mileage} km/l</li>
+      </ul>
+    `;
+  } catch (err) {
+    container.innerHTML = "❌ Error loading car summary.";
+  }
+};
+
