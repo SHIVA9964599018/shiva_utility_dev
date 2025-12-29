@@ -988,16 +988,20 @@ blockquote {
 
 
 
-/* ===== Bike & Car History Table Styles ===== */
+/* ===============================
+   TABLE CONTAINER
+   =============================== */
 
 .bike-table-container {
-  margin-top: 40px;
-  width: 100%;
-  display: flex;
-  justify-content: center;   /* THIS is the key */
+  padding: 12px 8px 12px 16px;   /* pushes table slightly to the right */
+  overflow-x: auto;              /* safe on small screens */
+  box-sizing: border-box;
 }
 
 
+/* ===============================
+   TABLE STYLE
+   =============================== */
 
 .bike-table {
   border-collapse: collapse;
@@ -1006,8 +1010,14 @@ blockquote {
   border: 1px solid #ccc;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
   font-family: "Segoe UI", sans-serif;
-  min-width: 480px; 
+  min-width: 480px;
+  margin: 0;                     /* prevents unexpected shifts */
 }
+
+
+/* ===============================
+   HEADER
+   =============================== */
 
 .bike-table th {
   background-color: #003366;
@@ -1016,13 +1026,24 @@ blockquote {
   border: 1px solid #ccc;
   text-align: center;
   font-weight: bold;
+  white-space: nowrap;
 }
+
+
+/* ===============================
+   CELLS
+   =============================== */
 
 .bike-table td {
   border: 1px solid #ccc;
-  padding: 4px 6px;
+  padding: 6px 8px;
   text-align: center;
 }
+
+
+/* ===============================
+   ROW COLORS
+   =============================== */
 
 .bike-table tr:nth-child(even) td {
   background-color: #f2f8fc;
@@ -1031,6 +1052,11 @@ blockquote {
 .bike-table tr:nth-child(odd) td {
   background-color: #ffffff;
 }
+
+
+/* ===============================
+   HOVER EFFECT
+   =============================== */
 
 .bike-table tr:hover td {
   background-color: #d6ebff;
