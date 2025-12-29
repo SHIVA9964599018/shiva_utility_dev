@@ -669,17 +669,23 @@ window.loadBikeHistorySection = async function () {
       <div style="padding-left:10px; padding-top:6px;">
         <table style="
           border-collapse: collapse;
-          font-size: 12px;
-          line-height: 1.1;
+          font-size: 14px;              /* ✅ FIX 1: was 20px */
+          line-height: 1.2;             /* ✅ slightly relaxed */
           min-width: 460px;
           border: 1px solid #9fb6d1;
           font-family: Arial, sans-serif;
         ">
           <thead>
             <tr>
-              <th style="padding:2px 6px; line-height:1.1; background:#003366; color:white; border:1px solid #9fb6d1;">Date</th>
-              <th style="padding:2px 6px; line-height:1.1; background:#003366; color:white; border:1px solid #9fb6d1;">Odometer</th>
-              <th style="padding:2px 6px; line-height:1.1; background:#003366; color:white; border:1px solid #9fb6d1;">Amount</th>
+              <th style="padding:4px 8px; background:#003366; color:white; border:1px solid #9fb6d1; font-weight:bold;">
+                Date
+              </th>
+              <th style="padding:4px 8px; background:#003366; color:white; border:1px solid #9fb6d1; font-weight:bold;">
+                Odometer
+              </th>
+              <th style="padding:4px 8px; background:#003366; color:white; border:1px solid #9fb6d1; font-weight:bold;">
+                Amount
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -699,9 +705,15 @@ window.loadBikeHistorySection = async function () {
 
       html += `
         <tr style="background:${bg};">
-          <td style="padding:1px 6px; line-height:1.1; border:1px solid #b6c9e3; text-align:center;">${formattedDate}</td>
-          <td style="padding:1px 6px; line-height:1.1; border:1px solid #b6c9e3; text-align:center;">${row.at_distance} km</td>
-          <td style="padding:1px 6px; line-height:1.1; border:1px solid #b6c9e3; text-align:right;">₹${row.amount}</td>
+          <td style="padding:3px 8px; border:1px solid #b6c9e3; text-align:center;">
+            ${formattedDate}
+          </td>
+          <td style="padding:3px 8px; border:1px solid #b6c9e3; text-align:center;">
+            ${row.at_distance} km
+          </td>
+          <td style="padding:3px 8px; border:1px solid #b6c9e3; text-align:right;">
+            ₹${row.amount}
+          </td>
         </tr>
       `;
     });
@@ -719,6 +731,7 @@ window.loadBikeHistorySection = async function () {
     historyContainer.innerHTML = "<p>❌ Error loading history.</p>";
   }
 };
+
 
 
 
