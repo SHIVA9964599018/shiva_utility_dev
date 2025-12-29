@@ -660,42 +660,7 @@ window.loadBikeHistorySection = async function () {
       return;
     }
     let htmlTable = `
-  <style>
-    .bike-table-container {
-      margin-top: 40px;
-      margin-left: 40px;
-    }
-    .bike-table {
-      border-collapse: collapse;
-      font-size: 14px;
-      table-layout: fixed;
-      border: 1px solid #ccc;
-      box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
-      font-family: "Segoe UI", sans-serif;
-    }
-    .bike-table th {
-      background-color: #003366;
-      color: white;
-      padding: 8px 12px;
-      border: 1px solid #ccc;
-      text-align: center;
-      font-weight: bold;
-    }
-    .bike-table td {
-      border: 1px solid #ccc;
-      padding: 4px 6px;
-      text-align: center;
-    }
-    .bike-table tr:nth-child(even) td {
-      background-color: #f2f8fc;
-    }
-    .bike-table tr:nth-child(odd) td {
-      background-color: #ffffff;
-    }
-    .bike-table tr:hover td {
-      background-color: #d6ebff;
-    }
-  </style>
+  
   <div class="bike-table-container">
     <table class="bike-table">
       <thead>
