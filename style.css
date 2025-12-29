@@ -1045,7 +1045,7 @@ blockquote {
    =============================== */
 
 .bike-table td {
-  border: 1px solid #e1e7ef;
+  border: 5px solid #e1e7ef;
   padding: 1px 1px;             /* 🔧 KEY FIX */
   text-align: center;
   color: #1f2933;
