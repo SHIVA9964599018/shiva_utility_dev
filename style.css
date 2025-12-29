@@ -992,10 +992,11 @@ blockquote {
 
 .bike-table-container {
   margin-top: 40px;
-  padding-left: 60px;   /* pushes table right */
-  padding-right: 20px;
-  overflow-x: auto;     /* prevents overflow on small screens */
+  width: 100%;
+  display: flex;
+  justify-content: center;   /* THIS is the key */
 }
+
 
 
 .bike-table {
@@ -1005,6 +1006,7 @@ blockquote {
   border: 1px solid #ccc;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
   font-family: "Segoe UI", sans-serif;
+  min-width: 480px; 
 }
 
 .bike-table th {
