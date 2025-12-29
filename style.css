@@ -991,9 +991,9 @@ blockquote {
 
 #bike-history-container,
 #car-history-container {
-  background-color: #f7faff;   /* light app background */
-  padding-top: 10px;
-  padding-bottom: 10px;
+  background-color: #f7faff;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 
@@ -1003,7 +1003,7 @@ blockquote {
 
 .bike-table-container {
   background: #ffffff;
-  padding: 10px;
+  padding: 6px;                 /* 🔧 reduced */
   border-radius: 6px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   overflow-x: auto;
@@ -1016,7 +1016,8 @@ blockquote {
 
 .bike-table {
   border-collapse: collapse;
-  font-size: 14px;
+  font-size: 13px;              /* 🔧 reduced */
+  line-height: 1.1;             /* 🔧 IMPORTANT */
   font-family: "Segoe UI", sans-serif;
   min-width: 480px;
   border: 1px solid #cfd8e3;
@@ -1030,11 +1031,12 @@ blockquote {
 .bike-table th {
   background: linear-gradient(135deg, #003366, #004c99);
   color: #ffffff;
-  padding: 8px 12px;
+  padding: 4px 8px;             /* 🔧 KEY FIX */
   border: 1px solid #cfd8e3;
   text-align: center;
   font-weight: 600;
   white-space: nowrap;
+  line-height: 1.1;             /* 🔧 KEY FIX */
 }
 
 
@@ -1044,9 +1046,10 @@ blockquote {
 
 .bike-table td {
   border: 1px solid #e1e7ef;
-  padding: 6px 8px;
+  padding: 3px 6px;             /* 🔧 KEY FIX */
   text-align: center;
   color: #1f2933;
+  line-height: 1.1;             /* 🔧 KEY FIX */
 }
 
 
@@ -1071,4 +1074,3 @@ blockquote {
   background-color: #dbeeff;
   cursor: pointer;
 }
-
