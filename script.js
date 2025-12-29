@@ -677,13 +677,13 @@ window.loadBikeHistorySection = async function () {
         ">
           <thead>
             <tr>
-              <th style="padding:3px 8px; background:#003366; color:white; border:1px solid #9fb6d1; font-weight:bold;">
+              <th style="padding:1px 1px; background:#003366; color:white; border:1px solid #9fb6d1; font-weight:bold;">
                 Date
               </th>
-              <th style="padding:3px 8px; background:#003366; color:white; border:1px solid #9fb6d1; font-weight:bold;">
+              <th style="padding:1px 1px; background:#003366; color:white; border:1px solid #9fb6d1; font-weight:bold;">
                 Odometer
               </th>
-              <th style="padding:3px 8px; background:#003366; color:white; border:1px solid #9fb6d1; font-weight:bold;">
+              <th style="padding:1px 1px; background:#003366; color:white; border:1px solid #9fb6d1; font-weight:bold;">
                 Amount
               </th>
             </tr>
@@ -708,10 +708,10 @@ window.loadBikeHistorySection = async function () {
           <td style="padding:2px 8px; border:1px solid #b6c9e3; text-align:center;">
             ${formattedDate}
           </td>
-          <td style="padding:2px 8px; border:1px solid #b6c9e3; text-align:center;">
+          <td style="padding:1px 1px; border:1px solid #b6c9e3; text-align:center;">
             ${row.at_distance} km
           </td>
-          <td style="padding:2px 8px; border:1px solid #b6c9e3; text-align:right;">
+          <td style="padding:1px 1px; border:1px solid #b6c9e3; text-align:right;">
             ₹${row.amount}
           </td>
         </tr>
