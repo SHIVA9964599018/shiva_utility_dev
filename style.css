@@ -1015,7 +1015,7 @@ blockquote {
    =============================== */
 
 .bike-table {
-  border-collapse: collapse;
+  border-collapse: separate;
   font-size: 13px;              /* 🔧 reduced */
   line-height: 1.1;             /* 🔧 IMPORTANT */
   font-family: "Segoe UI", sans-serif;
