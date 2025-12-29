@@ -1020,7 +1020,7 @@ blockquote {
   line-height: 1.1;             /* 🔧 IMPORTANT */
   font-family: "Segoe UI", sans-serif;
   min-width: 480px;
-  border: 1px solid #cfd8e3;
+  border: 5px solid #cfd8e3;
 }
 
 
