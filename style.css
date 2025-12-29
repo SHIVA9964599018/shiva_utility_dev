@@ -1031,7 +1031,7 @@ blockquote {
 .bike-table th {
   background: linear-gradient(135deg, #003366, #004c99);
   color: #ffffff;
-  padding: 4px 8px;             /* 🔧 KEY FIX */
+  padding: 1px 1px;             /* 🔧 KEY FIX */
   border: 1px solid #cfd8e3;
   text-align: center;
   font-weight: 600;
@@ -1046,7 +1046,7 @@ blockquote {
 
 .bike-table td {
   border: 1px solid #e1e7ef;
-  padding: 3px 6px;             /* 🔧 KEY FIX */
+  padding: 1px 1px;             /* 🔧 KEY FIX */
   text-align: center;
   color: #1f2933;
   line-height: 1.1;             /* 🔧 KEY FIX */
