@@ -666,19 +666,19 @@ window.loadBikeHistorySection = async function () {
     }
 
     let html = `
-      <div style="padding-left:12px; padding-top:6px;">
+      <div style="padding-left:10px; padding-top:6px;">
         <table style="
           border-collapse: collapse;
-          font-size: 13px;
+          font-size: 12.5px;
           min-width: 460px;
-          border: 1px solid #cfd8e3;
+          border: 1px solid #9fb6d1;
           font-family: Arial, sans-serif;
         ">
           <thead>
             <tr>
-              <th style="background:#003366;color:white;padding:4px 6px;border:1px solid #cfd8e3;">Date</th>
-              <th style="background:#003366;color:white;padding:4px 6px;border:1px solid #cfd8e3;">Odometer</th>
-              <th style="background:#003366;color:white;padding:4px 6px;border:1px solid #cfd8e3;">Amount</th>
+              <th style="background:#003366;color:white;padding:3px 6px;border:1px solid #9fb6d1;">Date</th>
+              <th style="background:#003366;color:white;padding:3px 6px;border:1px solid #9fb6d1;">Odometer</th>
+              <th style="background:#003366;color:white;padding:3px 6px;border:1px solid #9fb6d1;">Amount</th>
             </tr>
           </thead>
           <tbody>
@@ -694,13 +694,14 @@ window.loadBikeHistorySection = async function () {
         .toUpperCase()
         .replace(/ /g, "-");
 
-      const bg = index % 2 === 0 ? "#ffffff" : "#f5f9ff";
+      // 👇 STRONGER alternating colors
+      const bg = index % 2 === 0 ? "#ffffff" : "#eaf2ff";
 
       html += `
         <tr style="background:${bg};">
-          <td style="padding:3px 6px;border:1px solid #dde5f0;text-align:center;">${formattedDate}</td>
-          <td style="padding:3px 6px;border:1px solid #dde5f0;text-align:center;">${row.at_distance} km</td>
-          <td style="padding:3px 6px;border:1px solid #dde5f0;text-align:center;">₹${row.amount}</td>
+          <td style="padding:2px 6px;border:1px solid #b6c9e3;text-align:center;">${formattedDate}</td>
+          <td style="padding:2px 6px;border:1px solid #b6c9e3;text-align:center;">${row.at_distance} km</td>
+          <td style="padding:2px 6px;border:1px solid #b6c9e3;text-align:right;">₹${row.amount}</td>
         </tr>
       `;
     });
@@ -718,6 +719,7 @@ window.loadBikeHistorySection = async function () {
     historyContainer.innerHTML = "<p>❌ Error loading history.</p>";
   }
 };
+
 
 
 
