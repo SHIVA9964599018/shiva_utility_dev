@@ -882,3 +882,10 @@ function formatMonth(monthStr) {
   const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
   return `${months[parseInt(month) - 1]}-${year}`;
 }
+
+function toggleSubmenu(id) {
+  const el = document.getElementById(id);
+  el.style.display = el.style.display === "block" ? "none" : "block";
+}
+
+window.toggleSubmenu = toggleSubmenu; // REQUIRED for type="module"

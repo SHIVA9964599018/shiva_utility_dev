@@ -958,6 +958,33 @@ blockquote {
   }
 }
 
+/* Sidebar accordion styles */
+.sidebar-group {
+  width: 100%;
+}
+
+.sidebar-title {
+  font-weight: bold;
+  cursor: pointer;
+  padding: 8px;
+  background-color: #222;
+  border-radius: 5px;
+}
+
+.sidebar-title:hover {
+  background-color: #333;
+}
+
+.submenu {
+  display: none;
+  margin-left: 12px;
+  margin-top: 6px;
+}
+
+.submenu a {
+  font-size: 0.9rem;
+  margin: 6px 0;
+}
 
 
 

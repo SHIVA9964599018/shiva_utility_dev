@@ -84,13 +84,33 @@
 
 <!-- Sidebar navigation -->
 <div id="sidebar">
-  <h4>🚴 Bike Info</h4>
-<!-- Sidebar for Bike Info -->
-<a href="#" onclick="addBikeRecordSection()">➕ Add Bike Record</a>
-<a href="#" onclick="loadBikeHistorySection('bike-history')">🛠️ Bike History</a>
-<a href="#" onclick="loadBikeSummary()">📊 Bike Summary</a>
+
+  <!-- Bike Info -->
+  <div class="sidebar-group">
+    <div class="sidebar-title" onclick="toggleSubmenu('bike-submenu')">
+      🚴 Bike Info
+    </div>
+    <div id="bike-submenu" class="submenu">
+      <a href="#" onclick="addBikeRecordSection()">➕ Add Bike Record</a>
+      <a href="#" onclick="loadBikeHistorySection('bike-history')">🛠️ Bike History</a>
+      <a href="#" onclick="loadBikeSummary()">📊 Bike Summary</a>
+    </div>
+  </div>
+
+  <!-- Car Info -->
+  <div class="sidebar-group">
+    <div class="sidebar-title" onclick="toggleSubmenu('car-submenu')">
+      🚗 Car Info
+    </div>
+    <div id="car-submenu" class="submenu">
+      <a href="#" onclick="addCarRecordSection()">➕ Add Car Fuel</a>
+      <a href="#" onclick="loadCarHistorySection()">🛠️ Car History</a>
+      <a href="#" onclick="loadCarSummary()">📊 Car Summary</a>
+    </div>
+  </div>
 
 </div>
+
 
 <!-- Sections outside #utilities -->
 <div id="bike-section-container"></div>
