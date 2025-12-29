@@ -671,7 +671,6 @@ window.loadBikeHistorySection = async function () {
           border-collapse: collapse;
           font-size: 13px;        /* 🔧 FIX: reduced */
           line-height: 1;         /* 🔧 FIX: MAIN culprit */
-          min-width: 460px;
           border: 1px solid #9fb6d1;
           font-family: Arial, sans-serif;
         ">
@@ -705,7 +704,7 @@ window.loadBikeHistorySection = async function () {
 
       html += `
         <tr style="background:${bg};">
-          <td style="padding:2px 8px; border:1px solid #b6c9e3; text-align:center;">
+          <td style="padding:1px 1px; border:1px solid #b6c9e3; text-align:center;">
             ${formattedDate}
           </td>
           <td style="padding:1px 1px; border:1px solid #b6c9e3; text-align:center;">
