@@ -992,8 +992,11 @@ blockquote {
 
 .bike-table-container {
   margin-top: 40px;
-  margin-left: 40px;
+  padding-left: 60px;   /* pushes table right */
+  padding-right: 20px;
+  overflow-x: auto;     /* prevents overflow on small screens */
 }
+
 
 .bike-table {
   border-collapse: collapse;
