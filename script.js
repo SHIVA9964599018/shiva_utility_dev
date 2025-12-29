@@ -669,9 +669,9 @@ window.loadBikeHistorySection = async function () {
       <div style="padding-left:10px; padding-top:6px;">
         <table style="
           border-collapse: collapse;
-          font-size: 13px;        /* 🔧 FIX: reduced */
+          font-size: 20px;        /* 🔧 FIX: reduced */
           line-height: 1;         /* 🔧 FIX: MAIN culprit */
-          border: 1px solid #9fb6d1;
+          border: 2px solid #9fb6d1;
           font-family: Arial, sans-serif;
         ">
           <thead>
