@@ -666,21 +666,26 @@ window.loadBikeHistorySection = async function () {
       return;
     }
 
-    let htmlTable = `
-      <div style="padding-left:16px; box-sizing:border-box;">
-        <div class="bike-table-container">
-          <table class="bike-table">
-            <thead>
-              <tr>
-                <th style="white-space: nowrap;">Date</th>
-                <th>Odometer</th>
-                <th>Amount</th>
-              </tr>
-            </thead>
-            <tbody>
+    let html = `
+      <div style="padding-left:16px; padding-top:10px;">
+        <table style="
+          border-collapse: collapse;
+          font-size: 14px;
+          min-width: 480px;
+          border: 1px solid #cfd8e3;
+          font-family: Arial, sans-serif;
+        ">
+          <thead>
+            <tr>
+              <th style="background:#003366;color:white;padding:8px 12px;border:1px solid #cfd8e3;">Date</th>
+              <th style="background:#003366;color:white;padding:8px 12px;border:1px solid #cfd8e3;">Odometer</th>
+              <th style="background:#003366;color:white;padding:8px 12px;border:1px solid #cfd8e3;">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
     `;
 
-    data.forEach((row) => {
+    data.forEach((row, index) => {
       const formattedDate = new Date(row.date_changed)
         .toLocaleDateString("en-GB", {
           day: "2-digit",
@@ -690,23 +695,24 @@ window.loadBikeHistorySection = async function () {
         .toUpperCase()
         .replace(/ /g, "-");
 
-      htmlTable += `
-        <tr>
-          <td>${formattedDate}</td>
-          <td>${row.at_distance} km</td>
-          <td>₹${row.amount}</td>
+      const bgColor = index % 2 === 0 ? "#ffffff" : "#f2f8ff";
+
+      html += `
+        <tr style="background:${bgColor};">
+          <td style="padding:6px 8px;border:1px solid #e1e7ef;text-align:center;">${formattedDate}</td>
+          <td style="padding:6px 8px;border:1px solid #e1e7ef;text-align:center;">${row.at_distance} km</td>
+          <td style="padding:6px 8px;border:1px solid #e1e7ef;text-align:center;">₹${row.amount}</td>
         </tr>
       `;
     });
 
-    htmlTable += `
-            </tbody>
-          </table>
-        </div>
+    html += `
+          </tbody>
+        </table>
       </div>
     `;
 
-    historyContainer.innerHTML = htmlTable;
+    historyContainer.innerHTML = html;
 
   } catch (err) {
     console.error(err);
