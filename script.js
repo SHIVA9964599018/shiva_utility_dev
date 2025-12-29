@@ -660,26 +660,25 @@ window.loadBikeHistorySection = async function () {
       .order("date_changed", { ascending: false });
 
     if (error) throw error;
-
     if (!data || data.length === 0) {
       historyContainer.innerHTML = "<p>No records found.</p>";
       return;
     }
 
     let html = `
-      <div style="padding-left:16px; padding-top:10px;">
+      <div style="padding-left:12px; padding-top:6px;">
         <table style="
           border-collapse: collapse;
-          font-size: 14px;
-          min-width: 480px;
+          font-size: 13px;
+          min-width: 460px;
           border: 1px solid #cfd8e3;
           font-family: Arial, sans-serif;
         ">
           <thead>
             <tr>
-              <th style="background:#003366;color:white;padding:8px 12px;border:1px solid #cfd8e3;">Date</th>
-              <th style="background:#003366;color:white;padding:8px 12px;border:1px solid #cfd8e3;">Odometer</th>
-              <th style="background:#003366;color:white;padding:8px 12px;border:1px solid #cfd8e3;">Amount</th>
+              <th style="background:#003366;color:white;padding:4px 6px;border:1px solid #cfd8e3;">Date</th>
+              <th style="background:#003366;color:white;padding:4px 6px;border:1px solid #cfd8e3;">Odometer</th>
+              <th style="background:#003366;color:white;padding:4px 6px;border:1px solid #cfd8e3;">Amount</th>
             </tr>
           </thead>
           <tbody>
@@ -695,13 +694,13 @@ window.loadBikeHistorySection = async function () {
         .toUpperCase()
         .replace(/ /g, "-");
 
-      const bgColor = index % 2 === 0 ? "#ffffff" : "#f2f8ff";
+      const bg = index % 2 === 0 ? "#ffffff" : "#f5f9ff";
 
       html += `
-        <tr style="background:${bgColor};">
-          <td style="padding:6px 8px;border:1px solid #e1e7ef;text-align:center;">${formattedDate}</td>
-          <td style="padding:6px 8px;border:1px solid #e1e7ef;text-align:center;">${row.at_distance} km</td>
-          <td style="padding:6px 8px;border:1px solid #e1e7ef;text-align:center;">₹${row.amount}</td>
+        <tr style="background:${bg};">
+          <td style="padding:3px 6px;border:1px solid #dde5f0;text-align:center;">${formattedDate}</td>
+          <td style="padding:3px 6px;border:1px solid #dde5f0;text-align:center;">${row.at_distance} km</td>
+          <td style="padding:3px 6px;border:1px solid #dde5f0;text-align:center;">₹${row.amount}</td>
         </tr>
       `;
     });
@@ -719,6 +718,7 @@ window.loadBikeHistorySection = async function () {
     historyContainer.innerHTML = "<p>❌ Error loading history.</p>";
   }
 };
+
 
 
 window.loadBikeSummary = async function () {
