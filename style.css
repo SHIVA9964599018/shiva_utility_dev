@@ -985,27 +985,29 @@ blockquote {
   font-size: 0.9rem;
   margin: 6px 0;
 }
+/* ===============================
+   HISTORY CONTAINERS
+   =============================== */
 
 #bike-history-container,
 #car-history-container {
-  padding-left: 16px !important;
-  padding-right: 8px;
+  display: block;
+  width: 100%;
   box-sizing: border-box;
 }
 
 /* ===============================
-   TABLE CONTAINER
+   TABLE WRAPPER
    =============================== */
 
 .bike-table-container {
-  padding: 12px 8px 12px 16px;   /* pushes table slightly to the right */
-  overflow-x: auto;              /* safe on small screens */
+  width: 100%;
+  overflow-x: auto;
   box-sizing: border-box;
 }
 
-
 /* ===============================
-   TABLE STYLE
+   TABLE (FORCED RIGHT SHIFT)
    =============================== */
 
 .bike-table {
@@ -1016,9 +1018,10 @@ blockquote {
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
   font-family: "Segoe UI", sans-serif;
   min-width: 480px;
-  margin: 0;                     /* prevents unexpected shifts */
-}
 
+  /* 👇 THIS IS THE KEY LINE */
+  margin-left: 16px !important;
+}
 
 /* ===============================
    HEADER
@@ -1034,7 +1037,6 @@ blockquote {
   white-space: nowrap;
 }
 
-
 /* ===============================
    CELLS
    =============================== */
@@ -1044,7 +1046,6 @@ blockquote {
   padding: 6px 8px;
   text-align: center;
 }
-
 
 /* ===============================
    ROW COLORS
@@ -1057,7 +1058,6 @@ blockquote {
 .bike-table tr:nth-child(odd) td {
   background-color: #ffffff;
 }
-
 
 /* ===============================
    HOVER EFFECT
