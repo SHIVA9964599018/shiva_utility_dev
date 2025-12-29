@@ -928,17 +928,17 @@ window.initAddCarRecordSection = function () {
 window.loadCarHistorySection = async function () {
   window.hideAllAppSections();
 
-  const container = document.getElementById("car-history-container");
-  if (!container) {
-    console.error("❌ car-history-container not found");
+  const historyContainer = document.getElementById("car-history-container");
+  if (!historyContainer) {
+    console.error("❌ #car-history-container not found");
     return;
   }
 
-  container.style.display = "block";
+  historyContainer.style.display = "block";
 
   const user_id = localStorage.getItem("user_id");
   if (!user_id) {
-    container.innerHTML = "<p>⚠️ Not logged in.</p>";
+    historyContainer.innerHTML = "<p>⚠️ Not logged in.</p>";
     return;
   }
 
@@ -952,44 +952,55 @@ window.loadCarHistorySection = async function () {
     if (error) throw error;
 
     if (!data || data.length === 0) {
-      container.innerHTML = "<p>No car records found.</p>";
+      historyContainer.innerHTML = "<p>No records found.</p>";
       return;
     }
 
-    let html = `
+    let htmlTable = `
       <div class="bike-table-container">
         <table class="bike-table">
           <thead>
             <tr>
-              <th>Date</th>
+              <th style="white-space: nowrap;">Date</th>
               <th>Odometer</th>
               <th>Amount</th>
             </tr>
           </thead>
           <tbody>
-            ${data.map(row => {
-              const formattedDate = new Date(row.date_changed)
-                .toLocaleDateString("en-GB")
-                .toUpperCase()
-                .replace(/ /g, "-");
-              return `
-                <tr>
-                  <td>${formattedDate}</td>
-                  <td>${row.at_distance} km</td>
-                  <td>₹${row.amount}</td>
-                </tr>
-              `;
-            }).join("")}
+    `;
+
+    data.forEach((row) => {
+      const formattedDate = new Date(row.date_changed)
+        .toLocaleDateString("en-GB", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric"
+        })
+        .toUpperCase()
+        .replace(/ /g, "-");
+
+      htmlTable += `
+        <tr>
+          <td>${formattedDate}</td>
+          <td>${row.at_distance} km</td>
+          <td>₹${row.amount}</td>
+        </tr>
+      `;
+    });
+
+    htmlTable += `
           </tbody>
         </table>
       </div>
     `;
 
-    container.innerHTML = html;
+    historyContainer.innerHTML = htmlTable;
+
   } catch (err) {
-    container.innerHTML = "<p>❌ Error loading car history.</p>";
+    historyContainer.innerHTML = "<p>❌ Error loading history.</p>";
   }
 };
+
 
 /* 📊 Load Car Summary */
 window.loadCarSummary = async function () {
