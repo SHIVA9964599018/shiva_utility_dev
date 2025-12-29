@@ -986,83 +986,89 @@ blockquote {
   margin: 6px 0;
 }
 /* ===============================
-   HISTORY CONTAINERS
+   HISTORY OUTER CONTAINER
    =============================== */
 
 #bike-history-container,
 #car-history-container {
-  display: block;
-  width: 100%;
-  box-sizing: border-box;
+  background-color: #f7faff;   /* light app background */
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
+
 
 /* ===============================
    TABLE WRAPPER
    =============================== */
 
 .bike-table-container {
-  width: 100%;
+  background: #ffffff;
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   overflow-x: auto;
-  box-sizing: border-box;
 }
 
+
 /* ===============================
-   TABLE (FORCED RIGHT SHIFT)
+   TABLE STYLE
    =============================== */
 
 .bike-table {
   border-collapse: collapse;
   font-size: 14px;
-  table-layout: fixed;
-  border: 1px solid #ccc;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
   font-family: "Segoe UI", sans-serif;
   min-width: 480px;
-
-  /* 👇 THIS IS THE KEY LINE */
-  margin-left: 16px !important;
+  border: 1px solid #cfd8e3;
 }
+
 
 /* ===============================
    HEADER
    =============================== */
 
 .bike-table th {
-  background-color: #003366;
-  color: white;
+  background: linear-gradient(135deg, #003366, #004c99);
+  color: #ffffff;
   padding: 8px 12px;
-  border: 1px solid #ccc;
+  border: 1px solid #cfd8e3;
   text-align: center;
-  font-weight: bold;
+  font-weight: 600;
   white-space: nowrap;
 }
+
 
 /* ===============================
    CELLS
    =============================== */
 
 .bike-table td {
-  border: 1px solid #ccc;
+  border: 1px solid #e1e7ef;
   padding: 6px 8px;
   text-align: center;
+  color: #1f2933;
 }
 
+
 /* ===============================
-   ROW COLORS
+   ROW STRIPING
    =============================== */
 
 .bike-table tr:nth-child(even) td {
-  background-color: #f2f8fc;
+  background-color: #f2f8ff;
 }
 
 .bike-table tr:nth-child(odd) td {
   background-color: #ffffff;
 }
 
+
 /* ===============================
    HOVER EFFECT
    =============================== */
 
 .bike-table tr:hover td {
-  background-color: #d6ebff;
+  background-color: #dbeeff;
+  cursor: pointer;
 }
+
