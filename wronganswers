@@ -107,3 +107,132 @@ SUMMARY
 Total Attempted: 50
 Wrong: 14
 Accuracy: 72%
+
+SNOWFLAKE PRACTICE — WRONG QUESTIONS (51–100)
+
+========================
+Q51
+True or False:
+When a data share is established between a Data Provider and a Data Consumer, the Data Consumer can extend that data share to other Data Consumers.
+A. True
+B. False
+Correct Answer: B
+
+
+========================
+Q52
+Which is true of Snowflake network policies? (Choose two)
+A. Is available to all Snowflake Editions
+B. Is only available to Business-Critical Edition
+C. Restricts or enables access to specific IP addresses
+D. Is activated using ALTER DATABASE
+Correct Answer: A, C
+
+
+========================
+Q55
+A role is created and owns two tables. This role is then dropped. Who will now own the tables?
+A. Tables are orphaned
+B. User who deleted the role
+C. SYSADMIN
+D. The assumed role that dropped the role
+Correct Answer: D
+
+
+========================
+Q67
+True or False:
+Micro-partition metadata enables some operations to be completed without requiring Compute.
+A. True
+B. False
+Correct Answer: A
+
+
+========================
+Q70
+Snowflake recommends, as a minimum, that all users with which role should be enrolled in MFA?
+A. SECURITYADMIN, ACCOUNTADMIN, PUBLIC, SYSADMIN
+B. SECURITYADMIN, ACCOUNTADMIN, SYSADMIN
+C. SECURITYADMIN, ACCOUNTADMIN
+D. ACCOUNTADMIN
+Correct Answer: D
+
+
+========================
+Q72
+True or False:
+Users can see result sets of other users’ queries if they share the same role.
+A. True
+B. False
+Correct Answer: B
+
+
+========================
+Q76
+When should you consider disabling auto-suspend for a Virtual Warehouse? (Choose two)
+A. Users use compute at different times 24/7
+B. Managing a steady workload
+C. Compute must be available with no delay
+D. Avoid manually turning on warehouse
+Correct Answer: B, C
+
+
+========================
+Q77
+Valid approaches to loading data into Snowflake (Choose all)
+A. Bulk copy from External Stage
+B. Continuous load using Snowpipe REST API
+C. Snowflake UI data loading wizard
+D. Bulk copy from Internal Stage
+Correct Answer: A, B, D
+
+
+========================
+Q80
+The number of queries a Virtual Warehouse can concurrently process depends on: (Choose two)
+A. Query complexity
+B. CONCURRENT_QUERY_LIMIT parameter
+C. Size of data processed
+D. Tool executing the query
+Correct Answer: A, C
+
+
+========================
+Q81
+Which statements are true of VALIDATION_MODE? (Choose two)
+A. Used when creating Internal Stage
+B. VALIDATION_MODE=RETURN_ALL_ERRORS is a COPY parameter
+C. Validates data during load and returns failed rows
+D. Validates data without completing load and returns errors
+Correct Answer: B, D
+
+
+========================
+Q89
+FLATTEN function is used to query which type of data?
+A. Structured
+B. Semi-structured
+C. Both structured and semi-structured
+D. None
+Correct Answer: C
+
+
+========================
+Q91
+True or False:
+AWS PrivateLink provides a secure connection from on-premise data center to Snowflake.
+A. True
+B. False
+Correct Answer: B
+
+
+========================
+SUMMARY (51–100)
+
+Total Questions: 50
+Wrong / Missed: 11
+Correct: 39
+
+Accuracy Percentage: 78%
+========================
+
