@@ -1,0 +1,109 @@
+SNOWFLAKE – WRONG ANSWERS REVISION SHEET (Q1–50)
+
+Q3
+True or False: A single database can exist in more than one Snowflake account.
+A. True
+B. False
+Correct Answer: B
+
+Q8
+Account-level storage usage can be monitored via:
+A. Snowflake UI → Databases
+B. Snowflake UI → Account → Billing & Usage
+C. Information Schema → ACCOUNT_USAGE_HISTORY
+D. Account Usage Schema → ACCOUNT_USAGE_METRICS
+Correct Answer: B
+
+Q11
+True or False: The COPY command must specify a File Format in order to execute.
+A. True
+B. False
+Correct Answer: B
+
+Q15
+Snowflake is designed for which type of workloads? (Choose two)
+A. OLAP (Analytics)
+B. OLTP (Transactional)
+C. Concurrent workloads
+D. On-premise workloads
+Correct Answer: A, C
+
+Q19
+Which connectors allow Multi-Factor Authentication (MFA)? (Choose all)
+A. JDBC
+B. SnowSQL
+C. Snowflake Web Interface (UI)
+D. ODBC
+E. Python
+Correct Answer: A, B, C, D, E
+
+Q23
+In which layer does Snowflake store metadata statistics?
+A. Storage Layer
+B. Compute Layer
+C. Database Layer
+D. Cloud Services Layer
+Correct Answer: D
+
+Q25
+True or False: Snowflake was built cloud-native from the ground up.
+A. True
+B. False
+Correct Answer: A
+
+Q29
+Which interfaces can manage Virtual Warehouses?
+A. Snowflake Web Interface (UI)
+B. SQL commands
+C. Data integration tools
+D. All of the above
+Correct Answer: A, B
+
+Q30
+When a Pipe is recreated using CREATE OR REPLACE PIPE:
+A. The Pipe load history is reset
+B. REFRESH is set to TRUE
+C. Previously loaded files are ignored
+D. All of the above
+Correct Answer: A
+
+Q31
+Minimum Snowflake edition for protected / regulatory data:
+A. Standard
+B. Premier
+C. Enterprise
+D. Business Critical
+Correct Answer: D
+
+Q33
+True or False: Snowpipe REST API can only reference External Stages.
+A. True
+B. False
+Correct Answer: B
+
+Q34
+True or False: Tools without Snowflake-specific drivers cannot connect.
+A. True
+B. False
+Correct Answer: B
+
+Q43
+Which migration step does NOT apply in Snowflake?
+A. Migrate Users
+B. Migrate Schemas
+C. Migrate Indexes
+D. Build Data Pipeline
+Correct Answer: C
+
+Q45
+Maximum compressed row size in Snowflake:
+A. 8KB
+B. 16MB
+C. 50MB
+D. 4000GB
+Correct Answer: B
+
+SUMMARY
+Total Attempted: 50
+Wrong: 14
+Accuracy: 72%
