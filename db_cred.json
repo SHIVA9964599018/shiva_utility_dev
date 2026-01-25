@@ -1,0 +1,46 @@
+{
+  "TDTEST": {
+    "type": "teradata",
+    "host": "TDTEST.CISCO.COM",
+    "user": "P_BQ_INGEST",
+    "password": "July@2022#"
+  },
+  "TDPROD": {
+    "type": "teradata",
+    "host": "TDPROD.CISCO.COM",
+    "user": "P_BQ_INGEST",
+    "password": "July@2022#"
+  },
+  "EJCRO": {
+    "type": "oracle",
+    "host": "scan-prd-3066.cisco.com",
+    "user": "EJCRO",
+    "password": "Ejcro_32017",
+    "service": "ODSPROD.CISCO.COM",
+    "port": 1841
+  },
+  "EJCTS1": {
+    "type": "oracle",
+    "host": "scan-prd-3066.cisco.com",
+    "user": "EJCTS1",
+    "password": "Ejc1s1_917",
+    "service": "ODSPROD_SRVC_ALL.CISCO.COM",
+    "port": 1841
+  },
+  "EJCTS3": {
+    "type": "oracle",
+    "host": "scan-prd-3066.cisco.com",
+    "user": "EJCTS3",
+    "password": "E1cTs3_319",
+    "service": "ODSPROD.CISCO.COM",
+    "port": 1841
+  },
+    "PDBPROD": {
+    "type": "oracle",
+    "host": "scan-prd-2045.cisco.com",
+    "user": "DATALAKE_RO",
+    "password": "DLp!2R0n1y_$",
+    "service": "PDBPROD.cisco.com",
+    "port": 1541
+  }
+}
