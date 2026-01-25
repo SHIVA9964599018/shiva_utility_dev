@@ -193,3 +193,111 @@ Wrong: 25
 Correct: 75
 Final Accuracy: 75%
 ========================
+
+WRONG ANSWERS – SNOWFLAKE PRACTICE (201–300)
+
+201. Which Snowflake feature allows multiple workloads to access the same data without copying it?
+A. Multi-cluster warehouses
+B. Secure data sharing
+C. Unified data platform  ✅
+D. Result cache
+Your answer: D
+
+206. Which Snowflake component provides built-in AI / LLM SQL functions?
+A. Snowpark
+B. SnowCD
+C. Cortex  ✅
+D. Streamlit
+Your answer: D
+
+209. Can a Snowflake task execute without specifying a warehouse?
+A. No, always required
+B. Yes, if auto-resume is enabled
+C. Yes, if serverless  ✅
+D. Only for manual tasks
+Your answer: A
+
+212. What happens if AUTO_RESUME is disabled on a warehouse used by a task?
+A. Warehouse resumes anyway
+B. Task waits
+C. Task fails  ✅
+D. Task runs using cache
+Your answer: B
+
+218. Which allows executing SQL over HTTPS?
+A. SnowSQL
+B. Connector
+C. SQL API  ✅
+D. Driver
+Your answer: B
+
+231. Which Snowflake edition supports multi-cluster warehouses?
+A. Standard
+B. Enterprise  ✅
+C. Business Critical
+D. All editions
+Your answer: D
+
+233. Which Snowflake object is required to load data using COPY INTO?
+A. Stream
+B. Stage  ✅
+C. Pipe
+D. Task
+Your answer: C
+
+236. Which Snowflake component is best suited for building interactive data applications?
+A. Snowpark
+B. SnowSQL
+C. Streamlit  ✅
+D. Cortex
+Your answer: D
+
+239. Which Snowflake feature allows cross-cloud data sharing?
+A. Cloning
+B. Replication
+C. Secure data sharing  ✅
+D. External tables
+Your answer: B
+
+264. Which Snowflake cache stores frequently accessed micro-partitions?
+A. Result cache
+B. Metadata cache
+C. Data cache  ✅
+D. Local disk cache
+Your answer: D
+
+266. Which Snowflake object is required to load data from external cloud storage?
+A. Stream
+B. Stage  ✅
+C. Pipe
+D. Task
+Your answer: C
+
+271. Which Snowflake edition supports extended Time Travel?
+A. Standard
+B. Enterprise  ✅
+C. Business Critical
+D. All editions
+Your answer: D
+
+282. Which Snowflake object enables automated execution of SQL after data changes?
+A. Stream
+B. Task  ✅
+C. Pipe
+D. Stage
+Your answer: A
+
+286. Which Snowflake edition is required for Business Continuity and Disaster Recovery (BCDR)?
+A. Standard
+B. Enterprise  ✅
+C. Business Critical
+D. All editions
+Your answer: C
+
+289. Which Snowflake feature prevents exposing underlying data in shared views?
+A. Masking policies
+B. Secure views  ✅
+C. Result cache
+D. Row access policies
+Your answer: A
+
