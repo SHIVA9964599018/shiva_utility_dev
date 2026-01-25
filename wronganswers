@@ -752,3 +752,378 @@ D. MODIFY
 
 Your answer: D
 Correct answer: B
+
+
+Q401
+Question: Which Snowflake objects are created at the account level? (Choose two.)
+Options:
+A. Databases
+B. Schemas
+C. Warehouses
+D. Users
+E. Accounts
+Your Answer: C, E
+Correct Answer: D, E
+--------------------------------------------------
+
+Q405
+Question: During periods of warehouse contention, which parameter controls how long a query waits in the queue?
+Options:
+A. STATEMENT_TIMEOUT_IN_SECONDS
+B. STATEMENT_QUEUED_TIMEOUT_IN_SECONDS
+C. MAX_CONCURRENCY_LEVEL
+D. QUERY_TIMEOUT_IN_SECONDS
+Your Answer: D
+Correct Answer: B
+--------------------------------------------------
+
+Q408
+Question: Files have been uploaded to a Snowflake internal stage. Which command deletes the files?
+Options:
+A. PURGE
+B. MODIFY
+C. REMOVE
+D. DELETE
+Your Answer: B
+Correct Answer: C
+--------------------------------------------------
+
+Q412
+Question: By default, which role is required to create a share in Snowflake?
+Options:
+A. ORGADMIN
+B. SECURITYADMIN
+C. SHAREADMIN
+D. ACCOUNTADMIN
+Your Answer: A
+Correct Answer: D
+--------------------------------------------------
+
+Q425
+Question: Which are characteristics of schemas in Snowflake? (Choose two.)
+Options:
+A. A schema may contain one or more databases
+B. A database may contain one or more schemas
+C. A schema represents a logical grouping of objects
+D. Each schema is contained within a warehouse
+E. A table can span multiple schemas
+Your Answer: A, C
+Correct Answer: B, C
+--------------------------------------------------
+
+Q433
+Question: What is the compressed size limit for semi-structured data loaded into VARIANT?
+Options:
+A. 8 MB
+B. 16 MB
+C. 32 MB
+D. 64 MB
+Your Answer: D
+Correct Answer: B
+--------------------------------------------------
+
+Q435
+Question: A schema was overwritten using cloning. How can lost tables be recovered within Time Travel?
+Options:
+A. UNDROP TABLE
+B. CTAS
+C. Rename cloned schema and UNDROP SCHEMA
+D. Contact Snowflake Support
+Your Answer: A
+Correct Answer: C
+--------------------------------------------------
+
+Q436
+Question: What is the recommended way to bulk load data already in cloud storage?
+Options:
+A. Snowpipe
+B. INSERT
+C. External Table
+D. COPY
+Your Answer: A
+Correct Answer: D
+--------------------------------------------------
+
+Q450
+Question: How should data be shared with suppliers who do NOT have Snowflake accounts? (Choose two.)
+Options:
+A. Create a reader account per supplier
+B. One reader account for all suppliers
+C. Build ETL pipelines
+D. Use data share with replicated proxy share
+E. Export data manually
+Your Answer: B, D
+Correct Answer: A, D
+--------------------------------------------------
+
+Q454
+Question: Which command loads files into an internal stage?
+Options:
+A. PUT
+B. COPY INTO
+C. TRANSFER
+D. INSERT
+Your Answer: B
+Correct Answer: A
+--------------------------------------------------
+
+Q456
+Question: What is the default auto-suspend time in the Snowflake UI?
+Options:
+A. 1 minute
+B. 5 minutes
+C. 10 minutes
+D. 15 minutes
+Your Answer: A
+Correct Answer: C
+--------------------------------------------------
+
+Q459
+Question: What happens when a warehouse size is changed?
+Options:
+A. Running queries are not impacted
+B. Queries are aborted
+C. Queries are auto-resubmitted
+D. Queries move to new warehouse
+Your Answer: C
+Correct Answer: A
+--------------------------------------------------
+
+Q461
+Question: As best practice, custom roles should be granted to which system role?
+Options:
+A. ACCOUNTADMIN
+B. ORGADMIN
+C. SECURITYADMIN
+D. SYSADMIN
+Your Answer: C
+Correct Answer: D
+--------------------------------------------------
+
+Q464
+Question: What does Snowflake recommend for database object ownership? (Choose two.)
+Options:
+A. ACCOUNTADMIN owns everything
+B. Create objects with SYSADMIN
+C. Create objects with SECURITYADMIN
+D. Create objects with a custom role and grant to SYSADMIN
+E. Use managed schemas only
+Your Answer: B, E
+Correct Answer: B, D
+--------------------------------------------------
+
+Q465
+Question: What privileges are required to view and modify resource monitors? (Choose two.)
+Options:
+A. ALTER
+B. MONITOR
+C. MODIFY
+D. CREATE
+E. DROP
+Your Answer: A, C
+Correct Answer: B, C
+--------------------------------------------------
+
+Q470
+Question: Which commands are valid when using secondary roles? (Choose two.)
+Options:
+A. USE SECONDARY ROLES RESUME
+B. USE SECONDARY ROLES SUSPEND
+C. USE SECONDARY ROLES ALL
+D. USE SECONDARY ROLES ADD role
+E. USE SECONDARY ROLES NONE
+Your Answer: A, B
+Correct Answer: C, E
+--------------------------------------------------
+
+Q472
+Question: Two users share a warehouse and load impacts performance. Best practice?
+Options:
+A. Scale up warehouse
+B. Separate per user
+C. Separate per workload
+D. Avoid concurrency
+Your Answer: A
+Correct Answer: C
+--------------------------------------------------
+
+Q475
+Question: Why do multi-cluster warehouses have scaling policies?
+Options:
+A. Reduce storage costs
+B. Improve serverless compute
+C. Control credit consumption
+D. Improve maximized mode
+Your Answer: B
+Correct Answer: C
+--------------------------------------------------
+
+Q476
+Question: Where is Query History located in Snowsight?
+Options:
+A. Admin
+B. Activity
+C. Dashboards
+D. Data
+Your Answer: A
+Correct Answer: B
+--------------------------------------------------
+
+Q479
+Question: Which statement about zero-copy cloning is true?
+Options:
+A. Storage is duplicated
+B. Load history is copied
+C. It is a paid feature
+D. Micro-partitions are shared
+Your Answer: A, E
+Correct Answer: D
+--------------------------------------------------
+
+Q480
+Question: CREATE DATA EXCHANGE LISTING privilege allows which actions? (Choose two.)
+Options:
+A. Rename listings
+B. Delete provider profiles
+C. Modify listing properties
+D. Modify access requests
+E. Submit listings for approval
+Your Answer: D
+Correct Answer: C, E
+--------------------------------------------------
+
+Q481
+Question: Which parameter prevents streams from becoming stale?
+Options:
+A. MAX_DATA_EXTENSION_TIME_IN_DAYS
+B. MIN_DATA_RETENTION_TIME_IN_DAYS
+C. LOCK_TIMEOUT
+D. STALE_AFTER
+Your Answer: D
+Correct Answer: A
+--------------------------------------------------
+
+Q482
+Question: When should a stored procedure be created with CALLER'S RIGHTS?
+Options:
+A. Hide source code
+B. Run restricted statements
+C. Run with caller's privileges
+D. Access objects caller lacks
+Your Answer: D
+Correct Answer: C
+--------------------------------------------------
+
+Q483
+Question: Which JavaScript delimiters are supported in Snowflake stored procedures? (Choose two.)
+Options:
+A. "
+B. '
+C. //
+D. \\
+E. $$
+Your Answer: A, B
+Correct Answer: B, E
+--------------------------------------------------
+
+Q484
+Question: Which function estimates approximate distinct values at scale?
+Options:
+A. MD5
+B. Window
+C. External
+D. HyperLogLog
+Your Answer: B
+Correct Answer: D
+--------------------------------------------------
+
+Q485
+Question: Which DDL commands are supported for managing tags? (Choose two.)
+Options:
+A. ALTER TAG
+B. DESCRIBE TAG
+C. DROP TAG
+D. GRANT TO TAG
+E. GRANT TAG
+Your Answer: A, B
+Correct Answer: A, C
+--------------------------------------------------
+
+Q487
+Question: UnionAll with an Aggregate on top in Query Profile indicates?
+Options:
+A. Exploding joins
+B. Inefficient pruning
+C. UNION without ALL
+D. Memory pressure
+Your Answer: D
+Correct Answer: C
+--------------------------------------------------
+
+Q488
+Question: Which data governance control is embedded in Snowflake?
+Options:
+A. Network policies
+B. Credit computation
+C. Data storage
+D. Attribute-based access control
+Your Answer: B
+Correct Answer: D
+--------------------------------------------------
+
+Q493
+Question: Which table supports unstructured data?
+Options:
+A. Directory
+B. Transient
+C. Temporary
+D. Permanent
+Your Answer: D
+Correct Answer: A
+--------------------------------------------------
+
+Q494
+Question: Which file format preserves floating-point precision when unloading?
+Options:
+A. Avro
+B. CSV
+C. JSON
+D. Parquet
+Your Answer: C
+Correct Answer: D
+--------------------------------------------------
+
+Q497
+Question: Key differences between ACCOUNT_USAGE and INFORMATION_SCHEMA? (Choose two.)
+Options:
+A. Warehouse needed
+B. Table visibility
+C. ACCOUNT_USAGE includes dropped objects
+D. ACCOUNT_USAGE has longer retention
+E. INFORMATION_SCHEMA is writable
+Your Answer: A, D
+Correct Answer: C, D
+--------------------------------------------------
+
+Q498
+Question: Which function provides unauthenticated access to staged files?
+Options:
+A. GET_RELATIVE_PATH
+B. GET_PRESIGNED_URL
+C. BUILD_STAGE_FILE_URL
+D. BUILD_SCOPED_FILE_URL
+Your Answer: A
+Correct Answer: B
+--------------------------------------------------
+
+Q499
+Question: Which object stores metadata for unstructured data files?
+Options:
+A. Internal stage
+B. External table
+C. Directory table
+D. File format
+Your Answer: B
+Correct Answer: C
+--------------------------------------------------
+
