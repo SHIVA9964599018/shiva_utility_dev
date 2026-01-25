@@ -301,3 +301,454 @@ C. Result cache
 D. Row access policies
 Your answer: A
 
+WRONG QUESTIONS – SNOWFLAKE (301–400)
+
+--------------------------------------------------
+
+302. A user has 10 files in a stage containing new customer data.
+The ingest operation completes using:
+COPY INTO my_table FROM @my_stage;
+
+The next day, 10 new files are added to the stage.
+What happens if the same COPY INTO command is run again?
+
+A. All data from all files will be appended
+B. Only new customer data will be appended
+C. The operation fails with an error
+D. Only data from newly added files will be appended
+
+Your answer: A
+Correct answer: D
+
+--------------------------------------------------
+
+304. Which SQL statement lists the version of the drivers currently being used?
+
+A. SELECT CURRENT_ODBC_CLIENT();
+B. SELECT CURRENT_JDBC_VERSION();
+C. SELECT CURRENT_CLIENT();
+D. SELECT CURRENT_VERSION();
+
+Your answer: D
+Correct answer: C
+
+--------------------------------------------------
+
+308. Which commands grant SELECT access on all current and future tables in a schema? (Choose two.)
+
+A. GRANT USAGE ON ALL TABLES IN SCHEMA DB1.SCHEMA TO ROLE MYROLE;
+B. GRANT USAGE ON FUTURE TABLES IN SCHEMA DB1.SCHEMA TO ROLE MYROLE;
+C. GRANT SELECT ON ALL TABLES IN SCHEMA DB1.SCHEMA TO ROLE MYROLE;
+D. GRANT SELECT ON FUTURE TABLES IN SCHEMA DB1.SCHEMA TO ROLE MYROLE;
+E. GRANT SELECT ON ALL TABLES IN DATABASE DB1 TO ROLE MYROLE;
+F. GRANT SELECT ON FUTURE TABLES IN DATABASE DB1 TO ROLE MYROLE;
+
+Your answer: B, D
+Correct answer: C, D
+
+--------------------------------------------------
+
+309. How can a user change which columns are referenced in a view?
+
+A. Modify the underlying table
+B. Use ALTER VIEW
+C. Recreate the view
+D. Materialize the view
+
+Your answer: A
+Correct answer: C
+
+--------------------------------------------------
+
+311. Which SQL command shows the CREATE definition of a masking policy?
+
+A. SHOW MASKING POLICIES
+B. DESCRIBE MASKING POLICY
+C. GET_DDL
+D. LIST MASKING POLICIES
+
+Your answer: B
+Correct answer: C
+
+--------------------------------------------------
+
+312. Which Account_Usage view is used to gather hourly credit usage?
+
+A. Metering_History
+B. Cloud services cost history
+C. Snowpipe throughput history
+D. Contract balance history
+
+Your answer: B
+Correct answer: A
+
+--------------------------------------------------
+
+317. Which billing statement applies to Snowflake credits?
+
+A. Credits are billed per minute with a 60-minute minimum
+B. Credits pay for storage
+C. Credits are billed hourly per warehouse
+D. Credits are consumed based on warehouse size and run time
+
+Your answer: A
+Correct answer: D
+
+--------------------------------------------------
+
+320. Which is a valid external stage source when Snowflake runs on Azure?
+
+A. FTP server
+B. HTTPS WebDAV
+C. Google Cloud Storage
+D. Windows file share
+
+Your answer: A
+Correct answer: C
+
+--------------------------------------------------
+
+322. Which statements describe Snowflake Data Exchange? (Choose two.)
+
+A. Loses Marketplace access
+B. Allows private sharing among accounts
+C. Allows sharing with non-Snowflake parties
+D. Available only in Standard edition
+E. Sharing is bidirectional
+
+Your answer: B
+Correct answer: B, E
+
+--------------------------------------------------
+
+325. Which privilege allows a secure view to reference objects in multiple databases?
+
+A. CREATE_SHARE
+B. SHARE
+C. SELECT
+D. REFERENCE_USAGE
+
+Your answer: B
+Correct answer: D
+
+--------------------------------------------------
+
+326. In which use case does Snowflake apply egress charges?
+
+A. Data sharing in same region
+B. Query result retrieval
+C. Database replication
+D. Loading data
+
+Your answer: D
+Correct answer: C
+
+--------------------------------------------------
+
+327. Which compute resources/features are managed by Snowflake? (Choose two.)
+
+A. COPY command execution
+B. Data updates
+C. Snowpipe
+D. Automatic clustering
+E. Warehouse scaling
+
+Your answer: D, E
+Correct answer: C, D
+
+--------------------------------------------------
+
+329. Which privilege allows managing grants in a managed access schema?
+
+A. OWNERSHIP (schema)
+B. OWNERSHIP (database)
+C. MANAGE GRANTS
+D. ALL privileges
+
+Your answer: D
+Correct answer: C
+
+--------------------------------------------------
+
+332. Minimum edition for periodic rekeying of micro-partitions?
+
+A. Enterprise
+B. Business Critical
+C. Standard
+D. VPS
+
+Your answer: C
+Correct answer: A
+
+--------------------------------------------------
+
+340. Where is COPY load history stored and for how long?
+
+A. Target table metadata – 14 days
+B. Pipe metadata – 14 days
+C. Target table metadata – 64 days
+D. Pipe metadata – 64 days
+
+Your answer: A
+Correct answer: C
+
+--------------------------------------------------
+
+345. Which formats store unstructured data? (Choose two.)
+
+A. GeoJSON
+B. Array
+C. XML
+D. Object
+E. BLOB
+
+Your answer: A, C
+Correct answer: B, D
+
+--------------------------------------------------
+
+346. Best practice for efficient loading from external stage?
+
+A. Organize files into logical paths
+B. Store files longer
+C. Use regex patterns
+D. Load one large file
+
+Your answer: D
+Correct answer: A
+
+--------------------------------------------------
+
+347. Effect of WAIT_FOR_COMPLETION = TRUE when resizing warehouse?
+
+A. Waits for running queries
+B. Waits for queued queries
+C. Requires suspend/resume
+D. Command returns after resize completes
+
+Your answer: A
+Correct answer: D
+
+--------------------------------------------------
+
+348. Which can be used when unloading data? (Choose two.)
+
+A. STRIP_OUTER_ARRAY
+B. ENCODING
+C. OBJECT_CONSTRUCT
+D. SINGLE = TRUE
+E. PARSE_JSON
+
+Your answer: A, E
+Correct answer: C, D
+
+--------------------------------------------------
+
+350. Which is true about reader accounts?
+
+A. Always Standard edition
+B. Compute billed to provider
+C. Can re-share data
+D. Can clone shared data
+
+Your answer: C
+Correct answer: B
+
+--------------------------------------------------
+
+353. What is cached during query execution?
+
+A. All columns in micro-partition
+B. Columns accessed by query
+C. Result set columns
+D. All rows accessed
+
+Your answer: C
+Correct answer: B
+
+--------------------------------------------------
+
+358. Minimum edition for database failover/fail-back?
+
+A. Standard
+B. Enterprise
+C. Business Critical
+D. VPS
+
+Your answer: B
+Correct answer: C
+
+--------------------------------------------------
+
+368. Which ACCOUNT_USAGE views evaluate dynamic masking? (Choose two.)
+
+A. ROLES
+B. POLICY_REFERENCES
+C. QUERY_HISTORY
+D. RESOURCE_MONITORS
+E. ACCESS_HISTORY
+F. MASKING_POLICIES
+
+Your answer: C, F
+Correct answer: B, F
+
+--------------------------------------------------
+
+369. Directory table considerations? (Choose two.)
+
+A. Separate database object
+B. Stores file metadata
+C. Auto-added to stage
+D. No grantable privileges
+E. Cannot be refreshed manually
+
+Your answer: —
+Correct answer: B, D
+
+--------------------------------------------------
+
+371. Which describes reader accounts?
+
+A. Can mix own data
+B. Require Snowflake license
+C. Can perform DML
+D. SHOW MANAGED ACCOUNTS lists them
+
+Your answer: A
+Correct answer: D
+
+--------------------------------------------------
+
+372. How to share Azure → AWS cross-cloud?
+
+A. Direct share
+B. Data Exchange
+C. Marketplace
+D. Replicate then share
+
+Your answer: B
+Correct answer: D
+
+--------------------------------------------------
+
+375. Which Snowflake partner specializes in data catalogs?
+
+A. Alation
+B. DataRobot
+C. dbt
+D. Tableau
+
+Your answer: C
+Correct answer: A
+
+--------------------------------------------------
+
+378. Supported semi-structured formats? (Choose three.)
+
+A. TSV
+B. JSON
+C. PDF
+D. Avro
+E. Parquet
+F. JPEG
+
+Your answer: D, D, E
+Correct answer: B, D, E
+
+--------------------------------------------------
+
+379. Which statements about sharing are true? (Choose two.)
+
+A. Objects auto-shared
+B. All objects shareable
+C. Reader accounts created by providers
+D. Shared databases are read-only
+E. Reader accounts pay compute
+
+Your answer: D, E
+Correct answer: C, D
+
+--------------------------------------------------
+
+387. Which app is required for Snowflake default MFA?
+
+A. Okta Verify
+B. Duo Mobile
+C. Microsoft Authenticator
+D. Google Authenticator
+
+Your answer: C
+Correct answer: B
+
+--------------------------------------------------
+
+388. Which URL allows access without authentication?
+
+A. Pre-signed URL
+B. Scoped URL
+C. Signed URL
+D. File URL
+
+Your answer: —
+Correct answer: A
+
+--------------------------------------------------
+
+389. Where to find query activity from 90 days ago?
+
+A. ACCOUNT_USAGE.QUERY_HISTORY
+B. ACCOUNT_USAGE.QUERY_HISTORY_ARCHIVE
+C. INFORMATION_SCHEMA.QUERY_HISTORY
+D. INFORMATION_SCHEMA.QUERY_HISTORY_BY_SESSION
+
+Your answer: B
+Correct answer: A
+
+--------------------------------------------------
+
+391. Which table function converts semi-structured data to relational?
+
+A. CHECK_JSON
+B. TO_JSON
+C. FLATTEN
+D. PARSE_JSON
+
+Your answer: D
+Correct answer: C
+
+--------------------------------------------------
+
+395. Clone advantages over CTAS? (Choose two.)
+
+A. Always in sync
+B. Better performance
+C. Created instantly
+D. Full Time Travel history
+E. Saves storage
+
+Your answer: A, B
+Correct answer: C, E
+
+--------------------------------------------------
+
+396. How often are master keys rotated?
+
+A. 30 days
+B. 60 days
+C. 90 days
+D. 365 days
+
+Your answer: B
+Correct answer: A
+
+--------------------------------------------------
+
+397. Privilege required to resume warehouse (no auto-resume)?
+
+A. USAGE
+B. OPERATE
+C. MONITOR
+D. MODIFY
+
+Your answer: D
+Correct answer: B
