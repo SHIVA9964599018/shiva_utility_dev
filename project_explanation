@@ -1,0 +1,5 @@
+**“We migrated data from Oracle to Snowflake using a Python‑based ingestion framework. Python was used to extract data from Oracle and stage it in Amazon S3.
+Using the same framework, we dynamically created Snowflake tables by reading the source table metadata from Oracle. The framework generated the required DDL and executed it in Snowflake by providing the database, schema, table name, and connection details.
+During the initial development phase, we performed bulk loads into Snowflake tables using files from S3. Once the structure and data were validated, we created Snowpipe to support incremental data ingestion.
+For incremental loads, we tracked the last processed timestamp in a metadata table and used it to extract only new or changed data from Oracle.
+After data validation and reconciliation with Oracle, we migrated transformation logic. Oracle stored procedures were converted into SQL files, and Python scripts were used to execute those SQL transformations in Snowflake to populate curated tables.”**
