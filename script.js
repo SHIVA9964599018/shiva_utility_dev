@@ -1073,11 +1073,26 @@ window.loadCarSummary = async function () {
     }
 
     let totalKm =
-      records[records.length - 1].at_distance -
-      records[0].at_distance;
+  records[records.length - 1].at_distance -
+  records[0].at_distance;
 
-    let litres = (totalCost / 103).toFixed(2);
-    let mileage = (totalKm / (totalCost / 103)).toFixed(2);
+let totalLitres = 0;
+
+for (let i = 0; i < records.length - 1; i++) {
+  const rec = records[i];
+
+  const fuelPrice =
+    rec.date_changed >= "2026-05-15" ? 110 : 103;
+
+  totalLitres += rec.amount / fuelPrice;
+}
+
+let litres = totalLitres.toFixed(2);
+let mileage = totalLitres > 0
+  ? (totalKm / totalLitres).toFixed(2)
+  : "N/A";
+
+container.innerHTML = `
 
     container.innerHTML = `
       <h3>🚗 Car Summary</h3>
