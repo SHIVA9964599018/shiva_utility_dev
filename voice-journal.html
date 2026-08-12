@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Voice Journal AI | Shiva Utility Hub</title>
+  <style>
+    :root { --green:#1976d2; --dark:#102a43; --muted:#627d98; --paper:#fff; --bg:#f4f8fb; --line:#d9e2ec; --red:#c53030; }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--dark); background:var(--bg); font:16px Arial, sans-serif; }
+    header { color:#fff; padding:28px 20px; text-align:center; background:linear-gradient(120deg,#1976d2,#1e88e5); }
+    header h1 { margin:0 0 8px; font-size:clamp(1.6rem,4vw,2.3rem); }
+    header p { margin:0; opacity:.94; }
+    main { width:min(1120px,calc(100% - 32px)); margin:28px auto 48px; }
+    .notice { background:#e8f1fb; border-left:4px solid var(--green); padding:12px 15px; border-radius:5px; margin-bottom:20px; color:#243b53; }
+    .grid { display:grid; grid-template-columns:1.05fr .95fr; gap:20px; }
+    .card { background:var(--paper); border:1px solid var(--line); border-radius:12px; box-shadow:0 3px 12px #102a4310; padding:22px; }
+    h2 { margin:0 0 16px; font-size:1.25rem; }
+    label { display:block; font-weight:bold; margin:14px 0 7px; }
+    input, textarea { width:100%; border:1px solid #bcccdc; border-radius:7px; padding:11px; font:inherit; }
+    textarea { min-height:155px; resize:vertical; line-height:1.45; }
+    .actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:15px; }
+    button { border:0; border-radius:7px; padding:11px 16px; color:#fff; background:var(--green); font:inherit; font-weight:bold; cursor:pointer; }
+    button:hover { filter:brightness(.94); } button:disabled { cursor:not-allowed; opacity:.55; }
+    button.secondary { background:#627d98; } button.danger { background:var(--red); }
+    .status { min-height:24px; margin:13px 0 0; color:var(--muted); font-size:.94rem; }
+    .recording { color:var(--red); font-weight:bold; }.recording::before { content:'● '; animation:pulse 1s infinite; } @keyframes pulse { 50%{ opacity:.25; } }
+    .stats { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+    .stat { padding:16px; background:#f0f7ff; border-radius:8px; } .stat b { display:block; color:var(--green); font-size:1.6rem; margin-bottom:4px; }
+    .wide { grid-column:1/-1; margin-top:20px; }
+    .entry { padding:15px 0; border-bottom:1px solid var(--line); }.entry:last-child { border-bottom:0; }
+    .entry-top { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }.entry h3 { margin:0 0 5px; font-size:1rem; }.meta { color:var(--muted); font-size:.88rem; }.excerpt { margin:10px 0 0; line-height:1.45; white-space:pre-wrap; }
+    .entry button { padding:7px 10px; font-size:.83rem; }.empty { color:var(--muted); text-align:center; padding:25px 5px; }.search-row { display:flex; gap:10px; }.search-row input { flex:1; }
+    .word-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(145px,1fr)); gap:9px; margin-top:10px; }.word { background:#f0f7ff; border-radius:6px; padding:9px 11px; }.word span { color:var(--muted); float:right; }
+    .hidden { display:none!important; } mark { background:#fff3a3; padding:0 2px; }
+    @media (max-width:760px) { .grid { grid-template-columns:1fr; }.wide { margin-top:0; }.entry-top { flex-direction:column; }.stats { grid-template-columns:1fr 1fr; } }
+  </style>
+</head>
+<body>
+  <header><h1>🎤 Voice Journal AI</h1><p>Record thoughts, keep transcripts on this device, and discover the words you use most.</p></header>
+  <main>
+    <p class="notice">Your entries are stored only in this browser using local storage. Speech-to-text uses your browser’s speech-recognition service; use Chrome or Edge for the most reliable result.</p>
+    <div class="grid">
+      <section class="card">
+        <h2>New journal entry</h2>
+        <label for="title">Title (optional)</label><input id="title" maxlength="80" placeholder="e.g., Morning thoughts">
+        <label for="transcript">Transcript</label><textarea id="transcript" placeholder="Press Start recording and speak, or type/paste a note here."></textarea>
+        <div class="actions"><button id="start" type="button">🎙️ Start recording</button><button id="stop" class="danger hidden" type="button">Stop</button><button id="save" class="secondary" type="button">Save transcript</button></div>
+        <p id="status" class="status" aria-live="polite">Ready to record or write.</p>
+      </section>
+      <section class="card"><h2>Your journal at a glance</h2><div class="stats"><div class="stat"><b id="entryCount">0</b>recordings</div><div class="stat"><b id="wordCount">0</b>words</div><div class="stat"><b id="speakingTime">0m</b>estimated speaking time</div><div class="stat"><b id="uniqueWords">0</b>unique words</div></div><h2 style="margin-top:24px">Top words</h2><div id="topWords" class="word-list"><p class="empty">Save an entry to see word frequency.</p></div></section>
+      <section class="card wide"><h2>Search transcripts</h2><div class="search-row"><input id="search" type="search" placeholder="Search words or phrases…"><button id="clearSearch" class="secondary" type="button">Clear</button></div><div id="entries"><p class="empty">No saved transcripts yet.</p></div></section>
+    </div>
+  </main>
+  <script>
+    (() => {
+      const STORAGE_KEY = 'shivaUtilityHub.voiceJournal.entries.v1';
+      const stopWords = new Set('a an and are as at be been but by did do does for from had has have he her here him his i if in into is it its just me more my no not of on or our she so than that the their them then there they this to too was we were what when where which who will with would you your'.split(' '));
+      const $ = id => document.getElementById(id);
+      let recognition = null, finalText = '', startedAt = null;
+      const load = () => { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch { return []; } };
+      const persist = entries => localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+      const words = text => (text.toLowerCase().match(/[a-z][a-z'-]*/g) || []);
+      const escapeHTML = value => value.replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+      const displayDate = value => new Date(value).toLocaleString([], { dateStyle:'medium', timeStyle:'short' });
+      const highlight = (text, term) => { const safe = escapeHTML(text); if (!term) return safe; const expression = new RegExp('('+term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')+')', 'ig'); return safe.replace(expression, '<mark>$1</mark>'); };
+      function render() {
+        const entries = load(), query = $('search').value.trim(); const allWords = words(entries.map(e => e.text).join(' '));
+        $('entryCount').textContent = entries.length; $('wordCount').textContent = allWords.length; $('speakingTime').textContent = allWords.length ? Math.max(1, Math.round(allWords.length / 130)) + 'm' : '0m'; $('uniqueWords').textContent = new Set(allWords).size;
+        const frequency = {}; allWords.forEach(word => { if (word.length > 2 && !stopWords.has(word)) frequency[word] = (frequency[word] || 0) + 1; });
+        const popular = Object.entries(frequency).sort((a,b) => b[1]-a[1] || a[0].localeCompare(b[0])).slice(0,10);
+        $('topWords').innerHTML = popular.length ? popular.map(([word,count]) => `<div class="word">${escapeHTML(word)} <span>${count}</span></div>`).join('') : '<p class="empty">Save an entry to see word frequency.</p>';
+        const filtered = entries.filter(entry => !query || `${entry.title} ${entry.text}`.toLowerCase().includes(query.toLowerCase()));
+        $('entries').innerHTML = filtered.length ? filtered.map(entry => `<article class="entry"><div class="entry-top"><div><h3>${escapeHTML(entry.title || 'Untitled entry')}</h3><div class="meta">${displayDate(entry.createdAt)} · ${words(entry.text).length} words${entry.duration ? ` · ${entry.duration}s recorded` : ''}</div></div><button class="danger" data-delete="${entry.id}" type="button">Delete</button></div><p class="excerpt">${highlight(entry.text, query)}</p></article>`).join('') : `<p class="empty">${entries.length ? 'No transcripts match your search.' : 'No saved transcripts yet.'}</p>`;
+      }
+      function setStatus(message, recording = false) { const el = $('status'); el.textContent = message; el.classList.toggle('recording', recording); }
+      function startRecording() {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) { setStatus('Speech recognition is not available in this browser. You can still type and save a transcript.'); return; }
+        finalText = $('transcript').value.trim(); startedAt = Date.now(); recognition = new SpeechRecognition(); recognition.lang = navigator.language || 'en-US'; recognition.continuous = true; recognition.interimResults = true;
+        recognition.onresult = event => { let interim = ''; for (let i = event.resultIndex; i < event.results.length; i++) { if (event.results[i].isFinal) finalText += (finalText ? ' ' : '') + event.results[i][0].transcript.trim(); else interim += event.results[i][0].transcript; } $('transcript').value = `${finalText}${interim ? (finalText ? ' ' : '') + interim : ''}`; };
+        recognition.onerror = event => { if (event.error !== 'aborted') setStatus(`Recording stopped: ${event.error}. Check microphone permission and try again.`); };
+        recognition.onend = () => { $('start').classList.remove('hidden'); $('stop').classList.add('hidden'); if ($('status').classList.contains('recording')) setStatus('Recording stopped. Review the transcript and save it.'); };
+        try { recognition.start(); $('start').classList.add('hidden'); $('stop').classList.remove('hidden'); setStatus('Recording… speak clearly into your microphone.', true); } catch { setStatus('Recording is already starting. Please wait a moment.'); }
+      }
+      function stopRecording() { if (recognition) recognition.stop(); }
+      function saveEntry() { const text = $('transcript').value.trim(); if (!text) { setStatus('Add a transcript before saving.'); return; } const entries = load(); entries.unshift({ id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()), title:$('title').value.trim(), text, createdAt:new Date().toISOString(), duration:startedAt ? Math.max(1,Math.round((Date.now()-startedAt)/1000)) : 0 }); persist(entries); $('title').value = ''; $('transcript').value = ''; startedAt = null; setStatus('Transcript saved on this device.'); render(); }
+      $('start').addEventListener('click', startRecording); $('stop').addEventListener('click', stopRecording); $('save').addEventListener('click', saveEntry); $('search').addEventListener('input', render); $('clearSearch').addEventListener('click', () => { $('search').value = ''; render(); });
+      $('entries').addEventListener('click', event => { const id = event.target.dataset.delete; if (!id || !confirm('Delete this transcript? This cannot be undone.')) return; persist(load().filter(entry => entry.id !== id)); render(); });
+      render();
+    })();
+  </script>
+</body>
+</html>
