@@ -1093,8 +1093,6 @@ let mileage = totalLitres > 0
   : "N/A";
 
 container.innerHTML = `
-
-    container.innerHTML = `
       <h3>🚗 Car Summary</h3>
       <ul>
         <li>⛽ Total Cost: ₹${totalCost}</li>
