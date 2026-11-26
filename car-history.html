@@ -1,24 +1,28 @@
 <style>
-.bike-form-container {
-  max-width: 400px;
-  padding: 40px;
-  background-color: #f0f8ff;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  margin-left: 80px;
-  margin-bottom: 30px;
-  border: 1px solid #d0d0d0;
-  transition: all 0.3s ease;
-}
-
-@media (max-width: 600px) {
   .bike-form-container {
-    margin-left: auto;
-    margin-right: auto;
-	 padding: 100px;
+    box-sizing: border-box;
+    max-width: 400px;
+    padding: 40px;
+    background-color: #f0f8ff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin-left: 80px;
+    margin-bottom: 30px;
+    border: 1px solid #d0d0d0;
+    transition: all 0.3s ease;
   }
-}
 
+  .bike-form-container * {
+    box-sizing: border-box;
+  }
+
+  @media (max-width: 600px) {
+    .bike-form-container {
+      margin-left: auto;
+      margin-right: auto;
+      padding: 20px;
+    }
+  }
 
   .bike-label {
     display: block;
@@ -45,13 +49,66 @@
     cursor: pointer;
   }
 
+  .bike-button:hover {
+    background-color: #45a049;
+  }
+
   .bike-status {
     margin-top: 12px;
     font-weight: bold;
   }
+
+  .history-container {
+    margin-left: 80px;
+    margin-bottom: 40px;
+    overflow-x: auto;
+    font-family: Arial, sans-serif;
+  }
+
+  @media (max-width: 600px) {
+    .history-container {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  .fuel-history-table {
+    border-collapse: collapse;
+    width: auto;
+    font-size: 15px;
+    background-color: #ffffff;
+  }
+
+  .fuel-history-table th,
+  .fuel-history-table td {
+    border: 1px solid #cccccc;
+    padding: 6px 12px;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  .fuel-history-table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .fuel-history-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  .delete-btn {
+    background-color: #ef5350;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+  }
 </style>
 
-<h3 style="margin-bottom: 20px;">🛵 Add Car Fuel Record</h3>
+<h3 style="margin-bottom: 20px; margin-left: 80px;">🚗 Add Car Fuel Record</h3>
 
 <div class="bike-form-container">
   <label for="date_changed" class="bike-label">📅 Date of Refuel</label>
@@ -63,8 +120,156 @@
   <label for="at_distance" class="bike-label">📍 Odometer Reading (in km)</label>
   <input type="number" id="at_distance" required class="bike-input" />
 
-<button id="submitCarRecordBtn" class="bike-button">➕ Add Record</button>
-
+  <button id="submitCarRecordBtn" class="bike-button">➕ Add Record</button>
 
   <div id="record_status" class="bike-status"></div>
 </div>
+
+<div class="history-container">
+  <h3 style="margin-bottom: 12px;">📊 Car Fuel & Mileage History</h3>
+  <table class="fuel-history-table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Odometer</th>
+        <th>Amount</th>
+        <th>Est. Litres</th>
+        <th>Distance</th>
+        <th>Mileage</th>
+        <th>Cost/km</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="fuelHistoryBody"></tbody>
+  </table>
+</div>
+
+<script>
+  // Your existing records pre-loaded so nothing is lost
+  const defaultRecords = [
+    { date: "2026-11-14", odometer: 12149, amount: 3000 },
+    { date: "2026-11-02", odometer: 12072, amount: 1000 },
+    { date: "2026-11-01", odometer: 11734, amount: 2000 },
+    { date: "2026-10-31", odometer: 11452, amount: 2000 },
+    { date: "2026-10-25", odometer: 11079, amount: 3560 },
+    { date: "2026-10-23", odometer: 10780, amount: 3052 },
+    { date: "2026-10-18", odometer: 10405, amount: 3834 },
+    { date: "2026-10-17", odometer: 9871, amount: 1499 },
+    { date: "2026-10-12", odometer: 9765, amount: 3500 },
+    { date: "2026-09-28", odometer: 9361, amount: 3868 },
+    { date: "2026-09-12", odometer: 9049, amount: 3000 },
+    { date: "2026-09-06", odometer: 8719, amount: 3000 },
+    { date: "2026-09-02", odometer: 8366, amount: 3000 },
+    { date: "2026-08-24", odometer: 7942, amount: 3000 },
+    { date: "2026-08-17", odometer: 7680, amount: 3000 },
+    { date: "2026-08-05", odometer: 7373, amount: 3000 },
+    { date: "2026-07-28", odometer: 7156, amount: 1000 },
+    { date: "2026-07-17", odometer: 6936, amount: 3000 }
+  ];
+
+  let carRecords = JSON.parse(localStorage.getItem("carFuelHistoryData")) || defaultRecords;
+
+  function formatDisplayDate(isoDate) {
+    const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEPT", "OCT", "NOV", "DEC"];
+    const parts = isoDate.split("-");
+    if (parts.length !== 3) return isoDate;
+    const year = parts;
+    const monthIndex = parseInt(parts, 10) - 1;
+    const day = parts;
+    return `${day}-${months[monthIndex]}-${year}`;
+  }
+
+  function getPetrolRate(isoDate) {
+    const parts = isoDate.split("-");
+    if (parts.length === 3) {
+      const monthNum = parseInt(parts, 10);
+      // Before May (Jan - Apr) = 103, May and after (May - Dec) = 111
+      if (monthNum < 5) return 103;
+    }
+    return 111;
+  }
+
+  function deleteCarRecord(index) {
+    carRecords.splice(index, 1);
+    localStorage.setItem("carFuelHistoryData", JSON.stringify(carRecords));
+    renderFuelTable();
+  }
+
+  function renderFuelTable() {
+    // Sort newest/highest odometer at the top
+    carRecords.sort((a, b) => b.odometer - a.odometer);
+
+    const tbody = document.getElementById("fuelHistoryBody");
+    tbody.innerHTML = "";
+
+    carRecords.forEach((rec, index) => {
+      const rate = getPetrolRate(rec.date);
+      const litres = rec.amount / rate;
+
+      let distanceText = "Baseline";
+      let mileageText = "—";
+      let costPerKmText = "—";
+
+      // Compare against the row below it (previous refuel)
+      if (index < carRecords.length - 1) {
+        const prevOdo = carRecords[index + 1].odometer;
+        const distance = rec.odometer - prevOdo;
+        const mileage = litres > 0 ? distance / litres : 0;
+        const costPerKm = distance > 0 ? rec.amount / distance : 0;
+
+        distanceText = `${distance} km`;
+        mileageText = `${mileage.toFixed(2)} km/L`;
+        costPerKmText = `₹${costPerKm.toFixed(2)}/km`;
+      }
+
+      const row = `
+        <tr>
+          <td>${formatDisplayDate(rec.date)}</td>
+          <td>${rec.odometer} km</td>
+          <td>₹${rec.amount}</td>
+          <td>${litres.toFixed(2)} L</td>
+          <td><strong>${distanceText}</strong></td>
+          <td><strong>${mileageText}</strong></td>
+          <td>${costPerKmText}</td>
+          <td><button type="button" class="delete-btn" onclick="deleteCarRecord(${index})">Delete</button></td>
+        </tr>
+      `;
+      tbody.insertAdjacentHTML("beforeend", row);
+    });
+  }
+
+  document.getElementById("submitCarRecordBtn").addEventListener("click", function (e) {
+    e.preventDefault();
+
+    const dateVal = document.getElementById("date_changed").value;
+    const amountVal = parseFloat(document.getElementById("amount").value);
+    const odoVal = parseFloat(document.getElementById("at_distance").value);
+    const statusDiv = document.getElementById("record_status");
+
+    if (!dateVal || isNaN(amountVal) || isNaN(odoVal)) {
+      statusDiv.style.color = "#d32f2f";
+      statusDiv.textContent = "⚠️ Please fill in all fields.";
+      return;
+    }
+
+    carRecords.push({
+      date: dateVal,
+      odometer: odoVal,
+      amount: amountVal
+    });
+
+    localStorage.setItem("carFuelHistoryData", JSON.stringify(carRecords));
+
+    statusDiv.style.color = "#2e7d32";
+    statusDiv.textContent = "✅ Record added!";
+
+    document.getElementById("date_changed").value = "";
+    document.getElementById("amount").value = "";
+    document.getElementById("at_distance").value = "";
+
+    renderFuelTable();
+  });
+
+  // Render table immediately when page opens
+  renderFuelTable();
+</script>
