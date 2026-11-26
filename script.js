@@ -1002,13 +1002,18 @@ window.loadCarHistorySection = async function () {
               <th style="white-space: nowrap;">Date</th>
               <th>Odometer</th>
               <th>Amount</th>
+              <th>Est. Litres</th>
+              <th>Distance</th>
+              <th>Mileage</th>
+              <th>Cost/km</th>
             </tr>
           </thead>
           <tbody>
     `;
 
-    data.forEach((row) => {
-      const formattedDate = new Date(row.date_changed)
+    data.forEach((row, index) => {
+      const dateObj = new Date(row.date_changed);
+      const formattedDate = dateObj
         .toLocaleDateString("en-GB", {
           day: "2-digit",
           month: "short",
@@ -1017,11 +1022,37 @@ window.loadCarHistorySection = async function () {
         .toUpperCase()
         .replace(/ /g, "-");
 
+      // Month index is 0-based: 0=Jan, 1=Feb, 2=Mar, 3=Apr (< 4 means before May)
+      const petrolRate = dateObj.getMonth() < 4 ? 103 : 111;
+      const amount = parseFloat(row.amount) || 0;
+      const currentOdo = parseFloat(row.at_distance) || 0;
+      const litres = amount / petrolRate;
+
+      let distanceText = "Baseline";
+      let mileageText = "—";
+      let costPerKmText = "—";
+
+      // Compare with the next item in the descending list (the previous refuel)
+      if (index < data.length - 1) {
+        const prevOdo = parseFloat(data[index + 1].at_distance) || 0;
+        const distance = currentOdo - prevOdo;
+        const mileage = litres > 0 ? distance / litres : 0;
+        const costPerKm = distance > 0 ? amount / distance : 0;
+
+        distanceText = `${distance} km`;
+        mileageText = `${mileage.toFixed(2)} km/L`;
+        costPerKmText = `₹${costPerKm.toFixed(2)}/km`;
+      }
+
       htmlTable += `
         <tr>
-          <td>${formattedDate}</td>
-          <td>${row.at_distance} km</td>
-          <td>₹${row.amount}</td>
+          <td style="white-space: nowrap;">${formattedDate}</td>
+          <td>${currentOdo} km</td>
+          <td>₹${amount}</td>
+          <td>${litres.toFixed(2)} L</td>
+          <td><strong>${distanceText}</strong></td>
+          <td><strong>${mileageText}</strong></td>
+          <td>${costPerKmText}</td>
         </tr>
       `;
     });
@@ -1035,6 +1066,7 @@ window.loadCarHistorySection = async function () {
     historyContainer.innerHTML = htmlTable;
 
   } catch (err) {
+    console.error(err);
     historyContainer.innerHTML = "<p>❌ Error loading history.</p>";
   }
 };
